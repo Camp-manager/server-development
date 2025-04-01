@@ -18,7 +18,7 @@ public class CreateUserGatewayImpl implements CreateUserGateway {
 
     @Override
     public UserEntityDomain criarUsuario(UserEntityDomain usuario) {
-        UserEntityJpa userCreated = this.userRepository.save(UserMapper.toEntity(usuario)); ;
+        UserEntityJpa userCreated = this.userRepository.save(UserMapper.toEntity(usuario));
         return UserMapper.toModel(userCreated);
     }
 }

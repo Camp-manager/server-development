@@ -14,9 +14,4 @@ public class UserController {
     public UserController(CreateUserUC createUserUC) {
         this.createUserUC = createUserUC;
     }
-
-    @PostMapping(path = "/create")
-
-
-
 }
