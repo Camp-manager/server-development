@@ -1,9 +1,8 @@
 package com.camp.manager.application.gateway;
 
-import com.camp.manager.domain.entity.UserEntityDomain;
+import com.camp.manager.infra.persistence.entity.UserEntityJpa;
 
 public interface TokenGateway {
-
-    String gerarToken(UserEntityDomain login);
+    String gerarToken(UserEntityJpa login);
     String validarToken(String token);
 }

@@ -5,7 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.camp.manager.application.gateway.TokenGateway;
-import com.camp.manager.domain.entity.UserEntityDomain;
+import com.camp.manager.infra.persistence.entity.UserEntityJpa;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +20,12 @@ public class TokenGatewayImpl implements TokenGateway {
     private String secret;
 
     @Override
-    public String gerarToken(UserEntityDomain login) {
+    public String gerarToken(UserEntityJpa login) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("auth-api")
-                    .withSubject(login.login())
+                    .withSubject(login.getLogin())
                     .withExpiresAt(this.getExpirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
