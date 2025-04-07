@@ -4,6 +4,7 @@ import com.camp.manager.application.gateway.CreateUserGateway;
 import com.camp.manager.domain.entity.UserEntityDomain;
 import com.camp.manager.infra.mapper.UserMapper;
 import com.camp.manager.infra.persistence.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class CreateUserGatewayImpl implements CreateUserGateway {
     }
 
     @Override
+    @Transactional
     public void criarUsuario(UserEntityDomain usuario) {
         this.userRepository.save(UserMapper.toEntity(usuario));
     }

@@ -9,12 +9,13 @@ public class UserMapper {
 
     public static UserEntityJpa toEntity(UserEntityDomain userDomain) {
         String role = userDomain.role();
+        UserRole userRole = UserRole.valueOf(role);
         String senhaEncriptada = new BCryptPasswordEncoder().encode(userDomain.password());
-        return new UserEntityJpa(null ,userDomain.login(), senhaEncriptada, UserRole.valueOf(role));
+        return new UserEntityJpa(null ,userDomain.login(), senhaEncriptada, userRole);
     }
 
     public static UserEntityDomain toModel(UserEntityJpa userJpa) {
-        return new UserEntityDomain(userJpa.getLogin(), userJpa.getPassword(), userJpa.getRole().getRole());
+        return new UserEntityDomain(userJpa.getLogin(), userJpa.getPassword(), userJpa.getRole().name());
     }
 
 }
