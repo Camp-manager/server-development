@@ -1,6 +1,6 @@
 package com.camp.manager.utils.security;
 
-import com.camp.manager.application.gateway.TokenGateway;
+import com.camp.manager.application.gateway.TokenEncoderAdapter;
 import com.camp.manager.infra.persistence.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -18,12 +18,12 @@ import java.io.IOException;
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 
-    private final TokenGateway tokenGateway;
+    private final TokenEncoderAdapter tokenEncoderAdapter;
     private final UserRepository userRepository;
 
     @Autowired
-    public SecurityFilter(TokenGateway tokenGateway, UserRepository userRepository) {
-        this.tokenGateway = tokenGateway;
+    public SecurityFilter(TokenEncoderAdapter tokenEncoderAdapter, UserRepository userRepository) {
+        this.tokenEncoderAdapter = tokenEncoderAdapter;
         this.userRepository = userRepository;
     }
 
@@ -31,7 +31,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = this.getToken(request);
         if (token != null) {
-            String tokenValidado = this.tokenGateway.validarToken(token);
+            String tokenValidado = this.tokenEncoderAdapter.validar(token);
            UserDetails userDetails = this.userRepository.findByLogin(tokenValidado)
                    .orElse(null);
            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

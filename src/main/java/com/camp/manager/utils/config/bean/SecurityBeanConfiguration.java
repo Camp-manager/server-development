@@ -1,6 +1,6 @@
 package com.camp.manager.utils.config.bean;
 
-import com.camp.manager.application.gateway.TokenGateway;
+import com.camp.manager.application.gateway.TokenEncoderAdapter;
 import com.camp.manager.infra.persistence.repository.UserRepository;
 import com.camp.manager.utils.security.SecurityConfiguration;
 import com.camp.manager.utils.security.SecurityFilter;
@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityBeanConfiguration {
     @Bean
-    protected AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) throws Exception {
+    protected AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder);
@@ -29,8 +29,8 @@ public class SecurityBeanConfiguration {
     }
 
     @Bean
-    public SecurityFilter securityFilter(TokenGateway tokenGateway, UserRepository userRepository) {
-       return new SecurityFilter( tokenGateway, userRepository);
+    public SecurityFilter securityFilter(TokenEncoderAdapter tokenEncoderAdapter, UserRepository userRepository) {
+       return new SecurityFilter(tokenEncoderAdapter, userRepository);
     }
 
     @Bean

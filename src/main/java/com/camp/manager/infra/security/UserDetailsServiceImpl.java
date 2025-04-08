@@ -1,9 +1,8 @@
-package com.camp.manager.infra.gateways;
+package com.camp.manager.infra.security;
 
 import com.camp.manager.domain.enums.UserRole;
 import com.camp.manager.infra.persistence.entity.UserEntityJpa;
 import com.camp.manager.infra.persistence.repository.UserRepository;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -1,4 +1,4 @@
-package com.camp.manager.infra.http.request.user;
+package com.camp.manager.application;
 
 import jakarta.validation.constraints.NotBlank;
 

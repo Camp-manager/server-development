@@ -1,17 +1,13 @@
-package com.camp.manager.infra.mapper;
+package com.camp.manager.infra.persistence.mapper;
 
 import com.camp.manager.domain.entity.UserEntityDomain;
 import com.camp.manager.domain.enums.UserRole;
 import com.camp.manager.infra.persistence.entity.UserEntityJpa;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class UserMapper {
-
     public static UserEntityJpa toEntity(UserEntityDomain userDomain) {
         String role = userDomain.role();
-        UserRole userRole = UserRole.valueOf(role);
-        String senhaEncriptada = new BCryptPasswordEncoder().encode(userDomain.password());
-        return new UserEntityJpa(null ,userDomain.login(), senhaEncriptada, userRole);
+        return new UserEntityJpa(null ,userDomain.login(), userDomain.password(), UserRole.valueOf(role));
     }
 
     public static UserEntityDomain toModel(UserEntityJpa userJpa) {

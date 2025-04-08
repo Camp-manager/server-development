@@ -1,11 +1,11 @@
-package com.camp.manager.infra.gateways;
+package com.camp.manager.infra.persistence.gateways;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.camp.manager.application.gateway.TokenGateway;
-import com.camp.manager.infra.persistence.entity.UserEntityJpa;
+import com.camp.manager.application.gateway.TokenEncoderAdapter;
+import com.camp.manager.domain.entity.UserEntityDomain;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,18 +14,18 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 @Service
-public class TokenGatewayImpl implements TokenGateway {
+public class TokenEncoderAdapterImpl implements TokenEncoderAdapter {
 
     @Value("${api.security.token-secret}")
     private String secret;
 
     @Override
-    public String gerarToken(UserEntityJpa login) {
+    public String gerar(UserEntityDomain usuario) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("auth-api")
-                    .withSubject(login.getLogin())
+                    .withSubject(usuario.login())
                     .withExpiresAt(this.getExpirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
@@ -34,7 +34,7 @@ public class TokenGatewayImpl implements TokenGateway {
     }
 
     @Override
-    public String validarToken(String token) {
+    public String validar(String token) {
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
