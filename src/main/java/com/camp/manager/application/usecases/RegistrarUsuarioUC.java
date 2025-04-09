@@ -2,7 +2,7 @@ package com.camp.manager.application.usecases;
 
 import com.camp.manager.application.gateway.PasswordEncoderAdapter;
 import com.camp.manager.application.gateway.UsuarioGateway;
-import com.camp.manager.application.CreateUserRequest;
+import com.camp.manager.infra.http.request.user.CreateUserRequest;
 import com.camp.manager.domain.entity.UserEntityDomain;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

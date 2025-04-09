@@ -1,6 +1,6 @@
 package com.camp.manager.application.usecases;
 
-import com.camp.manager.application.LoginUserRequest;
+import com.camp.manager.infra.http.request.user.LoginUserRequest;
 import com.camp.manager.application.gateway.TokenEncoderAdapter;
 import com.camp.manager.application.gateway.PasswordEncoderAdapter;
 import com.camp.manager.application.gateway.UsuarioGateway;
