@@ -19,3 +19,7 @@ spring:
 api:
   security:
     token-secret: 12345678901234567890123456789012
+
+server:
+  error:
+    include-exception: false

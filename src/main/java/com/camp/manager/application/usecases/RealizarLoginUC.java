@@ -1,5 +1,7 @@
 package com.camp.manager.application.usecases;
 
+import com.camp.manager.domain.exception.custom.NotFoundException;
+import com.camp.manager.domain.exception.custom.PasswordInvalidException;
 import com.camp.manager.infra.http.request.user.LoginUserRequest;
 import com.camp.manager.application.gateway.TokenEncoderAdapter;
 import com.camp.manager.application.gateway.PasswordEncoderAdapter;
@@ -27,13 +29,13 @@ public class RealizarLoginUC {
     @Transactional
     public String execute(LoginUserRequest request) {
         boolean usuarioEhExistente = this.usuarioGateway.existsUserByLogin(request.login());
-        if(!usuarioEhExistente) {throw new RuntimeException();}
+        if(!usuarioEhExistente) {throw new NotFoundException("Usuário não cadastrado!!");}
 
         UserEntityDomain usuarioBuscado = this.usuarioGateway.findUserByLogin(request.login())
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(NotFoundException::new);
 
         boolean senhaEhValida = this.passwordEncoderAdapter.compare(request.password(), usuarioBuscado.password());
-        if(!senhaEhValida) {throw new RuntimeException();}
+        if(!senhaEhValida) {throw new PasswordInvalidException();}
 
         return this.tokenEncoderAdapter.gerar(usuarioBuscado);
     }
