@@ -7,10 +7,10 @@ spring:
       ddl-auto: none
 
   datasource:
-    url: jdbc:postgresql://localhost:5430/camp-manager
+    url: ${DATABASE_URL}
     driver-class-name: org.postgresql.Driver
-    password: 1234
-    username: postgres
+    password: ${PASSWORD}
+    username: ${USERNAME}
 
   flyway:
     locations: classpath:db/migration
