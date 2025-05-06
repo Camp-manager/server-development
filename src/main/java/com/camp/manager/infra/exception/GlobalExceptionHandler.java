@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Slf4j(topic = "Camp_manager_exception")
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @Value("${server.error.include-exception}")
+    @Value("${spring.error.include-stacktrace}")
     private boolean serverIncludeStackTrace;
 
     @Override
