@@ -32,20 +32,20 @@ public class SecurityFilter extends OncePerRequestFilter {
         String token = this.getToken(request);
         if (token != null) {
             String tokenValidado = this.tokenEncoderAdapter.validar(token);
-           UserDetails userDetails = this.userRepository.findByLogin(tokenValidado)
-                   .orElse(null);
-           UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+            UserDetails userDetails = this.userRepository.findByLogin(tokenValidado)
+                    .orElse(null);
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,
                     userDetails != null ? userDetails.getAuthorities() : null);
-           SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);
     }
 
     private String getToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-        if (token != null && token.startsWith("Bearer ")) {
+        if (token != null) {
             return token.substring(7);
         }
         return null;

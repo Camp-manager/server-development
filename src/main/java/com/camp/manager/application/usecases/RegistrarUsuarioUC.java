@@ -29,7 +29,7 @@ public class RegistrarUsuarioUC {
 
        String senhaCriptografada = this.passwordEncoderAdapter.encode(request.password());
 
-       UserEntityDomain usuarioCadastrado = new UserEntityDomain(request.login(), senhaCriptografada, request.roleUser());
+       UserEntityDomain usuarioCadastrado = new UserEntityDomain(request.username(), request.login(), senhaCriptografada, request.roleUser());
 
        this.usuarioGateway.salvar(usuarioCadastrado);
     }

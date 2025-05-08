@@ -25,6 +25,9 @@ public class UserEntityJpa implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "username")
+    private String username;
+
     @Column(name = "login")
     private String login;
 
@@ -48,7 +51,7 @@ public class UserEntityJpa implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.login;
+        return this.username;
     }
 
     @Override

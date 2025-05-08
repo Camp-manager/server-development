@@ -3,7 +3,6 @@ package com.camp.manager.infra.persistence.gateways;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.camp.manager.application.gateway.TokenEncoderAdapter;
 import com.camp.manager.domain.entity.UserEntityDomain;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,8 +23,11 @@ public class TokenEncoderAdapterImpl implements TokenEncoderAdapter {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
-                    .withIssuer("auth-api")
-                    .withSubject(usuario.login())
+                    .withClaim("login", usuario.login())
+                    .withClaim("username", usuario.username())
+                    .withClaim("role", usuario.role())
+                    .withIssuer("Spring Security Project By: Uryel_0910")
+                    .withSubject("Token de autenticação do usuário")
                     .withExpiresAt(this.getExpirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
@@ -35,17 +37,12 @@ public class TokenEncoderAdapterImpl implements TokenEncoderAdapter {
 
     @Override
     public String validar(String token) {
-        try{
-            Algorithm algorithm = Algorithm.HMAC256(secret);
-            return JWT.require(algorithm)
-                    .withIssuer("auth-api")
-                    .build()
-                    .verify(token)
-                    .getSubject();
-
-        } catch (JWTVerificationException exception){
-            throw new RuntimeException("Token inválido ou expirado!!", exception);
-        }
+        Algorithm algorithm = Algorithm.HMAC256(secret);
+        return JWT.require(algorithm)
+                .withIssuer("Spring Security Project By: Uryel_0910")
+                .build()
+                .verify(token)
+                .getSubject();
     }
 
     private Instant getExpirationDate() {

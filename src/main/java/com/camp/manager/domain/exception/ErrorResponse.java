@@ -5,8 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
-import java.util.Locale;
-
 @Getter
 @Setter
 @RequiredArgsConstructor
