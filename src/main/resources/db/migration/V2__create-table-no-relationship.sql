@@ -33,7 +33,22 @@ CREATE TABLE carteirinha(
     descricao TEXT NOT NULL,
     design TEXT NOT NULL,
     preco_camiseta NUMERIC(10,2),
-    preco_acampamento NUMERIC(10,2),
+    preco_acampamento NUMERIC(10,2)
 );
+
+CREATE TABLE estoque(
+    id INTEGER PRIMARY KEY UNIQUE NOT NULL,
+    local VARCHAR(1) NOT NULL,
+    quantidade INTEGER NOT NULL,
+    limite INTEGER NOT NULL
+);
+
+CREATE TABLE tema(
+    id INTEGER PRIMARY KEY UNIQUE NOT NULL,
+    descricao TEXT NOT NULL,
+    design TEXT NOT NULL,
+    preco_camiseta NUMERIC(10,2),
+    preco_acampamento NUMERIC(10,2)
+)
 
 
