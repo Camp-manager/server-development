@@ -49,6 +49,12 @@ CREATE TABLE tema(
     design TEXT NOT NULL,
     preco_camiseta NUMERIC(10,2),
     preco_acampamento NUMERIC(10,2)
-)
+);
+
+CREATE TABLE tipo_acampamento(
+    id INTEGER PRIMARY KEY UNIQUE NOT NULL,
+    descricao VARCHAR(50) NOT NULL,
+    categoria VARCHAR(1) NOT NULL
+);
 
 
