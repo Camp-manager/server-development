@@ -1,0 +1,8 @@
+CREATE TABLE camiseta(
+    id INTEGER PRIMARY KEY UNIQUE NOT NULL,
+    tamanho VARCHAR(2) NOT NULL,
+
+    id_tema INTEGER NOT NULL,
+
+    CONSTRAINT fk_camiseta_tema FOREIGN KEY (id_tema) REFERENCES tema(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);

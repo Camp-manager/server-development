@@ -3,8 +3,8 @@ CREATE TABLE endereco(
     cep VARCHAR(9) NOT NULL,
     rua TEXT NOT NULL,
     numero TEXT NOT NULL,
-    cidade TEXT NOT NULL,
-    bairro TEXT NOT NULL,
+    cidade VARCHAR(100) NOT NULL,
+    bairro VARCHAR(100) NOT NULL,
     ponto_referencia TEXT NOT NULL
 );
 
@@ -16,24 +16,9 @@ CREATE TABLE medicamento(
     valor NUMERIC(10,2)
 );
 
-CREATE TABLE cronograma(
-    id INTEGER PRIMARY KEY UNIQUE NOT NULL,
-    data_inicial VARCHAR(10) NOT NULL,
-    data_final VARCHAR(10) NOT NULL,
-    descricao TEXT
-);
-
 CREATE TABLE carteirinha(
     id INTEGER PRIMARY KEY UNIQUE NOT NULL,
     texto_apresentacao TEXT NOT NULL
-);
-
-CREATE TABLE carteirinha(
-    id INTEGER PRIMARY KEY UNIQUE NOT NULL,
-    descricao TEXT NOT NULL,
-    design TEXT NOT NULL,
-    preco_camiseta NUMERIC(10,2),
-    preco_acampamento NUMERIC(10,2)
 );
 
 CREATE TABLE estoque(
