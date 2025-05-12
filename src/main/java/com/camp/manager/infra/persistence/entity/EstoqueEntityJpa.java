@@ -28,4 +28,5 @@ public class EstoqueEntityJpa {
 
     @Column(name = "limite")
     private Long limite;
+
 }

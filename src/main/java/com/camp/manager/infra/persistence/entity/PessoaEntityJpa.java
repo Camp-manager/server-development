@@ -48,12 +48,12 @@ public class PessoaEntityJpa {
     @Column(name = "tem_primeira_comunhao")
     private Resposta temPrimeiraComunhao;
 
-    @ManyToOne
     @JoinColumn(name = "id_endereco")
+    @ManyToOne(fetch = FetchType.LAZY)
     private EnderecoEntityJpa endereco;
 
-    @ManyToOne
     @JoinColumn(name = "id_familiar")
+    @ManyToOne(fetch = FetchType.LAZY)
     private FamiliarEntityJpa familiar;
 
 }

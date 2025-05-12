@@ -30,8 +30,8 @@ public class FamiliarEntityJpa {
     @Column(name = "telefone")
     private String telefone;
 
-    @ManyToOne
     @JoinColumn(name = "id_endereco")
+    @ManyToOne(fetch = FetchType.LAZY)
     private EnderecoEntityJpa endereco;
 
 }
