@@ -12,7 +12,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "endereco", schema = "public")
+@Table(name = "tipo_acampamento", schema = "public")
 public class TipoAcampamentoEntityJpa {
 
     @Id
