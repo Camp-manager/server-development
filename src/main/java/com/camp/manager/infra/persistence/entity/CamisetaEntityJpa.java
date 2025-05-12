@@ -24,7 +24,7 @@ public class CamisetaEntityJpa {
     @Column(name = "tamanho")
     private TamanhoCamiseta tamanhoCamiseta;
 
-    @JoinColumn(name = "tema_id")
+    @JoinColumn(name = "id_tema")
     @ManyToOne(fetch = FetchType.LAZY)
     private TemaEntityJpa tema;
 
