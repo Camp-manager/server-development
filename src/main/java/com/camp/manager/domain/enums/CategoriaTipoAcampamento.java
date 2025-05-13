@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum CategoriaTipoAcampamento {
-
     ADULTO("A", "Adulto"),
     JOVEM("J", "Jovem"),
     CRIANCA("C", "Criança");

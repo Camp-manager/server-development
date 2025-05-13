@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Resposta {
-
     SIM("S", "Sim"),
     NAO("N", "Não");
 

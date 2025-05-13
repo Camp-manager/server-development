@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum LocalEstoque {
-
     ENFERMARIA("E", "Enfermaria"),
     CAPELA("C", "Capela"),
     COZINHA("Z", "Cozinha"),

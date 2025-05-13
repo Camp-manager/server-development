@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Parentesco {
-
     PAI("PA", "Pai"),
     MAE("MA", "Mãe"),
     RESPONSAVEL("RE", "Responsável"),

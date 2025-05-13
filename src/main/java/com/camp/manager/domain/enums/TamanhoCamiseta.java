@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum TamanhoCamiseta {
-
     PP("PP","Extra Pequeno"),
     P("P","Pequeno"),
     M("M","Médio"),

@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum TipoDoacao {
-
     ALIMENTO("A", "Alimento"),
     ROUPA("R", "Roupa"),
     DINHERO("D", "Dinheiro"),
