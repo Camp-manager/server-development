@@ -53,7 +53,7 @@ public class PessoaEntityJpa {
     private EnderecoEntityJpa endereco;
 
     @JoinColumn(name = "id_familiar")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private FamiliarEntityJpa familiar;
 
 }
