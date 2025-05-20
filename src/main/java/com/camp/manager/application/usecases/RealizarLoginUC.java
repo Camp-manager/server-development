@@ -1,7 +1,9 @@
 package com.camp.manager.application.usecases;
 
+import com.camp.manager.domain.entity.MethodResponse;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.domain.exception.custom.PasswordInvalidException;
+import com.camp.manager.infra.http.dto.TokenResponseDTO;
 import com.camp.manager.infra.http.request.user.LoginUserRequest;
 import com.camp.manager.application.gateway.TokenEncoderAdapter;
 import com.camp.manager.application.gateway.PasswordEncoderAdapter;
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class RealizarLoginUC {
+public class RealizarLoginUC implements UseCase<LoginUserRequest, MethodResponse<TokenResponseDTO>> {
     private final UsuarioGateway usuarioGateway;
     private final TokenEncoderAdapter tokenEncoderAdapter;
     private final PasswordEncoderAdapter passwordEncoderAdapter;
@@ -27,7 +29,7 @@ public class RealizarLoginUC {
     }
 
     @Transactional
-    public String execute(LoginUserRequest request) {
+    public MethodResponse<TokenResponseDTO> execute(LoginUserRequest request) {
         boolean usuarioEhExistente = this.usuarioGateway.existsUserByLogin(request.login());
         if(!usuarioEhExistente) {throw new NotFoundException("Usuário não cadastrado!!");}
 
@@ -37,6 +39,8 @@ public class RealizarLoginUC {
         boolean senhaEhValida = this.passwordEncoderAdapter.compare(request.password(), usuarioBuscado.password());
         if(!senhaEhValida) {throw new PasswordInvalidException();}
 
-        return this.tokenEncoderAdapter.gerar(usuarioBuscado);
+        String tokenGerado = this.tokenEncoderAdapter.gerar(usuarioBuscado);
+
+        return new MethodResponse<>(200L, "Login realizado com sucesso!", new TokenResponseDTO(tokenGerado));
     }
 }

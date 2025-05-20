@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class BuscarImagensUC {
+public class BuscarImagensUC implements UseCase<Void, ResponseEntity<List<? extends ImagemDTO>>> {
 
     @Value("${url.pasta.utils}")
     private static String pathPadraoDeImagens;
@@ -25,7 +25,7 @@ public class BuscarImagensUC {
         this.buscarImagemGateway = buscarImagemGateway;
     }
 
-    public ResponseEntity<List<? extends ImagemDTO>> execute() {
+    public ResponseEntity<List<? extends ImagemDTO>> execute(Void input) {
         List<ImagemEntityDomain> imagensRetornadas = this.buscarImagemGateway.buscarTodasImagens();
         Map<String,List<ImagemEntityDomain>> imagensAgrupadasPorDiretorio = imagensRetornadas.stream()
                 .collect(Collectors.groupingBy(ImagemEntityDomain::nomeAcampamento));

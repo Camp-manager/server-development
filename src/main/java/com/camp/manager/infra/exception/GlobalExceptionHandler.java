@@ -32,7 +32,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         log.error("MethodArgumentNotValidException: {}", ex.getMessage());
         ErrorResponse errorResponse = new ErrorResponse(
-                (HttpStatus) status,
+                status.toString(),
                 "Argumentos fornecidos inválidos",
                 request.getDescription(false)
         );
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMissingPathVariable(MissingPathVariableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         log.error("MissingPathVariableException: {}", ex.getMessage());
         ErrorResponse errorResponse = new ErrorResponse(
-                (HttpStatus) status,
+                status.toString(),
                 "Variavel de caminho não encontrada",
                 request.getDescription(false)
         );
@@ -68,7 +68,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         log.error("HttpRequestMethodNotSupportedException: {}", ex.getMessage());
         ErrorResponse errorResponse = new ErrorResponse(
-                (HttpStatus) status,
+                status.toString(),
                 "Método não suportado",
                 request.getDescription(false)
         );
@@ -86,7 +86,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<Object> handleAllUncaughtExceptions(Exception ex, WebRequest request) {
         log.error("Exception: {}", ex.getMessage());
         ErrorResponse errorResponse = new ErrorResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR,
+                HttpStatus.INTERNAL_SERVER_ERROR.name(),
                 "Erro interno do servidor",
                 request.getDescription(false)
         );
@@ -108,7 +108,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<Object> userFoundExceptionHandler(UserFoundException ex, WebRequest request) {
         log.error("UserFoundException: {}", ex.getMessage());
         ErrorResponse errorResponse = new ErrorResponse(
-                HttpStatus.CONFLICT,
+                HttpStatus.CONFLICT.name(),
                 ex.getMessage(),
                 request.getDescription(false)
         );
@@ -127,7 +127,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<Object> notFoundExceptionHandler(NotFoundException ex, WebRequest request) {
         log.error("NotFoundException: {}", ex.getMessage());
         ErrorResponse errorResponse = new ErrorResponse(
-                HttpStatus.NOT_FOUND,
+                HttpStatus.NOT_FOUND.name(),
                 ex.getMessage(),
                 request.getDescription(false)
         );
@@ -146,7 +146,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<Object> passwordInvalidExceptionHandler(PasswordInvalidException ex, WebRequest request) {
         log.error("PasswordInvalidException: {}", ex.getMessage());
         ErrorResponse errorResponse = new ErrorResponse(
-                HttpStatus.UNAUTHORIZED,
+                HttpStatus.UNAUTHORIZED.name(),
                 ex.getMessage(),
                 request.getDescription(false)
         );
@@ -165,7 +165,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private ResponseEntity<Object> localDateConverterExceptionHandler(LocalDateConverterException ex, WebRequest request) {
         log.error("LocalDateConverterException: {}", ex.getMessage());
         ErrorResponse errorResponse = new ErrorResponse(
-                HttpStatus.NOT_ACCEPTABLE,
+                HttpStatus.NOT_ACCEPTABLE.name(),
                 ex.getMessage(),
                 request.getDescription(false)
         );

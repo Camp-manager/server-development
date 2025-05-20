@@ -24,6 +24,10 @@ public class ImagemController {
 
     @GetMapping(path = "/buscar")
     public ResponseEntity<List<? extends ImagemDTO>> buscarImagens() {
-        return this.buscarImagensUC.execute();
+        return this.buscarImagensUC.execute(null);
+    }
+
+    public void cadastrarImagens(){
+
     }
 }
