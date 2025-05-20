@@ -29,4 +29,9 @@ public class ImagemEntityJpa {
     @JoinColumn(name = "id_acampamento")
     private AcampamentoEntityJpa acampamento;
 
+    public ImagemEntityJpa(Long id, String pathLocalizacao, String data) {
+        this.id = id;
+        this.pathLocalizacao = pathLocalizacao;
+        this.data = data;
+    }
 }

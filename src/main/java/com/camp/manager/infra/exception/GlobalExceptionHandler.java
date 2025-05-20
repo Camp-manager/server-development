@@ -1,6 +1,7 @@
 package com.camp.manager.infra.exception;
 
 import com.camp.manager.domain.exception.ErrorResponse;
+import com.camp.manager.domain.exception.custom.LocalDateConverterException;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.domain.exception.custom.PasswordInvalidException;
 import com.camp.manager.domain.exception.custom.UserFoundException;
@@ -156,6 +157,25 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
+                .body(errorResponse);
+    }
+
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ExceptionHandler(LocalDateConverterException.class)
+    private ResponseEntity<Object> localDateConverterExceptionHandler(LocalDateConverterException ex, WebRequest request) {
+        log.error("LocalDateConverterException: {}", ex.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.NOT_ACCEPTABLE,
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+
+        if (serverIncludeStackTrace) {
+            errorResponse.setStackTrace(ex.getStackTrace()[0]);
+        }
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_ACCEPTABLE)
                 .body(errorResponse);
     }
 
