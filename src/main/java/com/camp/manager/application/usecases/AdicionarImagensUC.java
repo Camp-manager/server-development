@@ -40,7 +40,7 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
         Set<byte[]> imagensExtraidas = this.extrairImagens(imagensParaSerInserido.zipComAsImagens());
 
         imagensExtraidas.stream().forEach(imagemExtraida -> {
-            imagemGateway.inserirImagem(imagemExtraida, imagensParaSerInserido.idAcampamento());
+            //imagemGateway.inserirImagem(imagemExtraida, imagensParaSerInserido.idAcampamento());
         });
 
 

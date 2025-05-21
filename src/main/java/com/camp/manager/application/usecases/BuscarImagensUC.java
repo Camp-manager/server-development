@@ -1,5 +1,6 @@
 package com.camp.manager.application.usecases;
 
+import com.camp.manager.application.gateway.ImagemGateway;
 import com.camp.manager.domain.entity.ImagemEntityDomain;
 import com.camp.manager.infra.http.dto.buscarGaleriasUC.ImagemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +18,17 @@ public class BuscarImagensUC implements UseCase<Void, ResponseEntity<List<? exte
     @Value("${url.pasta.utils}")
     private static String pathPadraoDeImagens;
 
-    private final BuscarImagemGateway buscarImagemGateway;
+    private final ImagemGateway imagemGateway;
 
     @Autowired
-    public BuscarImagensUC(BuscarImagemGateway buscarImagemGateway) {
-        this.buscarImagemGateway = buscarImagemGateway;
+    public BuscarImagensUC(ImagemGateway imagemGateway) {
+        this.imagemGateway = imagemGateway;
     }
 
     public ResponseEntity<List<? extends ImagemDTO>> execute(Void input) {
-        List<ImagemEntityDomain> imagensRetornadas = this.buscarImagemGateway.buscarTodasImagens();
-        Map<String,List<ImagemEntityDomain>> imagensAgrupadasPorDiretorio = imagensRetornadas.stream()
-                .collect(Collectors.groupingBy(ImagemEntityDomain::nomeAcampamento));
+//        List<ImagemEntityDomain> imagensRetornadas = this.buscarImagemGateway.buscarTodasImagens();
+//        Map<String,List<ImagemEntityDomain>> imagensAgrupadasPorDiretorio = imagensRetornadas.stream()
+//                .collect(Collectors.groupingBy(ImagemEntityDomain::nomeAcampamento));
 
         return null;
     }
