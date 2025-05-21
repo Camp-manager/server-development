@@ -1,6 +1,6 @@
 package com.camp.manager.application.usecases;
 
-import com.camp.manager.domain.entity.MethodResponse;
+import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.domain.exception.custom.PasswordInvalidException;
 import com.camp.manager.infra.http.dto.TokenResponseDTO;

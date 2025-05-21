@@ -2,7 +2,7 @@ package com.camp.manager.application.usecases;
 
 import com.camp.manager.application.gateway.PasswordEncoderAdapter;
 import com.camp.manager.application.gateway.UsuarioGateway;
-import com.camp.manager.domain.entity.MethodResponse;
+import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.UserFoundException;
 import com.camp.manager.infra.http.request.user.CreateUserRequest;
 import com.camp.manager.domain.entity.UserEntityDomain;
