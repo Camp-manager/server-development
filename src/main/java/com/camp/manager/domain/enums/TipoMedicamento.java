@@ -1,5 +1,6 @@
 package com.camp.manager.domain.enums;
 
+import com.camp.manager.domain.exception.custom.EnumConverterException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -16,4 +17,13 @@ public enum TipoMedicamento {
 
     private final String valor;
     private final String descricao;
+
+    public static TipoMedicamento fromDescricao(String descricao) {
+        for (TipoMedicamento tipo : values()) {
+            if (tipo.getDescricao().equalsIgnoreCase(descricao)) {
+                return tipo;
+            }
+        }
+        throw new EnumConverterException("Descrição inválida: " + descricao);
+    }
 }
