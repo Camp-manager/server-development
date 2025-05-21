@@ -1,10 +1,7 @@
 package com.camp.manager.infra.exception;
 
 import com.camp.manager.domain.exception.ErrorResponse;
-import com.camp.manager.domain.exception.custom.LocalDateConverterException;
-import com.camp.manager.domain.exception.custom.NotFoundException;
-import com.camp.manager.domain.exception.custom.PasswordInvalidException;
-import com.camp.manager.domain.exception.custom.UserFoundException;
+import com.camp.manager.domain.exception.custom.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -179,4 +176,60 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(errorResponse);
     }
 
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ExceptionHandler(FileTypeException.class)
+    private ResponseEntity<Object> fileTypeExceptionHandler(FileTypeException ex, WebRequest request) {
+        log.error("FileTypeException: {}", ex.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.NOT_ACCEPTABLE.name(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+
+        if (serverIncludeStackTrace) {
+            errorResponse.setStackTrace(ex.getStackTrace()[0]);
+        }
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_ACCEPTABLE)
+                .body(errorResponse);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(FileProcessingException.class)
+    private ResponseEntity<Object> fileProcessingExceptionHandler(FileProcessingException ex, WebRequest request) {
+        log.error("FileProcessingException: {}", ex.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR.name(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+
+        if (serverIncludeStackTrace) {
+            errorResponse.setStackTrace(ex.getStackTrace()[0]);
+        }
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(errorResponse);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(EnumConverterException.class)
+    private ResponseEntity<Object> enumConverterExceptionHandler(EnumConverterException ex, WebRequest request) {
+        log.error("EnumConverterException: {}", ex.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.name(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+
+        if (serverIncludeStackTrace) {
+            errorResponse.setStackTrace(ex.getStackTrace()[0]);
+        }
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(errorResponse);
+    }
 }
