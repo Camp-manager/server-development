@@ -3,8 +3,9 @@ package com.camp.manager.infra.persistence.gateways;
 import com.camp.manager.application.gateway.UsuarioGateway;
 import com.camp.manager.domain.entity.UserEntityDomain;
 import com.camp.manager.infra.persistence.entity.UserEntityJpa;
-import com.camp.manager.infra.persistence.mapper.UserMapper;
+import com.camp.manager.infra.persistence.mapper.Mapper;
 import com.camp.manager.infra.persistence.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,15 +13,18 @@ import java.util.Optional;
 @Service
 public class UsuarioGatewayImpl implements UsuarioGateway {
     private final UserRepository userRepository;
+    private final Mapper<UserEntityJpa, UserEntityDomain> mapper;
 
-    public UsuarioGatewayImpl(UserRepository userRepository) {
+    @Autowired
+    public UsuarioGatewayImpl(UserRepository userRepository, Mapper<UserEntityJpa, UserEntityDomain> mapper) {
         this.userRepository = userRepository;
+        this.mapper = mapper;
     }
 
     @Override
     public Optional<UserEntityDomain> findUserByLogin(String login) {
         Optional<UserEntityJpa> userEntityJpa = this.userRepository.findByLogin(login);
-        return userEntityJpa.map(UserMapper::toModel);
+        return userEntityJpa.map(mapper::toDomain);
     }
 
     @Override
@@ -30,6 +34,6 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
 
     @Override
     public void salvar(UserEntityDomain user) {
-        this.userRepository.save(UserMapper.toEntity(user));
+        this.userRepository.save(mapper.toEntity(user));
     }
 }

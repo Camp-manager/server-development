@@ -1,13 +1,14 @@
 package com.camp.manager.infra.http.controllers;
 
+import com.camp.manager.application.usecases.AdicionarImagensUC;
 import com.camp.manager.application.usecases.BuscarImagensUC;
-import com.camp.manager.infra.http.dto.buscarGaleriasUC.DiretorioDeImagensDTO;
+import com.camp.manager.domain.entity.MethodResponse;
 import com.camp.manager.infra.http.dto.buscarGaleriasUC.ImagemDTO;
+import com.camp.manager.infra.http.request.imagens.InserirImagemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,10 +17,12 @@ import java.util.List;
 public class ImagemController {
 
     private final BuscarImagensUC buscarImagensUC;
+    private final AdicionarImagensUC adicionarImagensUC;
 
     @Autowired
-    public ImagemController(BuscarImagensUC buscarImagensUC) {
+    public ImagemController(BuscarImagensUC buscarImagensUC, AdicionarImagensUC adicionarImagensUC) {
         this.buscarImagensUC = buscarImagensUC;
+        this.adicionarImagensUC = adicionarImagensUC;
     }
 
     @GetMapping(path = "/buscar")
@@ -27,7 +30,8 @@ public class ImagemController {
         return this.buscarImagensUC.execute(null);
     }
 
-    public void cadastrarImagens(){
-
+    @PostMapping(path = "/inserir-zip/{idAcampamento}")
+    public MethodResponse<Void> inserirImagensNoAcampamentoPorZip(@PathVariable Long idAcampamento,@RequestParam("file") MultipartFile zipComAsImagens) {
+        return this.adicionarImagensUC.execute(new InserirImagemRequest(idAcampamento, zipComAsImagens));
     }
 }

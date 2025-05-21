@@ -3,12 +3,14 @@ package com.camp.manager.infra.persistence.mapper;
 import com.camp.manager.domain.entity.ImagemEntityDomain;
 import com.camp.manager.infra.persistence.entity.ImagemEntityJpa;
 import com.camp.manager.utils.converter.localDate.LocalDateConverterAPP;
+import org.springframework.stereotype.Component;
 
 import java.util.Base64;
 
-public class ImagemMapper {
+@Component
+public class ImagemMapper implements Mapper<ImagemEntityJpa, ImagemEntityDomain> {
 
-    public static ImagemEntityJpa toEntity(ImagemEntityDomain imagemEntityDomain) {
+    public ImagemEntityJpa toEntity(ImagemEntityDomain imagemEntityDomain) {
         return new ImagemEntityJpa(
                 imagemEntityDomain.id(),
                 Base64.getEncoder().encodeToString(imagemEntityDomain.arquivoImagem()),
@@ -16,7 +18,8 @@ public class ImagemMapper {
         );
     }
 
-    public static ImagemEntityDomain toModel(ImagemEntityJpa imagemEntityJpa) {
+
+    public ImagemEntityDomain toDomain(ImagemEntityJpa imagemEntityJpa) {
         return new ImagemEntityDomain(
                 imagemEntityJpa.getId(),
                 Base64.getDecoder().decode(imagemEntityJpa.getPathLocalizacao()),

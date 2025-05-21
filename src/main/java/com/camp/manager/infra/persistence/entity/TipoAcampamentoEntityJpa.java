@@ -25,5 +25,4 @@ public class TipoAcampamentoEntityJpa {
 
     @Column(name = "categoria")
     private CategoriaTipoAcampamento categoriaTipoAcampamento;
-
 }
