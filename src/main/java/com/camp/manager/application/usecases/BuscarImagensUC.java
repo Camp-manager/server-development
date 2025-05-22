@@ -26,9 +26,9 @@ public class BuscarImagensUC implements UseCase<Void, ResponseEntity<List<? exte
     }
 
     public ResponseEntity<List<? extends ImagemDTO>> execute(Void input) {
-//        List<ImagemEntityDomain> imagensRetornadas = this.buscarImagemGateway.buscarTodasImagens();
-//        Map<String,List<ImagemEntityDomain>> imagensAgrupadasPorDiretorio = imagensRetornadas.stream()
-//                .collect(Collectors.groupingBy(ImagemEntityDomain::nomeAcampamento));
+        List<ImagemEntityDomain> imagensRetornadas = this.imagemGateway.buscarTodasImagens();
+        Map<String,List<ImagemEntityDomain>> imagensAgrupadasPorDiretorio = imagensRetornadas.stream()
+                .collect(Collectors.groupingBy(ImagemEntityDomain::nomeAcampamento));
 
         return null;
     }
