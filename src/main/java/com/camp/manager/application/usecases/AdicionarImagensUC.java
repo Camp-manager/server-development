@@ -59,6 +59,7 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
         if(acampamentoEhExistente) {throw new NotFoundException("Acampamento não encontrado!");}
         return this.acampamentoGateway.buscarAcampamentoPorId(idAcampamento);
     }
+
     private void validarZipInformado(MultipartFile arquivo) {
         if(arquivo == null) {
             throw new NotFoundException(("Arquivo zip precisa ser enviado!"));
@@ -68,6 +69,7 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
             throw new FileTypeException("Arquivo informado não é zip!");
         }
     }
+
     private void validarDiretorio(Path diretorioDasPastas) {
         if(!Files.exists(diretorioDasPastas)) {
             try {
@@ -77,6 +79,7 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
             }
         }
     }
+
     private Set<ImagemDescription> extrairImagens(MultipartFile zipComImagens) {
         Set<ImagemDescription> imagens = new HashSet<>();
 
@@ -117,6 +120,7 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
 
         return imagens;
     }
+
     private void inserirImagens(InserirImagemRequest inserirImagemRequest, AcampamentoEntityDomain acampamentoEncontrado) {
         Set<ImagemDescription> imagensExtraidas = this.extrairImagens(inserirImagemRequest.zipComAsImagens());
         String pathPastaAcampamento = acampamentoEncontrado.tipoAcampamento().descricao() +" " +inserirImagemRequest.anoDasImagens();
