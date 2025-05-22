@@ -19,7 +19,7 @@ public class MedicamentoController {
         this.buscarMedicamentosUC = buscarMedicamentosUC;
     }
 
-    @GetMapping
+    @GetMapping(path = "/buscar-todos")
     public ResponseEntity<List<MedicamentoDTO>> buscarMedicamentos() {
         return ResponseEntity.ok(this.buscarMedicamentosUC.execute(null));
     }

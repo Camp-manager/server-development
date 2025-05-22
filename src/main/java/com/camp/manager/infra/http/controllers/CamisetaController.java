@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/camisetas")
+@RequestMapping("/camiseta")
 public class CamisetaController {
 
     private final BuscarTamanhosCamisaUC buscarTamanhosCamisaUC;

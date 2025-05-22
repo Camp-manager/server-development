@@ -42,6 +42,8 @@ public class SecurityConfiguration {
                         authorizeRequests
                                 .requestMatchers(HttpMethod.POST,"/users/register").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/users/login").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/camiseta/buscar-tamanhos").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/medicamento/buscar-todos").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptionHandling -> exceptionHandling
