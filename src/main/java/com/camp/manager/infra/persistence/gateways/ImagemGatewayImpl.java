@@ -31,12 +31,16 @@ public class ImagemGatewayImpl implements ImagemGateway {
     @Override
     public void inserirNovaImagem(String path, String data, AcampamentoEntityDomain acampamentoEncontrado) {
         AcampamentoEntityJpa acampamentoEntityJpa = acampamentoMapper.toEntity(acampamentoEncontrado);
-        this.imagemRepository.save(new ImagemEntityJpa(null, path, data, acampamentoEntityJpa));
+        this.imagemRepository
+                .save(new ImagemEntityJpa(null, path, data, acampamentoEntityJpa));
     }
 
     @Override
     public List<ImagemEntityDomain> buscarTodasImagens() {
-        return this.imagemRepository.findAll().stream().map(imagemMapper::toDomain)
+        return this.imagemRepository
+                .findAll()
+                .stream()
+                .map(imagemMapper::toDomain)
                 .collect(Collectors.toList());
     }
 
