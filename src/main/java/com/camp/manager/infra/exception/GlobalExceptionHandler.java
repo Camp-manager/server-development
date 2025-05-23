@@ -232,4 +232,24 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(errorResponse);
     }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(EntityFoundException.class)
+    private ResponseEntity<Object> entityFoundExceptionHandler(EntityFoundException ex, WebRequest request) {
+        log.error("EntityFoundException: {}", ex.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.CONFLICT.name(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+
+        if (serverIncludeStackTrace) {
+            errorResponse.setStackTrace(ex.getStackTrace()[0]);
+        }
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(errorResponse);
+
+    }
 }
