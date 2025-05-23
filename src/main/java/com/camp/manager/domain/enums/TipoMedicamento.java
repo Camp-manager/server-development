@@ -13,7 +13,8 @@ public enum TipoMedicamento {
     LIQUIDO("L", "Liquido"),
     PASTA("A", "Pasta"),
     PO("O", "Pó"),
-    GEL("G", "Gel");
+    GEL("G", "Gel"),
+    OUTRO("X","Outro");
 
     private final String valor;
     private final String descricao;
