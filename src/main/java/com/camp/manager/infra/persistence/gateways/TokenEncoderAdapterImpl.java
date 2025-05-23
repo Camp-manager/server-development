@@ -27,7 +27,7 @@ public class TokenEncoderAdapterImpl implements TokenEncoderAdapter {
                     .withClaim("username", usuario.username())
                     .withClaim("role", usuario.role())
                     .withIssuer("Spring Security Project By: Uryel_0910")
-                    .withSubject("Token de autenticação do usuário")
+                    .withSubject(usuario.login())
                     .withExpiresAt(this.getExpirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {

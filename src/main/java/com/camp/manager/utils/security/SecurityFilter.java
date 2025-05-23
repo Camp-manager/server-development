@@ -1,7 +1,10 @@
 package com.camp.manager.utils.security;
 
 import com.camp.manager.application.gateway.TokenEncoderAdapter;
-import com.camp.manager.infra.persistence.repository.UserRepository;
+import com.camp.manager.application.gateway.UsuarioGateway;
+import com.camp.manager.domain.entity.UserEntityDomain;
+import com.camp.manager.infra.persistence.entity.UserEntityJpa;
+import com.camp.manager.infra.persistence.mapper.Mapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,12 +22,14 @@ import java.io.IOException;
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
     private final TokenEncoderAdapter tokenEncoderAdapter;
-    private final UserRepository userRepository;
+    private final UsuarioGateway usuarioGateway;
+    private final Mapper<UserEntityJpa, UserEntityDomain> userEntityJpaMapper;
 
     @Autowired
-    public SecurityFilter(TokenEncoderAdapter tokenEncoderAdapter, UserRepository userRepository) {
+    public SecurityFilter(TokenEncoderAdapter tokenEncoderAdapter, UsuarioGateway usuarioGateway, Mapper<UserEntityJpa, UserEntityDomain> userEntityJpaMapper) {
         this.tokenEncoderAdapter = tokenEncoderAdapter;
-        this.userRepository = userRepository;
+        this.usuarioGateway = usuarioGateway;
+        this.userEntityJpaMapper = userEntityJpaMapper;
     }
 
     @Override
@@ -32,12 +37,12 @@ public class SecurityFilter extends OncePerRequestFilter {
         String token = this.getToken(request);
         if (token != null) {
             String tokenValidado = this.tokenEncoderAdapter.validar(token);
-            UserDetails userDetails = this.userRepository.findByLogin(tokenValidado)
-                    .orElse(null);
+            UserDetails userDetails = userEntityJpaMapper.toEntity(this.usuarioGateway.findUserByLogin(tokenValidado)
+                    .orElse(null));
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                     userDetails,
                     null,
-                    userDetails != null ? userDetails.getAuthorities() : null);
+                    userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);

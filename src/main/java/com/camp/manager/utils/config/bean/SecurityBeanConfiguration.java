@@ -1,7 +1,10 @@
 package com.camp.manager.utils.config.bean;
 
 import com.camp.manager.application.gateway.TokenEncoderAdapter;
-import com.camp.manager.infra.persistence.repository.UserRepository;
+import com.camp.manager.application.gateway.UsuarioGateway;
+import com.camp.manager.domain.entity.UserEntityDomain;
+import com.camp.manager.infra.persistence.entity.UserEntityJpa;
+import com.camp.manager.infra.persistence.mapper.Mapper;
 import com.camp.manager.utils.security.SecurityConfiguration;
 import com.camp.manager.utils.security.SecurityFilter;
 import org.springframework.context.annotation.Bean;
@@ -29,8 +32,8 @@ public class SecurityBeanConfiguration {
     }
 
     @Bean
-    public SecurityFilter securityFilter(TokenEncoderAdapter tokenEncoderAdapter, UserRepository userRepository) {
-       return new SecurityFilter(tokenEncoderAdapter, userRepository);
+    public SecurityFilter securityFilter(TokenEncoderAdapter tokenEncoderAdapter, UsuarioGateway usuarioGateway, Mapper<UserEntityJpa, UserEntityDomain> userMapper) {
+       return new SecurityFilter(tokenEncoderAdapter, usuarioGateway, userMapper);
     }
 
     @Bean
