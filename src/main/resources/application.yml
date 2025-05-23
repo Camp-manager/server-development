@@ -25,3 +25,6 @@ api:
     origins-allowed: ${URL_FRONTS}
 imagem:
   pasta-raiz: ${PATH_PASTA}
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

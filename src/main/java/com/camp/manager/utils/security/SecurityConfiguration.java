@@ -44,6 +44,11 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.POST,"/users/login").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/camiseta/buscar-tamanhos").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/medicamento/buscar-todos").permitAll()
+                                .requestMatchers("*","/swagger-ui/**").permitAll()
+                                .requestMatchers("/swagger-resources/*").permitAll()
+                                .requestMatchers("/v3/api-docs/**").permitAll()
+                                .requestMatchers("/v2/api-docs/**").permitAll()
+                                .requestMatchers("/api-docs").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptionHandling -> exceptionHandling
