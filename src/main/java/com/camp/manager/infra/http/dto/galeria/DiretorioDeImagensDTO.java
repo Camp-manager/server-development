@@ -1,4 +1,4 @@
-package com.camp.manager.infra.http.dto.buscarGaleriasUC;
+package com.camp.manager.infra.http.dto.galeria;
 
 import lombok.Getter;
 

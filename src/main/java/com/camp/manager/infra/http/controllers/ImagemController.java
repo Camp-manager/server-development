@@ -3,7 +3,7 @@ package com.camp.manager.infra.http.controllers;
 import com.camp.manager.application.usecases.AdicionarImagensUC;
 import com.camp.manager.application.usecases.BuscarImagensUC;
 import com.camp.manager.domain.entity.utils.MethodResponse;
-import com.camp.manager.infra.http.dto.buscarGaleriasUC.ImagemDTO;
+import com.camp.manager.infra.http.dto.galeria.ImagemDTO;
 import com.camp.manager.infra.http.request.imagens.InserirImagemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

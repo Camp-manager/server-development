@@ -2,7 +2,7 @@ package com.camp.manager.application.usecases;
 
 import com.camp.manager.application.gateway.ImagemGateway;
 import com.camp.manager.domain.entity.ImagemEntityDomain;
-import com.camp.manager.infra.http.dto.buscarGaleriasUC.ImagemDTO;
+import com.camp.manager.infra.http.dto.galeria.ImagemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
