@@ -6,6 +6,5 @@ public record CriarTemaRequest(
         String descricao,
         Double precoCamiseta,
         Double precoAcampamento,
-        MultipartFile arquivoImagemTema
-) {
+        MultipartFile arquivoImagemTema) {
 }

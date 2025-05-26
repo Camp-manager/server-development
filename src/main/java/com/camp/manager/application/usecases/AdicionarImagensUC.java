@@ -56,7 +56,8 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
 
     private AcampamentoEntityDomain buscarAcampamentoInformado(Long idAcampamento) {
         boolean acampamentoEhExistente = this.acampamentoGateway.existsAcampamentoById(idAcampamento);
-        if(acampamentoEhExistente) {throw new NotFoundException("Acampamento não encontrado!");}
+        if(!acampamentoEhExistente) {throw new NotFoundException("Acampamento não encontrado com id [" +idAcampamento+"]!" );}
+
         return this.acampamentoGateway.buscarAcampamentoPorId(idAcampamento);
     }
 
@@ -75,7 +76,7 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
             try {
                 Files.createDirectories(diretorioDasPastas);
             } catch (IOException exception){
-                throw new DirectoryException(exception.getMessage());
+                throw new DirectoryException("Erro ao criar diretório para armazenar imagens!");
             }
         }
     }
@@ -83,37 +84,37 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
     private Set<ImagemDescription> extrairImagens(MultipartFile zipComImagens) {
         Set<ImagemDescription> imagens = new HashSet<>();
 
-        try (ZipInputStream zipInput = new ZipInputStream(zipComImagens.getInputStream())) {
+        try (ZipInputStream arquivoZipDeEntrada = new ZipInputStream(zipComImagens.getInputStream())) {
             ZipEntry zipEntry;
 
-            while ((zipEntry = zipInput.getNextEntry()) != null) {
-                String fileName = Paths.get(zipEntry.getName()).getFileName().toString(); // sanitiza nome
+            while ((zipEntry = arquivoZipDeEntrada.getNextEntry()) != null) {
+                String nomeDoArquivo = Paths.get(zipEntry.getName()).getFileName().toString(); // sanitiza nome
 
-                if (this.tiposDeArquivosAceitos.stream().noneMatch(tipo -> fileName.toLowerCase().endsWith(tipo))) {
-                    zipInput.closeEntry();
+                String nomeDoArquivoLowerCase = nomeDoArquivo.toLowerCase();
+                if (this.tiposDeArquivosAceitos.stream().noneMatch(nomeDoArquivoLowerCase::endsWith)) {
+                    arquivoZipDeEntrada.closeEntry();
                     continue;
                 }
 
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 byte[] buffer = new byte[1024];
                 int len;
-                while ((len = zipInput.read(buffer)) != -1) {
+                while ((len = arquivoZipDeEntrada.read(buffer)) != -1) {
                     outputStream.write(buffer, 0, len);
                 }
 
                 byte[] imagemBytes = outputStream.toByteArray();
 
                 String extensao = "";
-                int index = fileName.lastIndexOf('.');
-                if (index != -1 && index < fileName.length() - 1) {
-                    extensao = fileName.substring(index + 1).toLowerCase();
+                int index = nomeDoArquivo.lastIndexOf('.');
+                if (index != -1 && index < nomeDoArquivo.length() - 1) {
+                    extensao = nomeDoArquivo.substring(index + 1).toLowerCase();
                 }
 
-                imagens.add(new ImagemDescription(fileName, imagemBytes, extensao));
+                imagens.add(new ImagemDescription(nomeDoArquivo, imagemBytes, extensao));
 
-                zipInput.closeEntry();
+                arquivoZipDeEntrada.closeEntry();
             }
-
         } catch (IOException e) {
             throw new FileProcessingException("Erro ao processar imagens!");
         }
@@ -124,7 +125,9 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
     private void inserirImagens(InserirImagemRequest inserirImagemRequest, AcampamentoEntityDomain acampamentoEncontrado) {
         Set<ImagemDescription> imagensExtraidas = this.extrairImagens(inserirImagemRequest.zipComAsImagens());
         String pathPastaAcampamento = acampamentoEncontrado.tipoAcampamento().descricao() +" " +inserirImagemRequest.anoDasImagens();
-        Path diretorioDasPastas = Paths.get(this.pathDaPastaRaiz + pathPastaAcampamento);
+
+        Path basePath = Paths.get(this.pathDaPastaRaiz);
+        Path diretorioDasPastas = basePath.resolve(pathPastaAcampamento);
 
         this.validarDiretorio(diretorioDasPastas);
 

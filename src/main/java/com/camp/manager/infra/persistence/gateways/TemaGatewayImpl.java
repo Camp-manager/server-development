@@ -21,12 +21,29 @@ public class TemaGatewayImpl implements TemaGateway {
     }
 
     @Override
-    public boolean temaEhExistente(String descricaoDoTema) {
+    public boolean temaEhExistentePorDescricao(String descricaoDoTema) {
         return this.temaRepository.existsByDescricao(descricaoDoTema);
     }
 
     @Override
     public void inserirTema(TemaEntityDomain temaDomain) {
+        this.temaRepository.save(temaMapper.toEntity(temaDomain));
+    }
+
+    @Override
+    public boolean temaEhExistentePorId(Long idTema) {
+        return this.temaRepository.existsById(idTema);
+    }
+
+    @Override
+    public TemaEntityDomain buscarTemaPorId(Long idTema) {
+        return this.temaRepository.findById(idTema)
+                .map(temaMapper::toDomain)
+                .orElse(null);
+    }
+
+    @Override
+    public void atualizarTema(TemaEntityDomain temaDomain) {
         this.temaRepository.save(temaMapper.toEntity(temaDomain));
     }
 }

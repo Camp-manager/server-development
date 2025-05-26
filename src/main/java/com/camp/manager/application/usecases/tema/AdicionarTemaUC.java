@@ -25,7 +25,7 @@ public class AdicionarTemaUC implements UseCase<CriarTemaRequest, MethodResponse
 
     @Override
     public MethodResponse<Void> execute(CriarTemaRequest input) {
-        boolean temaEhExistente = this.temaGateway.temaEhExistente(input.descricao());
+        boolean temaEhExistente = this.temaGateway.temaEhExistentePorDescricao(input.descricao());
         if(temaEhExistente) {throw new EntityFoundException("Tema já cadastrado!");}
 
         byte[] imagemTema = validarETransformar(input.arquivoImagemTema());

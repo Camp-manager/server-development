@@ -1,9 +1,11 @@
 package com.camp.manager.application.gateway;
 
 import com.camp.manager.domain.entity.TemaEntityDomain;
-import com.camp.manager.infra.persistence.entity.TemaEntityJpa;
 
 public interface TemaGateway {
-    boolean temaEhExistente(String descricaoDoTema);
+    boolean temaEhExistentePorDescricao(String descricaoDoTema);
     void inserirTema(TemaEntityDomain temaDomain);
+    boolean temaEhExistentePorId(Long idTema);
+    TemaEntityDomain buscarTemaPorId(Long idTema);
+    void atualizarTema(TemaEntityDomain temaDomain);
 }
