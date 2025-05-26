@@ -25,7 +25,6 @@ api:
     origins-allowed: ${URL_FRONTS}
 imagem:
   pasta-raiz: ${PATH_PASTA}
-  pasta-temas: ${PATH_PASTA_TEMAS}
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
