@@ -28,21 +28,18 @@ public class AdicionarTemaUC implements UseCase<CriarTemaRequest, MethodResponse
         boolean temaEhExistente = this.temaGateway.temaEhExistente(input.descricao());
         if(temaEhExistente) {throw new EntityFoundException("Tema já cadastrado!");}
 
-
+        byte[] imagemTema = validarETransformar(input.arquivoImagemTema());
 
         this.temaGateway.inserirTema(
                 new TemaEntityDomain(null, input.descricao(), imagemTema, BigDecimal.valueOf(input.precoCamiseta()), BigDecimal.valueOf(input.precoAcampamento())));
 
-        return null;
+        return new MethodResponse<>(201L, "Tema cadastrado com sucesso!", null);
     }
 
-    private byte[] validarImagemTema(MultipartFile imagem) {
-
+    private byte[] validarETransformar(MultipartFile imagem) {
         if(imagem.isEmpty() || imagem.getSize() == 0) {
             throw new FileProcessingException("Imagem do tema não pode ser vazia!");
         }
-
-
 
         byte[] imagemTema;
         try{
@@ -50,5 +47,8 @@ public class AdicionarTemaUC implements UseCase<CriarTemaRequest, MethodResponse
         } catch (Exception e){
             throw new FileProcessingException("Erro ao processar a imagem do tema!");
         }
+
+        return imagemTema;
     }
+
 }
