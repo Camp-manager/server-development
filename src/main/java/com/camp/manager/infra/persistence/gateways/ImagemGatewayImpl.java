@@ -7,6 +7,7 @@ import com.camp.manager.infra.persistence.entity.AcampamentoEntityJpa;
 import com.camp.manager.infra.persistence.entity.ImagemEntityJpa;
 import com.camp.manager.infra.persistence.mapper.Mapper;
 import com.camp.manager.infra.persistence.repository.ImagemRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class ImagemGatewayImpl implements ImagemGateway {
     }
 
     @Override
+    @Transactional
     public void inserirNovaImagem(String path, String data, AcampamentoEntityDomain acampamentoEncontrado) {
         AcampamentoEntityJpa acampamentoEntityJpa = acampamentoMapper.toEntity(acampamentoEncontrado);
         this.imagemRepository

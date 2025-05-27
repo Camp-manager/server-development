@@ -5,6 +5,7 @@ import com.camp.manager.domain.entity.TipoAcampamentoEntityDomain;
 import com.camp.manager.infra.persistence.entity.TipoAcampamentoEntityJpa;
 import com.camp.manager.infra.persistence.mapper.Mapper;
 import com.camp.manager.infra.persistence.repository.TipoAcampamentoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,11 +43,13 @@ public class TipoAcampamentoGatewayImpl implements TipoAcampamentoGateway {
     }
 
     @Override
+    @Transactional
     public void inserirTipoAcampamento(TipoAcampamentoEntityDomain tipoAcampamentoDomain) {
         this.tipoAcampamentoRepository.save(tipoAcampamentoMapper.toEntity(tipoAcampamentoDomain));
     }
 
     @Override
+    @Transactional
     public void deletarTipoAcampamentoPorId(Long idDoTipoAcampamento) {
         this.tipoAcampamentoRepository.deleteById(idDoTipoAcampamento);
     }

@@ -5,6 +5,7 @@ import com.camp.manager.domain.entity.TemaEntityDomain;
 import com.camp.manager.infra.persistence.entity.TemaEntityJpa;
 import com.camp.manager.infra.persistence.mapper.Mapper;
 import com.camp.manager.infra.persistence.repository.TemaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class TemaGatewayImpl implements TemaGateway {
     }
 
     @Override
+    @Transactional
     public void inserirTema(TemaEntityDomain temaDomain) {
         this.temaRepository.save(temaMapper.toEntity(temaDomain));
     }
@@ -47,6 +49,7 @@ public class TemaGatewayImpl implements TemaGateway {
     }
 
     @Override
+    @Transactional
     public void atualizarTema(TemaEntityDomain temaDomain) {
         this.temaRepository.save(temaMapper.toEntity(temaDomain));
     }
@@ -60,6 +63,7 @@ public class TemaGatewayImpl implements TemaGateway {
     }
 
     @Override
+    @Transactional
     public void deletarTemaPorId(Long idTema) {
         this.temaRepository.deleteById(idTema);
     }

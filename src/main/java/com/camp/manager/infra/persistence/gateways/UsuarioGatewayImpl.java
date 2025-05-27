@@ -5,6 +5,7 @@ import com.camp.manager.domain.entity.UserEntityDomain;
 import com.camp.manager.infra.persistence.entity.UserEntityJpa;
 import com.camp.manager.infra.persistence.mapper.Mapper;
 import com.camp.manager.infra.persistence.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,7 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
     }
 
     @Override
+    @Transactional
     public void salvar(UserEntityDomain user) {
         this.userRepository.save(mapper.toEntity(user));
     }
