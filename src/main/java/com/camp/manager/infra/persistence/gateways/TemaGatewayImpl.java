@@ -8,6 +8,9 @@ import com.camp.manager.infra.persistence.repository.TemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class TemaGatewayImpl implements TemaGateway {
 
@@ -45,5 +48,18 @@ public class TemaGatewayImpl implements TemaGateway {
     @Override
     public void atualizarTema(TemaEntityDomain temaDomain) {
         this.temaRepository.save(temaMapper.toEntity(temaDomain));
+    }
+
+    @Override
+    public List<TemaEntityDomain> buscarTodosOsTemas() {
+        return this.temaRepository.findAll()
+                .stream()
+                .map(temaMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deletarTemaPorId(Long idTema) {
+        this.temaRepository.deleteById(idTema);
     }
 }

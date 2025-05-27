@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 
 @Getter
 public class MedicamentoDTO {
-    private Long id;
-    private String nome;
-    private String quantidade;
-    private String tipo;
+    private final Long id;
+    private final String nome;
+    private final String quantidade;
+    private final String tipo;
 
     public MedicamentoDTO(MedicamentoEntityDomain entityDomain) {
         this.id = entityDomain.id();

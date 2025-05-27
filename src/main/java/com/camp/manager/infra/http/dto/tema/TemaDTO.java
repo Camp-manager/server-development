@@ -1,0 +1,28 @@
+package com.camp.manager.infra.http.dto.tema;
+
+import com.camp.manager.domain.entity.TemaEntityDomain;
+import lombok.Getter;
+
+import java.util.Base64;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Getter
+public class TemaDTO {
+    private final Long id;
+    private final String descricao;
+    private final String design;
+
+    public TemaDTO(TemaEntityDomain temaEntityDomain) {
+        this.id = temaEntityDomain.id();
+        this.descricao = temaEntityDomain.descricao();
+        this.design = Base64.getEncoder().encodeToString(temaEntityDomain.imagemDesign());
+    }
+
+    public static List<TemaDTO> converter(List<TemaEntityDomain> temaEntityDomains) {
+        return temaEntityDomains.stream()
+                .map(TemaDTO::new)
+                .collect(Collectors.toList());
+    }
+
+}
