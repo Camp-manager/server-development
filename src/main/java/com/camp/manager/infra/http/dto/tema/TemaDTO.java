@@ -22,7 +22,7 @@ public class TemaDTO {
     public static List<TemaDTO> converter(List<TemaEntityDomain> temaEntityDomains) {
         return temaEntityDomains.stream()
                 .map(TemaDTO::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 }
