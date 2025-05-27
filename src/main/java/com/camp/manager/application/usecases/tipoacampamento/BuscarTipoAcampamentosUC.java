@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BuscarTipoAcampamentosUC implements UseCase<MethodResponse<Void>, List<TipoAcampamentoDTO>> {
+public class BuscarTipoAcampamentosUC implements UseCase<MethodResponse<Void>, MethodResponse<List<TipoAcampamentoDTO>>> {
 
     private final TipoAcampamentoGateway tipoAcampamentoGateway;
 
@@ -22,9 +22,9 @@ public class BuscarTipoAcampamentosUC implements UseCase<MethodResponse<Void>, L
     }
 
     @Override
-    public List<TipoAcampamentoDTO> execute(MethodResponse<Void> input) {
+    public MethodResponse<List<TipoAcampamentoDTO>> execute(MethodResponse<Void> input) {
         List<TipoAcampamentoEntityDomain> listaDeTiposDeAcampamento = this.tipoAcampamentoGateway.buscarTodosTiposDeAcampamento();
         if(listaDeTiposDeAcampamento.isEmpty()) throw new NotFoundException("Não existem tipos de acampamento cadastrados!");
-        return TipoAcampamentoDTO.converter(listaDeTiposDeAcampamento);
+        return new MethodResponse<>(200, "Tipos de acampamento encontrados com sucesso!", TipoAcampamentoDTO.converter(listaDeTiposDeAcampamento));
     }
 }

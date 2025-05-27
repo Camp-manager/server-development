@@ -10,7 +10,6 @@ import com.camp.manager.infra.http.request.tema.AtualizarTemaRequest;
 import com.camp.manager.infra.http.request.tema.CriarTemaRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,30 +34,40 @@ public class TemaController {
     }
 
     @PostMapping(path = "/adicionar")
-    public ResponseEntity<MethodResponse<Void>> adicionarTema(@RequestBody @Valid CriarTemaRequest temaRequest, @RequestParam("file") MultipartFile imagemTema) {
+    public ResponseEntity<Void> adicionarTema(@RequestBody @Valid CriarTemaRequest temaRequest, @RequestParam("file") MultipartFile imagemTema) {
         CriarTemaRequest temaRequestComImagem = new CriarTemaRequest(
                 temaRequest.descricao(),
                 temaRequest.precoCamiseta(),
                 temaRequest.precoAcampamento(),
                 imagemTema
         );
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.adicionarTemaUC.execute(temaRequestComImagem));
+        MethodResponse<Void> response = this.adicionarTemaUC.execute(temaRequestComImagem);
+        return ResponseEntity
+                .status(response.status())
+                .body(response.data());
     }
 
     @PutMapping(path = "/atualizar")
-    public ResponseEntity<MethodResponse<Void>> atualizarTema(@RequestBody @Valid AtualizarTemaRequest temaRequest) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.alterarTemaUC.execute(temaRequest));
+    public ResponseEntity<Void> atualizarTema(@RequestBody @Valid AtualizarTemaRequest temaRequest) {
+        MethodResponse<Void> response = this.alterarTemaUC.execute(temaRequest);
+        return ResponseEntity
+                .status(response.status())
+                .body(response.data());
     }
 
     @GetMapping(path = "/buscar-todos")
     public ResponseEntity<List<TemaDTO>> buscarTemas() {
-        List<TemaDTO> temas = this.buscarTemasUC.execute(null);
-        return ResponseEntity.status(HttpStatus.OK).body(temas);
+        MethodResponse<List<TemaDTO>> response = this.buscarTemasUC.execute(null);
+        return ResponseEntity
+                .status(response.status())
+                .body(response.data());
     }
 
     @DeleteMapping(path = "/deletar/{idTema}")
-    public ResponseEntity<MethodResponse<Void>> deletarTema(@PathVariable Long idTema) {
+    public ResponseEntity<Void> deletarTema(@PathVariable Long idTema) {
         MethodResponse<Void> response = this.deletarTemaUC.execute(idTema);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
+        return ResponseEntity
+                .status(response.status())
+                .body(response.data());
     }
 }

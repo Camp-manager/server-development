@@ -31,7 +31,10 @@ public class ImagemController {
     }
 
     @PostMapping(path = "/inserir-zip/{idAcampamento}/{anoDasImagens}")
-    public MethodResponse<Void> inserirImagensNoAcampamentoPorZip(@PathVariable Long idAcampamento,@RequestParam("file") MultipartFile zipComAsImagens, @PathVariable Long anoDasImagens) {
-        return this.adicionarImagensUC.execute(new InserirImagemRequest(idAcampamento, zipComAsImagens, anoDasImagens));
+    public ResponseEntity<Void> inserirImagensNoAcampamentoPorZip(@PathVariable Long idAcampamento,@RequestParam("file") MultipartFile zipComAsImagens, @PathVariable Long anoDasImagens) {
+        MethodResponse<Void> response = this.adicionarImagensUC.execute(new InserirImagemRequest(idAcampamento, zipComAsImagens, anoDasImagens));
+        return ResponseEntity
+                .status(response.status())
+                .body(response.data());
     }
 }

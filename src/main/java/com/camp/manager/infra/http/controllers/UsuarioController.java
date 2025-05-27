@@ -1,14 +1,13 @@
 package com.camp.manager.infra.http.controllers;
 
-import com.camp.manager.application.usecases.RealizarLoginUC;
-import com.camp.manager.application.usecases.RegistrarUsuarioUC;
+import com.camp.manager.application.usecases.user.RealizarLoginUC;
+import com.camp.manager.application.usecases.user.RegistrarUsuarioUC;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.infra.http.dto.TokenResponseDTO;
 import com.camp.manager.infra.http.request.user.CreateUserRequest;
 import com.camp.manager.infra.http.request.user.LoginUserRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,14 +25,19 @@ public class UsuarioController {
         this.registrarUsuarioUC = registrarUsuarioUC;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<HttpStatus> registrarUsuario(@RequestBody @Valid CreateUserRequest request) {
-        this.registrarUsuarioUC.execute(request);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @PostMapping(path = "/register")
+    public ResponseEntity<Void> registrarUsuario(@RequestBody @Valid CreateUserRequest request) {
+        MethodResponse<Void> response = this.registrarUsuarioUC.execute(request);
+        return ResponseEntity
+                .status(response.status())
+                .body(response.data());
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<MethodResponse<TokenResponseDTO>> validarUsuario(@RequestBody @Valid LoginUserRequest request) {
-        return ResponseEntity.ok(this.realizarLoginUC.execute(request));
+    @PostMapping(path = "/login")
+    public ResponseEntity<TokenResponseDTO> validarUsuario(@RequestBody @Valid LoginUserRequest request) {
+        MethodResponse<TokenResponseDTO> response = this.realizarLoginUC.execute(request);
+        return ResponseEntity
+                .status(response.status())
+                .body(response.data());
     }
 }

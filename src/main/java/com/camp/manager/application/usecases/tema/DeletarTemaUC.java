@@ -22,6 +22,6 @@ public class DeletarTemaUC implements UseCase<Long, MethodResponse<Void>> {
         if(input == null) throw new NotFoundException("O ID do tema não pode ser nulo!");
 
         this.temaGateway.deletarTemaPorId(input);
-        return null;
+        return new MethodResponse<>(204, "Tema deletado com sucesso!", null);
     }
 }

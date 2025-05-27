@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TipoAcampamentoRepository extends JpaRepository<TipoAcampamentoEntityJpa, Long> {
+    boolean existsByDescricao(String descricaoDoTipoAcampamento);
 }

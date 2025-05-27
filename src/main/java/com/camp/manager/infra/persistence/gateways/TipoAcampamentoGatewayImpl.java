@@ -29,4 +29,19 @@ public class TipoAcampamentoGatewayImpl implements TipoAcampamentoGateway {
                 .map(tipoAcampamentoMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public boolean tipoAcampamentoEhExistentePorDescricao(String descricaoDoTipoAcampamento) {
+        return this.tipoAcampamentoRepository.existsByDescricao(descricaoDoTipoAcampamento);
+    }
+
+    @Override
+    public void inserirTipoAcampamento(TipoAcampamentoEntityDomain tipoAcampamentoDomain) {
+        this.tipoAcampamentoRepository.save(tipoAcampamentoMapper.toEntity(tipoAcampamentoDomain));
+    }
+
+    @Override
+    public void deletarTipoAcampamentoPorId(Long idDoTipoAcampamento) {
+        this.tipoAcampamentoRepository.deleteById(idDoTipoAcampamento);
+    }
 }

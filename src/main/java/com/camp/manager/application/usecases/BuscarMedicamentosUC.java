@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BuscarMedicamentosUC implements UseCase<MethodResponse<Void>, List<MedicamentoDTO>>{
+public class BuscarMedicamentosUC implements UseCase<MethodResponse<Void>, MethodResponse<List<MedicamentoDTO>>>{
 
     private final MedicamentoGateway medicamentoGateway;
 
@@ -19,7 +19,7 @@ public class BuscarMedicamentosUC implements UseCase<MethodResponse<Void>, List<
     }
 
     @Override
-    public List<MedicamentoDTO> execute(MethodResponse<Void> input) {
+    public MethodResponse<List<MedicamentoDTO>> execute(MethodResponse<Void> input) {
         return MedicamentoDTO.converter(this.medicamentoGateway.buscarTodosMedicamentos());
     }
 }

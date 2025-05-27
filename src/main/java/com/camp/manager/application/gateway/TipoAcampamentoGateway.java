@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface TipoAcampamentoGateway {
     List<TipoAcampamentoEntityDomain> buscarTodosTiposDeAcampamento();
+    boolean tipoAcampamentoEhExistentePorDescricao(String descricaoDoTipoAcampamento);
+    void inserirTipoAcampamento(TipoAcampamentoEntityDomain tipoAcampamentoDomain);
+    void deletarTipoAcampamentoPorId(Long idDoTipoAcampamento);
 }

@@ -1,7 +1,8 @@
-package com.camp.manager.application.usecases;
+package com.camp.manager.application.usecases.user;
 
 import com.camp.manager.application.gateway.PasswordEncoderAdapter;
 import com.camp.manager.application.gateway.UsuarioGateway;
+import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.UserFoundException;
 import com.camp.manager.infra.http.request.user.CreateUserRequest;
@@ -32,6 +33,6 @@ public class RegistrarUsuarioUC implements UseCase<CreateUserRequest, MethodResp
        UserEntityDomain usuarioCadastrado = new UserEntityDomain(request.username(), request.login(), senhaCriptografada, request.roleUser());
 
        this.usuarioGateway.salvar(usuarioCadastrado);
-       return new MethodResponse<>(201L, "Usuário cadastrado com sucesso!", null);
+       return new MethodResponse<>(201, "Usuário cadastrado com sucesso!", null);
     }
 }

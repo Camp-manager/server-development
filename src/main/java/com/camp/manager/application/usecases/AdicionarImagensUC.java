@@ -51,7 +51,7 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
 
         this.inserirImagens(imagensParaSerInserido, acampamentoEncontrado);
 
-        return new MethodResponse<>(201L, "Imagens inseridas com sucesso!", null);
+        return new MethodResponse<>(201, "Imagens inseridas com sucesso!", null);
     }
 
     private AcampamentoEntityDomain buscarAcampamentoInformado(Long idAcampamento) {

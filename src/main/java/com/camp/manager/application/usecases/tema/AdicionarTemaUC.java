@@ -33,7 +33,7 @@ public class AdicionarTemaUC implements UseCase<CriarTemaRequest, MethodResponse
         this.temaGateway.inserirTema(
                 new TemaEntityDomain(null, input.descricao(), imagemTema, BigDecimal.valueOf(input.precoCamiseta()), BigDecimal.valueOf(input.precoAcampamento())));
 
-        return new MethodResponse<>(201L, "Tema cadastrado com sucesso!", null);
+        return new MethodResponse<>(201, "Tema cadastrado com sucesso!", null);
     }
 
     private byte[] validarETransformar(MultipartFile imagem) {

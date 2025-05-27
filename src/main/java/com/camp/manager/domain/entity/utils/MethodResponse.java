@@ -2,7 +2,7 @@ package com.camp.manager.domain.entity.utils;
 
 
 public record MethodResponse<T>(
-        Long status,
+        int status,
         String message,
         T data) {
 }

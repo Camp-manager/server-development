@@ -34,12 +34,12 @@ public class AlterarTemaUC implements UseCase<AtualizarTemaRequest, MethodRespon
         boolean houveAlteracao = this.verificarAlteracaoDeCampos(input, temaDomain);
 
         if(!houveAlteracao) {
-            return new MethodResponse<>(304L, "Nenhuma alteração foi realizada!", null);
+            return new MethodResponse<>(304, "Nenhuma alteração foi realizada!", null);
         }
 
         this.realizarAlteracaoTema(input, temaDomain);
 
-        return new MethodResponse<>(200L, "Tema atualizado com sucesso!", null);
+        return new MethodResponse<>(200, "Tema atualizado com sucesso!", null);
     }
 
     private boolean verificarAlteracaoDeCampos(AtualizarTemaRequest input, TemaEntityDomain temaDomain) {

@@ -1,5 +1,6 @@
-package com.camp.manager.application.usecases;
+package com.camp.manager.application.usecases.user;
 
+import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.domain.exception.custom.PasswordInvalidException;
@@ -41,6 +42,6 @@ public class RealizarLoginUC implements UseCase<LoginUserRequest, MethodResponse
 
         String tokenGerado = this.tokenEncoderAdapter.gerar(usuarioBuscado);
 
-        return new MethodResponse<>(200L, "Login realizado com sucesso!", new TokenResponseDTO(tokenGerado));
+        return new MethodResponse<>(200, "Login realizado com sucesso!", new TokenResponseDTO(tokenGerado));
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BuscarTemasUC implements UseCase<MethodResponse<Void>, List<TemaDTO>> {
+public class BuscarTemasUC implements UseCase<MethodResponse<Void>, MethodResponse<List<TemaDTO>>> {
 
     private final TemaGateway temaGateway;
 
@@ -22,9 +22,9 @@ public class BuscarTemasUC implements UseCase<MethodResponse<Void>, List<TemaDTO
     }
 
     @Override
-    public List<TemaDTO> execute(MethodResponse<Void> input) {
+    public MethodResponse<List<TemaDTO>> execute(MethodResponse<Void> input) {
         List<TemaEntityDomain> listaDeTemas = this.temaGateway.buscarTodosOsTemas();
         if(listaDeTemas.isEmpty()) throw new NotFoundException("Não existem temas cadastrados!");
-        return TemaDTO.converter(listaDeTemas);
+        return new MethodResponse<>(200, "Temas encontrados com sucesso!", TemaDTO.converter(listaDeTemas));
     }
 }
