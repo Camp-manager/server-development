@@ -36,6 +36,11 @@ public class TipoAcampamentoGatewayImpl implements TipoAcampamentoGateway {
     }
 
     @Override
+    public boolean tipoAcampamentoEhExistentePorId(Long idDoTipoAcampamento) {
+        return this.tipoAcampamentoRepository.existsById(idDoTipoAcampamento);
+    }
+
+    @Override
     public void inserirTipoAcampamento(TipoAcampamentoEntityDomain tipoAcampamentoDomain) {
         this.tipoAcampamentoRepository.save(tipoAcampamentoMapper.toEntity(tipoAcampamentoDomain));
     }
