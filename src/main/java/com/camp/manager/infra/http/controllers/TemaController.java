@@ -26,7 +26,10 @@ public class TemaController {
     private final DeletarTemaUC deletarTemaUC;
 
     @Autowired
-    public TemaController(AdicionarTemaUC adicionarTemaUC, AlterarTemaUC alterarTemaUC, BuscarTemasUC buscarTemasUC, DeletarTemaUC deletarTemaUC) {
+    public TemaController(AdicionarTemaUC adicionarTemaUC,
+                          AlterarTemaUC alterarTemaUC,
+                          BuscarTemasUC buscarTemasUC,
+                          DeletarTemaUC deletarTemaUC) {
         this.adicionarTemaUC = adicionarTemaUC;
         this.alterarTemaUC = alterarTemaUC;
         this.buscarTemasUC = buscarTemasUC;

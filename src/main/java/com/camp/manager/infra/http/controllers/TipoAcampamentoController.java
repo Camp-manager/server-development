@@ -24,7 +24,10 @@ public class TipoAcampamentoController {
     private final DeletarTipoAcampanentoUC deletarTipoAcampanentoUC;
 
     @Autowired
-    public TipoAcampamentoController(BuscarTipoAcampamentosUC buscarTipoAcampamentoUC, BuscarCategoriasTipoAcampamentoUC buscarCategoriasTipoAcampamentoUC, AdicionarTipoAcampamentoUC adicionarTipoAcampamentoUC, DeletarTipoAcampanentoUC deletarTipoAcampanentoUC) {
+    public TipoAcampamentoController(BuscarTipoAcampamentosUC buscarTipoAcampamentoUC,
+                                     BuscarCategoriasTipoAcampamentoUC buscarCategoriasTipoAcampamentoUC,
+                                     AdicionarTipoAcampamentoUC adicionarTipoAcampamentoUC,
+                                     DeletarTipoAcampanentoUC deletarTipoAcampanentoUC) {
         this.buscarTipoAcampamentoUC = buscarTipoAcampamentoUC;
         this.buscarCategoriasTipoAcampamentoUC = buscarCategoriasTipoAcampamentoUC;
         this.adicionarTipoAcampamentoUC = adicionarTipoAcampamentoUC;

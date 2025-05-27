@@ -20,7 +20,8 @@ public class ImagemController {
     private final AdicionarImagensUC adicionarImagensUC;
 
     @Autowired
-    public ImagemController(BuscarImagensUC buscarImagensUC, AdicionarImagensUC adicionarImagensUC) {
+    public ImagemController(BuscarImagensUC buscarImagensUC,
+                            AdicionarImagensUC adicionarImagensUC) {
         this.buscarImagensUC = buscarImagensUC;
         this.adicionarImagensUC = adicionarImagensUC;
     }
