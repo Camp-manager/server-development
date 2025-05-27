@@ -5,6 +5,7 @@ import com.camp.manager.infra.persistence.entity.ImagemEntityJpa;
 import com.camp.manager.utils.converter.localDate.LocalDateConverterAPP;
 import org.springframework.stereotype.Component;
 
+import java.nio.file.Path;
 import java.util.Base64;
 
 @Component
@@ -22,6 +23,7 @@ public class ImagemMapper implements Mapper<ImagemEntityJpa, ImagemEntityDomain>
         return new ImagemEntityDomain(
                 imagemEntityJpa.getId(),
                 Base64.getDecoder().decode(imagemEntityJpa.getPathLocalizacao()),
+                Path.of(imagemEntityJpa.getPathLocalizacao()),
                 LocalDateConverterAPP.converterStringParaLocalDate(imagemEntityJpa.getData()),
                 imagemEntityJpa.getAcampamento().getTipoAcampamento().getDescricao()
                         + " " + LocalDateConverterAPP.converterStringParaLocalDate(imagemEntityJpa.getData()).getDayOfYear());

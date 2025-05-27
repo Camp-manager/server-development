@@ -1,7 +1,7 @@
 package com.camp.manager.infra.http.controllers;
 
-import com.camp.manager.application.usecases.AdicionarImagensUC;
-import com.camp.manager.application.usecases.BuscarImagensUC;
+import com.camp.manager.application.usecases.imagem.AdicionarImagensUC;
+import com.camp.manager.application.usecases.imagem.BuscarTodasImagensAcampamentoUC;
 import com.camp.manager.infra.http.dto.galeria.ImagemDTO;
 import com.camp.manager.infra.http.request.imagens.InserirImagemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +15,17 @@ import java.util.List;
 @RequestMapping("/imagens")
 public class ImagemController {
 
-    private final BuscarImagensUC buscarImagensUC;
+    private final BuscarTodasImagensAcampamentoUC buscarTodasImagensAcampamentoUC;
     private final AdicionarImagensUC adicionarImagensUC;
 
     @Autowired
-    public ImagemController(BuscarImagensUC buscarImagensUC,
+    public ImagemController(BuscarTodasImagensAcampamentoUC buscarTodasImagensAcampamentoUC,
                             AdicionarImagensUC adicionarImagensUC) {
-        this.buscarImagensUC = buscarImagensUC;
+        this.buscarTodasImagensAcampamentoUC = buscarTodasImagensAcampamentoUC;
         this.adicionarImagensUC = adicionarImagensUC;
     }
 
-    @GetMapping(path = "/buscar")
-    public ResponseEntity<List<? extends ImagemDTO>> buscarImagens() {
-        return this.buscarImagensUC.execute(null);
-    }
+
 
     @PostMapping(path = "/inserir-zip/{idAcampamento}/{anoDasImagens}")
     public ResponseEntity<Void> inserirImagensNoAcampamentoPorZip(@PathVariable Long idAcampamento,@RequestParam("file") MultipartFile zipComAsImagens, @PathVariable Long anoDasImagens) {

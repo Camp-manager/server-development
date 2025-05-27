@@ -5,13 +5,14 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class DiretorioDeImagensDTO extends ImagemDTO {
+public class DiretorioDeImagensDTO  {
     private final String nomeDoAcampamento;
+    private final byte[] imagemDeCapa;
     private final List<ImagemDTO> imagensDoAcampamento;
 
-    public DiretorioDeImagensDTO(String nomeDoArquivo, byte[] arquivoImagem, String dataDeCriacao, Double tamanhoDoArquivo, String nomeDoAcampamento, List<ImagemDTO> imagensDoAcampamento) {
-        super(nomeDoArquivo, arquivoImagem, dataDeCriacao, tamanhoDoArquivo);
+    public DiretorioDeImagensDTO(String nomeDoAcampamento, byte[] imagemDeCapa, List<ImagemDTO> imagensDoAcampamento) {
         this.nomeDoAcampamento = nomeDoAcampamento;
+        this.imagemDeCapa = imagemDeCapa;
         this.imagensDoAcampamento = imagensDoAcampamento;
     }
 }

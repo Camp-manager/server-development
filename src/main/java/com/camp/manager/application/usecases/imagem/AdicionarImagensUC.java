@@ -1,7 +1,8 @@
-package com.camp.manager.application.usecases;
+package com.camp.manager.application.usecases.imagem;
 
 import com.camp.manager.application.gateway.AcampamentoGateway;
 import com.camp.manager.application.gateway.ImagemGateway;
+import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.AcampamentoEntityDomain;
 import com.camp.manager.domain.entity.utils.ImagemDescription;
 import com.camp.manager.domain.entity.utils.MethodResponse;
@@ -38,7 +39,8 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
     private final List<String> tiposDeArquivosAceitos = List.of(".jpeg",".png",".jpg",".svg");
 
     @Autowired
-    public AdicionarImagensUC(ImagemGateway imagemGateway, AcampamentoGateway acampamentoGateway) {
+    public AdicionarImagensUC(ImagemGateway imagemGateway,
+                              AcampamentoGateway acampamentoGateway) {
         this.imagemGateway = imagemGateway;
         this.acampamentoGateway = acampamentoGateway;
     }
