@@ -18,7 +18,8 @@ public class TemaGatewayImpl implements TemaGateway {
     private final Mapper<TemaEntityJpa, TemaEntityDomain> temaMapper;
 
     @Autowired
-    public TemaGatewayImpl(TemaRepository temaRepository, Mapper<TemaEntityJpa, TemaEntityDomain> temaMapper) {
+    public TemaGatewayImpl(TemaRepository temaRepository,
+                           Mapper<TemaEntityJpa, TemaEntityDomain> temaMapper) {
         this.temaRepository = temaRepository;
         this.temaMapper = temaMapper;
     }

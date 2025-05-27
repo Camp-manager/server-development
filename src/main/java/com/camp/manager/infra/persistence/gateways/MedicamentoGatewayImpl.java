@@ -18,7 +18,8 @@ public class MedicamentoGatewayImpl implements MedicamentoGateway {
     private final Mapper<MedicamentoEntityJpa, MedicamentoEntityDomain> medicamentoMapper;
 
     @Autowired
-    public MedicamentoGatewayImpl(MedicamentoRepository medicamentoRepository, Mapper<MedicamentoEntityJpa, MedicamentoEntityDomain> medicamentoMapper) {
+    public MedicamentoGatewayImpl(MedicamentoRepository medicamentoRepository,
+                                  Mapper<MedicamentoEntityJpa, MedicamentoEntityDomain> medicamentoMapper) {
         this.medicamentoRepository = medicamentoRepository;
         this.medicamentoMapper = medicamentoMapper;
     }

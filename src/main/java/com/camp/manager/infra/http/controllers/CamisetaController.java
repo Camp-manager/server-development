@@ -24,7 +24,8 @@ public class CamisetaController {
     @GetMapping(path = "/buscar-tamanhos")
     public ResponseEntity<List<String>> buscarTamanhosCamisa() {
         MethodResponse<List<String>> response = this.buscarTamanhosCamisaUC.execute(null);
-        return ResponseEntity.status(response.status())
+        return ResponseEntity
+                .status(response.status())
                 .body(response.data());
     }
 }

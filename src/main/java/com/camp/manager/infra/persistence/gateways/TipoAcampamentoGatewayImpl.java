@@ -17,7 +17,8 @@ public class TipoAcampamentoGatewayImpl implements TipoAcampamentoGateway {
     private final Mapper<TipoAcampamentoEntityJpa, TipoAcampamentoEntityDomain> tipoAcampamentoMapper;
 
     @Autowired
-    public TipoAcampamentoGatewayImpl(TipoAcampamentoRepository tipoAcampamentoRepository, Mapper<TipoAcampamentoEntityJpa, TipoAcampamentoEntityDomain> tipoAcampamentoMapper) {
+    public TipoAcampamentoGatewayImpl(TipoAcampamentoRepository tipoAcampamentoRepository,
+                                      Mapper<TipoAcampamentoEntityJpa, TipoAcampamentoEntityDomain> tipoAcampamentoMapper) {
         this.tipoAcampamentoRepository = tipoAcampamentoRepository;
         this.tipoAcampamentoMapper = tipoAcampamentoMapper;
     }

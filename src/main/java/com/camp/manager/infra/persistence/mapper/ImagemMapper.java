@@ -18,7 +18,6 @@ public class ImagemMapper implements Mapper<ImagemEntityJpa, ImagemEntityDomain>
         );
     }
 
-
     public ImagemEntityDomain toDomain(ImagemEntityJpa imagemEntityJpa) {
         return new ImagemEntityDomain(
                 imagemEntityJpa.getId(),

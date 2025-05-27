@@ -22,7 +22,9 @@ public class ImagemGatewayImpl implements ImagemGateway {
     private final Mapper<ImagemEntityJpa, ImagemEntityDomain> imagemMapper;
 
     @Autowired
-    public ImagemGatewayImpl(ImagemRepository imagemRepository, Mapper<AcampamentoEntityJpa, AcampamentoEntityDomain> mapper, Mapper<ImagemEntityJpa, ImagemEntityDomain> imagemMapper) {
+    public ImagemGatewayImpl(ImagemRepository imagemRepository,
+                             Mapper<AcampamentoEntityJpa, AcampamentoEntityDomain> mapper,
+                             Mapper<ImagemEntityJpa, ImagemEntityDomain> imagemMapper) {
         this.imagemRepository = imagemRepository;
         this.acampamentoMapper = mapper;
         this.imagemMapper = imagemMapper;

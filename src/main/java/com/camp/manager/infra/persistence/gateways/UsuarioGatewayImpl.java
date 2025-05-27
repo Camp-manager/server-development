@@ -16,7 +16,8 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
     private final Mapper<UserEntityJpa, UserEntityDomain> mapper;
 
     @Autowired
-    public UsuarioGatewayImpl(UserRepository userRepository, Mapper<UserEntityJpa, UserEntityDomain> mapper) {
+    public UsuarioGatewayImpl(UserRepository userRepository,
+                              Mapper<UserEntityJpa, UserEntityDomain> mapper) {
         this.userRepository = userRepository;
         this.mapper = mapper;
     }
