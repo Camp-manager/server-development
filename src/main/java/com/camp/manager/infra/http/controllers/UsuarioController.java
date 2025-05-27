@@ -2,7 +2,6 @@ package com.camp.manager.infra.http.controllers;
 
 import com.camp.manager.application.usecases.user.RealizarLoginUC;
 import com.camp.manager.application.usecases.user.RegistrarUsuarioUC;
-import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.infra.http.dto.TokenResponseDTO;
 import com.camp.manager.infra.http.request.user.CreateUserRequest;
 import com.camp.manager.infra.http.request.user.LoginUserRequest;
@@ -27,7 +26,7 @@ public class UsuarioController {
 
     @PostMapping(path = "/register")
     public ResponseEntity<Void> registrarUsuario(@RequestBody @Valid CreateUserRequest request) {
-        MethodResponse<Void> response = this.registrarUsuarioUC.execute(request);
+        var response = this.registrarUsuarioUC.execute(request);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());
@@ -35,7 +34,7 @@ public class UsuarioController {
 
     @PostMapping(path = "/login")
     public ResponseEntity<TokenResponseDTO> validarUsuario(@RequestBody @Valid LoginUserRequest request) {
-        MethodResponse<TokenResponseDTO> response = this.realizarLoginUC.execute(request);
+        var response = this.realizarLoginUC.execute(request);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());

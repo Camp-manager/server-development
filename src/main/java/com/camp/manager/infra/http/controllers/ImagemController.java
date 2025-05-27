@@ -2,7 +2,6 @@ package com.camp.manager.infra.http.controllers;
 
 import com.camp.manager.application.usecases.AdicionarImagensUC;
 import com.camp.manager.application.usecases.BuscarImagensUC;
-import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.infra.http.dto.galeria.ImagemDTO;
 import com.camp.manager.infra.http.request.imagens.InserirImagemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,7 @@ public class ImagemController {
 
     @PostMapping(path = "/inserir-zip/{idAcampamento}/{anoDasImagens}")
     public ResponseEntity<Void> inserirImagensNoAcampamentoPorZip(@PathVariable Long idAcampamento,@RequestParam("file") MultipartFile zipComAsImagens, @PathVariable Long anoDasImagens) {
-        MethodResponse<Void> response = this.adicionarImagensUC.execute(new InserirImagemRequest(idAcampamento, zipComAsImagens, anoDasImagens));
+        var response = this.adicionarImagensUC.execute(new InserirImagemRequest(idAcampamento, zipComAsImagens, anoDasImagens));
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());

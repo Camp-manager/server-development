@@ -4,7 +4,6 @@ import com.camp.manager.application.usecases.tema.AdicionarTemaUC;
 import com.camp.manager.application.usecases.tema.AlterarTemaUC;
 import com.camp.manager.application.usecases.tema.BuscarTemasUC;
 import com.camp.manager.application.usecases.tema.DeletarTemaUC;
-import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.infra.http.dto.tema.TemaDTO;
 import com.camp.manager.infra.http.request.tema.AtualizarTemaRequest;
 import com.camp.manager.infra.http.request.tema.CriarTemaRequest;
@@ -44,7 +43,7 @@ public class TemaController {
                 temaRequest.precoAcampamento(),
                 imagemTema
         );
-        MethodResponse<Void> response = this.adicionarTemaUC.execute(temaRequestComImagem);
+        var response = this.adicionarTemaUC.execute(temaRequestComImagem);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());
@@ -52,7 +51,7 @@ public class TemaController {
 
     @PutMapping(path = "/atualizar")
     public ResponseEntity<Void> atualizarTema(@RequestBody @Valid AtualizarTemaRequest temaRequest) {
-        MethodResponse<Void> response = this.alterarTemaUC.execute(temaRequest);
+        var response = this.alterarTemaUC.execute(temaRequest);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());
@@ -60,7 +59,7 @@ public class TemaController {
 
     @GetMapping(path = "/buscar-todos")
     public ResponseEntity<List<TemaDTO>> buscarTemas() {
-        MethodResponse<List<TemaDTO>> response = this.buscarTemasUC.execute(null);
+        var response = this.buscarTemasUC.execute(null);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());
@@ -68,7 +67,7 @@ public class TemaController {
 
     @DeleteMapping(path = "/deletar/{idTema}")
     public ResponseEntity<Void> deletarTema(@PathVariable Long idTema) {
-        MethodResponse<Void> response = this.deletarTemaUC.execute(idTema);
+        var response = this.deletarTemaUC.execute(idTema);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());

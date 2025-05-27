@@ -10,4 +10,5 @@ public interface TipoAcampamentoGateway {
     boolean tipoAcampamentoEhExistentePorId(Long descricaoDoTipoAcampamento);
     void inserirTipoAcampamento(TipoAcampamentoEntityDomain tipoAcampamentoDomain);
     void deletarTipoAcampamentoPorId(Long idDoTipoAcampamento);
+    TipoAcampamentoEntityDomain buscarTipoAcampamentoPorId(Long idDoTipoAcampamento);
 }

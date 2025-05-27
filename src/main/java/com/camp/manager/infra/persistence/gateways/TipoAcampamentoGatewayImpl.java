@@ -53,4 +53,9 @@ public class TipoAcampamentoGatewayImpl implements TipoAcampamentoGateway {
     public void deletarTipoAcampamentoPorId(Long idDoTipoAcampamento) {
         this.tipoAcampamentoRepository.deleteById(idDoTipoAcampamento);
     }
+
+    @Override
+    public TipoAcampamentoEntityDomain buscarTipoAcampamentoPorId(Long idDoTipoAcampamento) {
+        return tipoAcampamentoMapper.toDomain(this.tipoAcampamentoRepository.findById(idDoTipoAcampamento).orElse(null));
+    }
 }

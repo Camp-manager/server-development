@@ -1,7 +1,6 @@
 package com.camp.manager.infra.http.controllers;
 
 import com.camp.manager.application.usecases.BuscarMedicamentosUC;
-import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.infra.http.dto.medicamento.MedicamentoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ public class MedicamentoController {
 
     @GetMapping(path = "/buscar-todos")
     public ResponseEntity<List<MedicamentoDTO>> buscarMedicamentos() {
-        MethodResponse<List<MedicamentoDTO>> response = this.buscarMedicamentosUC.execute(null);
+        var response = this.buscarMedicamentosUC.execute(null);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());

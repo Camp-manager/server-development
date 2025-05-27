@@ -4,7 +4,6 @@ import com.camp.manager.application.usecases.tipoacampamento.AdicionarTipoAcampa
 import com.camp.manager.application.usecases.tipoacampamento.BuscarCategoriasTipoAcampamentoUC;
 import com.camp.manager.application.usecases.tipoacampamento.BuscarTipoAcampamentosUC;
 import com.camp.manager.application.usecases.tipoacampamento.DeletarTipoAcampanentoUC;
-import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.infra.http.dto.tipoacampamento.TipoAcampamentoDTO;
 import com.camp.manager.infra.http.request.tipoacampamento.CriarTipoAcampamentoRequest;
 import jakarta.validation.Valid;
@@ -36,7 +35,7 @@ public class TipoAcampamentoController {
 
     @GetMapping(path = "/buscar-todos")
     public ResponseEntity<List<TipoAcampamentoDTO>> buscarTiposDeAcampamento() {
-        MethodResponse<List<TipoAcampamentoDTO>> response = this.buscarTipoAcampamentoUC.execute(null);
+        var response = this.buscarTipoAcampamentoUC.execute(null);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());
@@ -44,7 +43,7 @@ public class TipoAcampamentoController {
 
     @GetMapping(path = "/buscar-categorias")
     public ResponseEntity<List<String>> buscarCategoriasTipoAcampamento() {
-        MethodResponse<List<String>> response = this.buscarCategoriasTipoAcampamentoUC.execute(null);
+        var response = this.buscarCategoriasTipoAcampamentoUC.execute(null);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());
@@ -52,7 +51,7 @@ public class TipoAcampamentoController {
 
     @PostMapping(path = "/criar-tipo-acampamento")
     public ResponseEntity<Void> criarTipoAcampamento(@RequestBody @Valid CriarTipoAcampamentoRequest tipoAcampamentoRequest) {
-        MethodResponse<Void> response = this.adicionarTipoAcampamentoUC.execute(tipoAcampamentoRequest);
+        var response = this.adicionarTipoAcampamentoUC.execute(tipoAcampamentoRequest);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());
@@ -60,7 +59,7 @@ public class TipoAcampamentoController {
 
     @DeleteMapping(path = "/deletar-tipo-acampamento/{idTipoAcampamento}")
     public ResponseEntity<Void> deletarTipoAcampamento(@PathVariable Long idTipoAcampamento) {
-        MethodResponse<Void> response = this.deletarTipoAcampanentoUC.execute(idTipoAcampamento);
+        var response = this.deletarTipoAcampanentoUC.execute(idTipoAcampamento);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());

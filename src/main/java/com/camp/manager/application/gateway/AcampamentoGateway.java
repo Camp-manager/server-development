@@ -5,4 +5,5 @@ import com.camp.manager.domain.entity.AcampamentoEntityDomain;
 public interface AcampamentoGateway {
     boolean existsAcampamentoById(Long idAcampamento);
     AcampamentoEntityDomain buscarAcampamentoPorId(Long idAcampamento);
+    void inserirAcampamento(AcampamentoEntityDomain acampamentoGerado);
 }

@@ -6,6 +6,7 @@ import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.persistence.entity.AcampamentoEntityJpa;
 import com.camp.manager.infra.persistence.mapper.Mapper;
 import com.camp.manager.infra.persistence.repository.AcampamentoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +32,11 @@ public class AcampamentoGatewayImpl implements AcampamentoGateway {
     public AcampamentoEntityDomain buscarAcampamentoPorId(Long idAcampamento) {
         return mapper.toDomain(this.acampamentoRepository.findById(idAcampamento)
                 .orElseThrow(() -> new NotFoundException("Acampamento com id ["+idAcampamento+"] não encontrado!")));
+    }
+
+    @Override
+    @Transactional
+    public void inserirAcampamento(AcampamentoEntityDomain acampamentoGerado) {
+        this.acampamentoRepository.save(mapper.toEntity(acampamentoGerado));
     }
 }
