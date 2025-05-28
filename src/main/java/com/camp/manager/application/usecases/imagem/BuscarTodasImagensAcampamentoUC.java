@@ -11,7 +11,6 @@ import java.util.List;
 @Service
 public class BuscarTodasImagensAcampamentoUC implements UseCase<Void, MethodResponse<List<byte[]>>> {
 
-
     private final ImagemGateway imagemGateway;
 
     @Autowired

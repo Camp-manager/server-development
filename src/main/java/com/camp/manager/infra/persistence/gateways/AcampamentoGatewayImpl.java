@@ -4,7 +4,7 @@ import com.camp.manager.application.gateway.AcampamentoGateway;
 import com.camp.manager.domain.entity.AcampamentoEntityDomain;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.persistence.entity.AcampamentoEntityJpa;
-import com.camp.manager.infra.persistence.mapper.Mapper;
+import com.camp.manager.infra.mapper.Mapper;
 import com.camp.manager.infra.persistence.repository.AcampamentoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

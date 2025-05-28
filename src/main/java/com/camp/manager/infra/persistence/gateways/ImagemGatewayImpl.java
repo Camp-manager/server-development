@@ -5,13 +5,12 @@ import com.camp.manager.domain.entity.AcampamentoEntityDomain;
 import com.camp.manager.domain.entity.ImagemEntityDomain;
 import com.camp.manager.infra.persistence.entity.AcampamentoEntityJpa;
 import com.camp.manager.infra.persistence.entity.ImagemEntityJpa;
-import com.camp.manager.infra.persistence.mapper.Mapper;
+import com.camp.manager.infra.mapper.Mapper;
 import com.camp.manager.infra.persistence.repository.ImagemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 

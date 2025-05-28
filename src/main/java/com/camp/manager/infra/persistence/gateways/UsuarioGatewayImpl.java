@@ -3,7 +3,7 @@ package com.camp.manager.infra.persistence.gateways;
 import com.camp.manager.application.gateway.UsuarioGateway;
 import com.camp.manager.domain.entity.UserEntityDomain;
 import com.camp.manager.infra.persistence.entity.UserEntityJpa;
-import com.camp.manager.infra.persistence.mapper.Mapper;
+import com.camp.manager.infra.mapper.Mapper;
 import com.camp.manager.infra.persistence.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

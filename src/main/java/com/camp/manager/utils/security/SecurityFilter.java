@@ -4,7 +4,7 @@ import com.camp.manager.application.gateway.TokenEncoderAdapter;
 import com.camp.manager.application.gateway.UsuarioGateway;
 import com.camp.manager.domain.entity.UserEntityDomain;
 import com.camp.manager.infra.persistence.entity.UserEntityJpa;
-import com.camp.manager.infra.persistence.mapper.Mapper;
+import com.camp.manager.infra.mapper.Mapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

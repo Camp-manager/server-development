@@ -4,7 +4,7 @@ import com.camp.manager.application.gateway.TokenEncoderAdapter;
 import com.camp.manager.application.gateway.UsuarioGateway;
 import com.camp.manager.domain.entity.UserEntityDomain;
 import com.camp.manager.infra.persistence.entity.UserEntityJpa;
-import com.camp.manager.infra.persistence.mapper.Mapper;
+import com.camp.manager.infra.mapper.Mapper;
 import com.camp.manager.utils.security.SecurityConfiguration;
 import com.camp.manager.utils.security.SecurityFilter;
 import org.springframework.context.annotation.Bean;

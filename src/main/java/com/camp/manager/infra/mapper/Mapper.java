@@ -1,4 +1,4 @@
-package com.camp.manager.infra.persistence.mapper;
+package com.camp.manager.infra.mapper;
 
 public interface Mapper <IN, OUT> {
     OUT toDomain(IN in);

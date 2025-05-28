@@ -1,4 +1,4 @@
-package com.camp.manager.infra.persistence.mapper;
+package com.camp.manager.infra.mapper;
 
 import com.camp.manager.domain.entity.ImagemEntityDomain;
 import com.camp.manager.infra.persistence.entity.ImagemEntityJpa;

@@ -3,7 +3,7 @@ package com.camp.manager.infra.persistence.gateways;
 import com.camp.manager.application.gateway.TipoAcampamentoGateway;
 import com.camp.manager.domain.entity.TipoAcampamentoEntityDomain;
 import com.camp.manager.infra.persistence.entity.TipoAcampamentoEntityJpa;
-import com.camp.manager.infra.persistence.mapper.Mapper;
+import com.camp.manager.infra.mapper.Mapper;
 import com.camp.manager.infra.persistence.repository.TipoAcampamentoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
