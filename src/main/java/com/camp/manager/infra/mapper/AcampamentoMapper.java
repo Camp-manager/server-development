@@ -26,6 +26,7 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
     public AcampamentoEntityDomain toDomain(AcampamentoEntityJpa acampamentoEntityJpa) {
         return new AcampamentoEntityDomain(
                 acampamentoEntityJpa.getId(),
+                acampamentoEntityJpa.getNome(),
                 acampamentoEntityJpa.getLimiteCampistas(),
                 acampamentoEntityJpa.getLimiteFuncionario(),
                 acampamentoEntityJpa.getCodigoRegistro(),
@@ -38,6 +39,7 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
     public AcampamentoEntityJpa toEntity(AcampamentoEntityDomain acampamentoEntityDomain) {
         return new AcampamentoEntityJpa(
                 acampamentoEntityDomain.id(),
+                acampamentoEntityDomain.nome(),
                 acampamentoEntityDomain.limiteCampistas(),
                 acampamentoEntityDomain.limiteFuncionario(),
                 acampamentoEntityDomain.codigoRegistro(),

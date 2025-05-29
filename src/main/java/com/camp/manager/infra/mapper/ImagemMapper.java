@@ -25,7 +25,6 @@ public class ImagemMapper implements Mapper<ImagemEntityJpa, ImagemEntityDomain>
                 Base64.getDecoder().decode(imagemEntityJpa.getPathLocalizacao()),
                 Path.of(imagemEntityJpa.getPathLocalizacao()),
                 LocalDateConverterAPP.converterStringParaLocalDate(imagemEntityJpa.getData()),
-                imagemEntityJpa.getAcampamento().getTipoAcampamento().getDescricao()
-                        + " " + LocalDateConverterAPP.converterStringParaLocalDate(imagemEntityJpa.getData()).getDayOfYear());
+                imagemEntityJpa.getAcampamento().getNome());
     }
 }

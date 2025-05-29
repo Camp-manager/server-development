@@ -36,7 +36,7 @@ public class AcampamentoGatewayImpl implements AcampamentoGateway {
 
     @Override
     @Transactional
-    public void inserirAcampamento(AcampamentoEntityDomain acampamentoGerado) {
-        this.acampamentoRepository.save(mapper.toEntity(acampamentoGerado));
+    public AcampamentoEntityDomain inserirAcampamento(AcampamentoEntityDomain acampamentoGerado) {
+       return mapper.toDomain(this.acampamentoRepository.save(mapper.toEntity(acampamentoGerado)));
     }
 }

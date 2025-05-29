@@ -1,0 +1,1 @@
+ALTER TABLE acampamento ADD COLUMN nome VARCHAR(255) NOT NULL;
