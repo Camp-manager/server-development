@@ -1,7 +1,7 @@
 package com.camp.manager.infra.http.controllers;
 
-import com.camp.manager.application.usecases.user.RealizarLoginUC;
-import com.camp.manager.application.usecases.user.RegistrarUsuarioUC;
+import com.camp.manager.application.usecases.usuario.RealizarLoginUC;
+import com.camp.manager.application.usecases.usuario.RegistrarUsuarioUC;
 import com.camp.manager.infra.http.dto.TokenResponseDTO;
 import com.camp.manager.infra.http.request.user.CreateUserRequest;
 import com.camp.manager.infra.http.request.user.LoginUserRequest;

@@ -1,4 +1,4 @@
-package com.camp.manager.application.usecases.user;
+package com.camp.manager.application.usecases.usuario;
 
 import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.utils.MethodResponse;
