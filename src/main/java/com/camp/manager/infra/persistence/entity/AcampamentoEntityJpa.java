@@ -39,7 +39,7 @@ public class AcampamentoEntityJpa {
     @JoinColumn(name = "id_tipo_acampamento")
     private TipoAcampamentoEntityJpa tipoAcampamento;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_cronograma")
     private CronogramaEntityJpa cronograma;
 }

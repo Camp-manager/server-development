@@ -10,6 +10,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AcampamentoGatewayImpl implements AcampamentoGateway {
 
@@ -37,6 +39,14 @@ public class AcampamentoGatewayImpl implements AcampamentoGateway {
     @Override
     @Transactional
     public void inserirAcampamento(AcampamentoEntityDomain acampamentoGerado) {
-        this.acampamentoRepository.save(mapper.toEntity(acampamentoGerado));
+        this.acampamentoRepository.saveAndFlush(mapper.toEntity(acampamentoGerado));
+    }
+
+    @Override
+    public List<AcampamentoEntityDomain> buscarTodosOsAcampamentos() {
+        return this.acampamentoRepository.findAll()
+                .stream()
+                .map(mapper::toDomain)
+                .toList();
     }
 }
