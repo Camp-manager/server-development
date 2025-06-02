@@ -1,5 +1,5 @@
 CREATE TABLE endereco(
-    id INTEGER PRIMARY KEY UNIQUE NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
     cep VARCHAR(9) NOT NULL,
     rua TEXT NOT NULL,
     numero TEXT NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE endereco(
 );
 
 CREATE TABLE medicamento(
-    id INTEGER PRIMARY KEY UNIQUE NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
     nome TEXT NOT NULL,
     quantidade TEXT NOT NULL,
     tipo VARCHAR(1) NOT NULL,
@@ -17,19 +17,19 @@ CREATE TABLE medicamento(
 );
 
 CREATE TABLE carteirinha(
-    id INTEGER PRIMARY KEY UNIQUE NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
     texto_apresentacao TEXT NOT NULL
 );
 
 CREATE TABLE estoque(
-    id INTEGER PRIMARY KEY UNIQUE NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
     local VARCHAR(1) NOT NULL,
     quantidade INTEGER NOT NULL,
     limite INTEGER NOT NULL
 );
 
 CREATE TABLE tema(
-    id INTEGER PRIMARY KEY UNIQUE NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
     descricao TEXT NOT NULL,
     design TEXT NOT NULL,
     preco_camiseta NUMERIC(10,2),
@@ -37,7 +37,7 @@ CREATE TABLE tema(
 );
 
 CREATE TABLE tipo_acampamento(
-    id INTEGER PRIMARY KEY UNIQUE NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
     descricao VARCHAR(50) NOT NULL,
     categoria VARCHAR(1) NOT NULL
 );
