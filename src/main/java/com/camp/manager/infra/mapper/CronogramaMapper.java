@@ -1,14 +1,11 @@
 package com.camp.manager.infra.mapper;
 
-import com.camp.manager.domain.entity.AcampamentoEntityDomain;
 import com.camp.manager.domain.entity.CronogramaEntityDomain;
-import com.camp.manager.infra.persistence.entity.AcampamentoEntityJpa;
 import com.camp.manager.infra.persistence.entity.CronogramaEntityJpa;
 import com.camp.manager.utils.converter.localDate.LocalDateConverterAPP;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class CronogramaMapper implements Mapper<CronogramaEntityJpa, CronogramaEntityDomain> {
 
     @Override

@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -42,4 +45,11 @@ public class AcampamentoEntityJpa {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_cronograma")
     private CronogramaEntityJpa cronograma;
+
+    @OneToMany(mappedBy = "acampamento")
+    private List<ImagemEntityJpa> listImagem;
+
+    @OneToMany(mappedBy = "acampamento")
+    private List<EquipeEntityJpa> listEquipe;
+
 }

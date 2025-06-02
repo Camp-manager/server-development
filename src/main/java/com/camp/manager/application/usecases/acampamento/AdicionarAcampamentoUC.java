@@ -15,6 +15,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
@@ -55,7 +56,9 @@ public class AdicionarAcampamentoUC implements UseCase<CriarAcampamentoRequest, 
                 codigoRegistro,
                 temaEncontrado,
                 tipoAcampamentoEncontrado,
-                cronogramaCriado
+                cronogramaCriado,
+                new ArrayList<>(),
+                new ArrayList<>()
         );
 
         this.acampamentoGateway.inserirAcampamento(acampamentoGerado);

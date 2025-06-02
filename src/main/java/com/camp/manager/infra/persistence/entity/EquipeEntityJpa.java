@@ -26,11 +26,11 @@ public class EquipeEntityJpa {
     @Column(name = "tipo")
     private TipoEquipe tipoEquipe;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cronograma")
     private CronogramaEntityJpa cronograma;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_acampamento")
     private AcampamentoEntityJpa acampamento;
 

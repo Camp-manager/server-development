@@ -1,15 +1,12 @@
 package com.camp.manager.infra.mapper;
 
-import com.camp.manager.domain.entity.AcampamentoEntityDomain;
-import com.camp.manager.domain.entity.CronogramaEntityDomain;
-import com.camp.manager.domain.entity.TemaEntityDomain;
-import com.camp.manager.domain.entity.TipoAcampamentoEntityDomain;
-import com.camp.manager.infra.persistence.entity.AcampamentoEntityJpa;
-import com.camp.manager.infra.persistence.entity.CronogramaEntityJpa;
-import com.camp.manager.infra.persistence.entity.TemaEntityJpa;
-import com.camp.manager.infra.persistence.entity.TipoAcampamentoEntityJpa;
+import com.camp.manager.domain.entity.*;
+import com.camp.manager.infra.persistence.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, AcampamentoEntityDomain> {
@@ -17,13 +14,20 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
     private final Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema;
     private final Mapper<TipoAcampamentoEntityJpa, TipoAcampamentoEntityDomain> mapperTipo;
     private final Mapper<CronogramaEntityJpa, CronogramaEntityDomain> mapperCronograma;
+    private final Mapper<EquipeEntityJpa, EquipeEntityDomain> mapperEquipe;
+    private final Mapper<ImagemEntityJpa, ImagemEntityDomain> mapperImagem;
 
     @Autowired
-    public AcampamentoMapper(Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema,
-                             Mapper<TipoAcampamentoEntityJpa, TipoAcampamentoEntityDomain> mapperTipo, Mapper<CronogramaEntityJpa, CronogramaEntityDomain> mapperCronograma) {
+    public AcampamentoMapper(@Lazy Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema,
+                             @Lazy Mapper<TipoAcampamentoEntityJpa, TipoAcampamentoEntityDomain> mapperTipo,
+                             @Lazy Mapper<CronogramaEntityJpa, CronogramaEntityDomain> mapperCronograma,
+                             @Lazy Mapper<EquipeEntityJpa, EquipeEntityDomain> mapperEquipe,
+                             @Lazy Mapper<ImagemEntityJpa, ImagemEntityDomain> mapperImagem) {
         this.mapperTema = mapperTema;
         this.mapperTipo = mapperTipo;
         this.mapperCronograma = mapperCronograma;
+        this.mapperEquipe = mapperEquipe;
+        this.mapperImagem = mapperImagem;
     }
 
     @Override
@@ -36,7 +40,9 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
                 acampamentoEntityJpa.getCodigoRegistro(),
                 mapperTema.toDomain(acampamentoEntityJpa.getTema()),
                 mapperTipo.toDomain(acampamentoEntityJpa.getTipoAcampamento()),
-                mapperCronograma.toDomain(acampamentoEntityJpa.getCronograma())
+                mapperCronograma.toDomain(acampamentoEntityJpa.getCronograma()),
+                this.mapDomainImagens(acampamentoEntityJpa.getListImagem()),
+                this.mapDomainEquipe(acampamentoEntityJpa.getListEquipe())
         );
     }
 
@@ -50,7 +56,32 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
                 acampamentoEntityDomain.codigoRegistro(),
                 mapperTema.toEntity(acampamentoEntityDomain.tema()),
                 mapperTipo.toEntity(acampamentoEntityDomain.tipoAcampamento()),
-                mapperCronograma.toEntity(acampamentoEntityDomain.cronograma())
+                mapperCronograma.toEntity(acampamentoEntityDomain.cronograma()),
+                this.mapEntityImagens(acampamentoEntityDomain.imagensDoAcampamento()),
+                this.mapEntityEquipe(acampamentoEntityDomain.equipesDoAcampamento())
         );
     }
+
+    private List<ImagemEntityDomain> mapDomainImagens(List<ImagemEntityJpa> imagensJpa) {
+        return imagensJpa.stream()
+                .map(mapperImagem::toDomain)
+                .toList();
+    }
+    private List<ImagemEntityJpa> mapEntityImagens(List<ImagemEntityDomain> imagensDomain) {
+        return imagensDomain.stream()
+                .map(mapperImagem::toEntity)
+                .toList();
+    }
+
+    private List<EquipeEntityDomain> mapDomainEquipe(List<EquipeEntityJpa> equipeJpa) {
+        return equipeJpa.stream()
+                .map(mapperEquipe::toDomain)
+                .toList();
+    }
+    private List<EquipeEntityJpa> mapEntityEquipe(List<EquipeEntityDomain> equipeDomain) {
+        return equipeDomain.stream()
+                .map(mapperEquipe::toEntity)
+                .toList();
+    }
+
 }

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Getter
-public class AcampamentoDTO {
+public class AcampamentoBasicoDTO {
     private final Long idAcampamento;
     private final String nomeAcampamento;
     private final LocalDate dataInicio;
@@ -17,7 +17,7 @@ public class AcampamentoDTO {
     private final Long limiteCampistas;
     private final TipoAcampamentoDTO tipoAcampamento;
 
-    public AcampamentoDTO (AcampamentoEntityDomain acampamentoEntityDomain){
+    public AcampamentoBasicoDTO(AcampamentoEntityDomain acampamentoEntityDomain){
         this.idAcampamento = acampamentoEntityDomain.id();
         this.nomeAcampamento = acampamentoEntityDomain.nome();
         this.dataInicio = acampamentoEntityDomain.cronograma().dataInicio();
@@ -27,9 +27,9 @@ public class AcampamentoDTO {
         this.tipoAcampamento = new TipoAcampamentoDTO(acampamentoEntityDomain.tipoAcampamento());
     }
 
-    public static List<AcampamentoDTO> converter(List<AcampamentoEntityDomain> acampamentos) {
+    public static List<AcampamentoBasicoDTO> converter(List<AcampamentoEntityDomain> acampamentos) {
         return acampamentos.stream()
-                .map(AcampamentoDTO::new)
+                .map(AcampamentoBasicoDTO::new)
                 .toList();
     }
 }

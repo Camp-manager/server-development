@@ -11,14 +11,7 @@ import java.util.Base64;
 @Component
 public class ImagemMapper implements Mapper<ImagemEntityJpa, ImagemEntityDomain> {
 
-    public ImagemEntityJpa toEntity(ImagemEntityDomain imagemEntityDomain) {
-        return new ImagemEntityJpa(
-                imagemEntityDomain.id(),
-                Base64.getEncoder().encodeToString(imagemEntityDomain.arquivoImagem()),
-                LocalDateConverterAPP.converterLocalDateParaString(imagemEntityDomain.data())
-        );
-    }
-
+    @Override
     public ImagemEntityDomain toDomain(ImagemEntityJpa imagemEntityJpa) {
         return new ImagemEntityDomain(
                 imagemEntityJpa.getId(),
@@ -26,5 +19,14 @@ public class ImagemMapper implements Mapper<ImagemEntityJpa, ImagemEntityDomain>
                 Path.of(imagemEntityJpa.getPathLocalizacao()),
                 LocalDateConverterAPP.converterStringParaLocalDate(imagemEntityJpa.getData()),
                 imagemEntityJpa.getAcampamento().getNome());
+    }
+
+    @Override
+    public ImagemEntityJpa toEntity(ImagemEntityDomain imagemEntityDomain) {
+        return new ImagemEntityJpa(
+                imagemEntityDomain.id(),
+                Base64.getEncoder().encodeToString(imagemEntityDomain.arquivoImagem()),
+                LocalDateConverterAPP.converterLocalDateParaString(imagemEntityDomain.data())
+        );
     }
 }

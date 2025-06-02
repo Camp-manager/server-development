@@ -1,5 +1,7 @@
 package com.camp.manager.domain.entity;
 
+import java.util.List;
+
 public record AcampamentoEntityDomain(
         Long id,
         String nome,
@@ -8,5 +10,7 @@ public record AcampamentoEntityDomain(
         String codigoRegistro,
         TemaEntityDomain tema,
         TipoAcampamentoEntityDomain tipoAcampamento,
-        CronogramaEntityDomain cronograma){
+        CronogramaEntityDomain cronograma,
+        List<ImagemEntityDomain> imagensDoAcampamento,
+        List<EquipeEntityDomain> equipesDoAcampamento) {
 }
