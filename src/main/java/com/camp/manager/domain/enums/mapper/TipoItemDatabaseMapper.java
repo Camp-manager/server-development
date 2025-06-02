@@ -13,6 +13,6 @@ public class TipoItemDatabaseMapper implements AttributeConverter<TipoItem, Stri
 
     @Override
     public TipoItem convertToEntityAttribute(String dbData) {
-        return dbData != null ? TipoItem.valueOf(dbData) : null;
+        return dbData != null ? TipoItem.fromValor(dbData) : null;
     }
 }

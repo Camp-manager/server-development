@@ -22,4 +22,13 @@ public enum CategoriaTipoAcampamento {
         }
         throw new EnumConverterException("Descrição inválida: " + descricao);
     }
+
+    public static CategoriaTipoAcampamento fromValor(String valor) {
+        for (CategoriaTipoAcampamento tipo : values()) {
+            if (tipo.valor.equalsIgnoreCase(valor)) {
+                return tipo;
+            }
+        }
+        throw new EnumConverterException("Valor inválido: " + valor);
+    }
 }

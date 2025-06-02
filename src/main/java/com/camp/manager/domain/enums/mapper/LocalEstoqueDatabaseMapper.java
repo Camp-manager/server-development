@@ -14,6 +14,6 @@ public class LocalEstoqueDatabaseMapper implements AttributeConverter<LocalEstoq
 
     @Override
     public LocalEstoque convertToEntityAttribute(String dbData) {
-        return dbData != null ? LocalEstoque.valueOf(dbData) : null;
+        return dbData != null ? LocalEstoque.fromValor(dbData) : null;
     }
 }

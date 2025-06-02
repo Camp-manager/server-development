@@ -25,4 +25,13 @@ public enum TipoDoacao {
         }
         throw new EnumConverterException("Descrição inválida: " + descricao);
     }
+
+    public static TipoDoacao fromValor(String valor) {
+        for (TipoDoacao tipo : values()) {
+            if (tipo.valor.equalsIgnoreCase(valor)) {
+                return tipo;
+            }
+        }
+        throw new EnumConverterException("Valor inválida: " + valor);
+    }
 }

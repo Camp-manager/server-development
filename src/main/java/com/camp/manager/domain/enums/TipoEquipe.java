@@ -21,4 +21,13 @@ public enum TipoEquipe {
         }
         throw new EnumConverterException("Descrição inválida: " + descricao);
     }
+
+    public static TipoEquipe fromValor(String valor) {
+        for (TipoEquipe tipo : values()) {
+            if (tipo.valor.equalsIgnoreCase(valor)) {
+                return tipo;
+            }
+        }
+        throw new EnumConverterException("Valor inválida: " + valor);
+    }
 }

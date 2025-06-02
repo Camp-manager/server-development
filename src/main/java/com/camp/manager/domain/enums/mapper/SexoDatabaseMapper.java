@@ -14,6 +14,6 @@ public class SexoDatabaseMapper implements AttributeConverter<Sexo, String> {
 
     @Override
     public Sexo convertToEntityAttribute(String dbData) {
-        return dbData != null ? Sexo.valueOf(dbData) : null;
+        return dbData != null ? Sexo.fromValor(dbData) : null;
     }
 }

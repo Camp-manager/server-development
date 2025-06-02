@@ -31,4 +31,13 @@ public enum TamanhoCamiseta {
         }
         throw new EnumConverterException("Descrição inválida: " + descricao);
     }
+
+    public static TamanhoCamiseta fromValor(String valor) {
+        for (TamanhoCamiseta tipo : values()) {
+            if (tipo.valor.equalsIgnoreCase(valor)) {
+                return tipo;
+            }
+        }
+        throw new EnumConverterException("Valor inválida: " + valor);
+    }
 }

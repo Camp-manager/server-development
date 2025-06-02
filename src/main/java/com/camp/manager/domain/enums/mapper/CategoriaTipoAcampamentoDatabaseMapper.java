@@ -13,6 +13,6 @@ public class CategoriaTipoAcampamentoDatabaseMapper implements AttributeConverte
 
     @Override
     public CategoriaTipoAcampamento convertToEntityAttribute(String dbData) {
-        return dbData != null ? CategoriaTipoAcampamento.valueOf(dbData) : null;
+        return dbData != null ? CategoriaTipoAcampamento.fromValor(dbData) : null;
     }
 }

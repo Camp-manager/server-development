@@ -14,6 +14,6 @@ public class TamanhoCamisetaDatabaseMapper implements AttributeConverter<Tamanho
 
     @Override
     public TamanhoCamiseta convertToEntityAttribute(String dbData) {
-        return dbData != null ? TamanhoCamiseta.valueOf(dbData) : null;
+        return dbData != null ? TamanhoCamiseta.fromValor(dbData) : null;
     }
 }

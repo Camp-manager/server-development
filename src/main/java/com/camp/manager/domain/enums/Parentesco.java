@@ -23,4 +23,13 @@ public enum Parentesco {
         }
         throw new EnumConverterException("Descrição inválida: " + descricao);
     }
+
+    public static Parentesco fromValor(String valor) {
+        for (Parentesco tipo : values()) {
+            if (tipo.valor.equalsIgnoreCase(valor)) {
+                return tipo;
+            }
+        }
+        throw new EnumConverterException("Valor inválida: " + valor);
+    }
 }

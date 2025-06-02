@@ -13,6 +13,6 @@ public class ParentescoDatabaseMapper implements AttributeConverter<Parentesco, 
 
     @Override
     public Parentesco convertToEntityAttribute(String dbData) {
-        return dbData != null ? Parentesco.valueOf(dbData) : null;
+        return dbData != null ? Parentesco.fromValor(dbData) : null;
     }
 }

@@ -9,6 +9,7 @@ import com.camp.manager.infra.http.request.tema.AtualizarTemaRequest;
 import com.camp.manager.infra.http.request.tema.CriarTemaRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,8 +36,10 @@ public class TemaController {
         this.deletarTemaUC = deletarTemaUC;
     }
 
-    @PostMapping(path = "/adicionar")
-    public ResponseEntity<Void> adicionarTema(@RequestBody @Valid CriarTemaRequest temaRequest, @RequestParam("file") MultipartFile imagemTema) {
+    @PostMapping(path = "/adicionar", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<Void> adicionarTema(
+            @RequestPart("infotema") @Valid CriarTemaRequest temaRequest,
+            @RequestPart("arquivotema") MultipartFile imagemTema) {
         CriarTemaRequest temaRequestComImagem = new CriarTemaRequest(
                 temaRequest.descricao(),
                 temaRequest.precoCamiseta(),

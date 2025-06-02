@@ -13,6 +13,6 @@ public class TipoEquipeDatabaseMapper implements AttributeConverter<TipoEquipe, 
 
     @Override
     public TipoEquipe convertToEntityAttribute(String dbData) {
-        return dbData != null ? TipoEquipe.valueOf(dbData) : null;
+        return dbData != null ? TipoEquipe.fromValor(dbData) : null;
     }
 }

@@ -13,6 +13,6 @@ public class TipoAtividadeDatabaseMapper implements AttributeConverter<TipoAtivi
 
     @Override
     public TipoAtividade convertToEntityAttribute(String dbData) {
-        return dbData != null ? TipoAtividade.valueOf(dbData) : null;
+        return dbData != null ? TipoAtividade.fromValor(dbData) : null;
     }
 }

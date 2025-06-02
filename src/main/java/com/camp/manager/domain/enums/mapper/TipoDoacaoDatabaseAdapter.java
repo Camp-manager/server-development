@@ -1,6 +1,5 @@
 package com.camp.manager.domain.enums.mapper;
 
-import com.camp.manager.domain.enums.TipoAtividade;
 import com.camp.manager.domain.enums.TipoDoacao;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
@@ -14,6 +13,6 @@ public class TipoDoacaoDatabaseAdapter implements AttributeConverter<TipoDoacao,
 
     @Override
     public TipoDoacao convertToEntityAttribute(String dbData) {
-        return dbData != null ? TipoDoacao.valueOf(dbData) : null;
+        return dbData != null ? TipoDoacao.fromValor(dbData) : null;
     }
 }

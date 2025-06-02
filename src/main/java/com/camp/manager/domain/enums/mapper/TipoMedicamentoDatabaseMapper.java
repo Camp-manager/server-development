@@ -14,6 +14,6 @@ public class TipoMedicamentoDatabaseMapper implements AttributeConverter<TipoMed
 
     @Override
     public TipoMedicamento convertToEntityAttribute(String dbData) {
-        return dbData != null ? TipoMedicamento.valueOf(dbData) : null;
+        return dbData != null ? TipoMedicamento.fromValor(dbData) : null;
     }
 }

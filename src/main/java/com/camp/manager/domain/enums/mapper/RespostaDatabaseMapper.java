@@ -13,6 +13,6 @@ public class RespostaDatabaseMapper implements AttributeConverter<Resposta, Stri
 
     @Override
     public Resposta convertToEntityAttribute(String dbData) {
-        return dbData != null ? Resposta.valueOf(dbData) : null;
+        return dbData != null ? Resposta.fromValor(dbData) : null;
     }
 }
