@@ -1,9 +1,11 @@
 package com.camp.manager.infra.mapper;
 
 import com.camp.manager.domain.entity.AcampamentoEntityDomain;
+import com.camp.manager.domain.entity.CronogramaEntityDomain;
 import com.camp.manager.domain.entity.TemaEntityDomain;
 import com.camp.manager.domain.entity.TipoAcampamentoEntityDomain;
 import com.camp.manager.infra.persistence.entity.AcampamentoEntityJpa;
+import com.camp.manager.infra.persistence.entity.CronogramaEntityJpa;
 import com.camp.manager.infra.persistence.entity.TemaEntityJpa;
 import com.camp.manager.infra.persistence.entity.TipoAcampamentoEntityJpa;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,14 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
 
     private final Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema;
     private final Mapper<TipoAcampamentoEntityJpa, TipoAcampamentoEntityDomain> mapperTipo;
+    private final Mapper<CronogramaEntityJpa, CronogramaEntityDomain> mapperCronograma;
 
     @Autowired
     public AcampamentoMapper(Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema,
-                             Mapper<TipoAcampamentoEntityJpa, TipoAcampamentoEntityDomain> mapperTipo) {
+                             Mapper<TipoAcampamentoEntityJpa, TipoAcampamentoEntityDomain> mapperTipo, Mapper<CronogramaEntityJpa, CronogramaEntityDomain> mapperCronograma) {
         this.mapperTema = mapperTema;
         this.mapperTipo = mapperTipo;
+        this.mapperCronograma = mapperCronograma;
     }
 
     @Override
@@ -31,7 +35,8 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
                 acampamentoEntityJpa.getLimiteFuncionario(),
                 acampamentoEntityJpa.getCodigoRegistro(),
                 mapperTema.toDomain(acampamentoEntityJpa.getTema()),
-                mapperTipo.toDomain(acampamentoEntityJpa.getTipoAcampamento())
+                mapperTipo.toDomain(acampamentoEntityJpa.getTipoAcampamento()),
+                mapperCronograma.toDomain(acampamentoEntityJpa.getCronograma())
         );
     }
 
@@ -44,7 +49,8 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
                 acampamentoEntityDomain.limiteFuncionario(),
                 acampamentoEntityDomain.codigoRegistro(),
                 mapperTema.toEntity(acampamentoEntityDomain.tema()),
-                mapperTipo.toEntity(acampamentoEntityDomain.tipoAcampamento())
+                mapperTipo.toEntity(acampamentoEntityDomain.tipoAcampamento()),
+                mapperCronograma.toEntity(acampamentoEntityDomain.cronograma())
         );
     }
 }

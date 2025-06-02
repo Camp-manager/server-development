@@ -5,10 +5,12 @@ import com.camp.manager.application.gateway.TemaGateway;
 import com.camp.manager.application.gateway.TipoAcampamentoGateway;
 import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.AcampamentoEntityDomain;
+import com.camp.manager.domain.entity.CronogramaEntityDomain;
 import com.camp.manager.domain.entity.TemaEntityDomain;
 import com.camp.manager.domain.entity.TipoAcampamentoEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.infra.http.request.acampamento.CriarAcampamentoRequest;
+import com.camp.manager.utils.converter.localDate.LocalDateConverterAPP;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,13 +45,17 @@ public class AdicionarAcampamentoUC implements UseCase<CriarAcampamentoRequest, 
 
         String codigoRegistro = this.gerarCodigoDeRegistroAcampamento();
 
+        CronogramaEntityDomain cronogramaCriado = this.criarCronograma(input);
+
         AcampamentoEntityDomain acampamentoGerado = new AcampamentoEntityDomain(
                 null,
+                input.nomeDoAcampamento(),
                 input.limiteCampistas(),
                 input.limiteFuncionario(),
                 codigoRegistro,
                 temaEncontrado,
-                tipoAcampamentoEncontrado
+                tipoAcampamentoEncontrado,
+                cronogramaCriado
         );
 
         this.acampamentoGateway.inserirAcampamento(acampamentoGerado);
@@ -68,5 +74,14 @@ public class AdicionarAcampamentoUC implements UseCase<CriarAcampamentoRequest, 
         if(!temaExiste || !tipoAcampamentoExiste) {
             throw new EntityNotFoundException("Tema com id [" + idTema + "] ou Tipo de Acampamento com id [" + idTipoAcampamento + "] não encontrado!");
         }
+    }
+
+    private CronogramaEntityDomain criarCronograma(CriarAcampamentoRequest input) {
+        return new CronogramaEntityDomain(
+                null,
+                LocalDateConverterAPP.converterStringParaLocalDate(input.dataInicial()),
+                LocalDateConverterAPP.converterStringParaLocalDate(input.dataFinal()),
+                "Cronograma do Acampamento: " + input.nomeDoAcampamento()
+        );
     }
 }

@@ -38,4 +38,8 @@ public class AcampamentoEntityJpa {
     @ManyToOne
     @JoinColumn(name = "id_tipo_acampamento")
     private TipoAcampamentoEntityJpa tipoAcampamento;
+
+    @OneToOne
+    @JoinColumn(name = "id_cronograma")
+    private CronogramaEntityJpa cronograma;
 }

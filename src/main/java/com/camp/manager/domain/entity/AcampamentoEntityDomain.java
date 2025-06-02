@@ -7,5 +7,6 @@ public record AcampamentoEntityDomain(
         Long limiteFuncionario,
         String codigoRegistro,
         TemaEntityDomain tema,
-        TipoAcampamentoEntityDomain tipoAcampamento) {
+        TipoAcampamentoEntityDomain tipoAcampamento,
+        CronogramaEntityDomain cronograma){
 }

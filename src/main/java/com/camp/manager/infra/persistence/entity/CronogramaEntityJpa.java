@@ -27,8 +27,4 @@ public class CronogramaEntityJpa {
 
     @Column(name = "descricao")
     private String descricao;
-
-    @ManyToOne
-    @JoinColumn(name = "id_acampamento")
-    private AcampamentoEntityJpa acampamento;
 }
