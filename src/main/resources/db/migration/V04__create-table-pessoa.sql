@@ -1,6 +1,7 @@
 CREATE TABLE pessoa(
     id BIGSERIAL PRIMARY KEY,
     nome_completo VARCHAR(75) NOT NULL,
+    cpf VARCHAR(14) NOT NULL UNIQUE,
     data_nascimento VARCHAR(10) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
     sexo VARCHAR(1) NOT NULL,

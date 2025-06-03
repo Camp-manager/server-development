@@ -2,6 +2,7 @@ CREATE TABLE funcionario(
     id BIGSERIAL PRIMARY KEY,
     nome VARCHAR(75) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
+    cpf VARCHAR(14) NOT NULL UNIQUE,
     habilidade TEXT,
 
     id_camiseta BIGINT NOT NULL,
