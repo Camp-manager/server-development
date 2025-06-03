@@ -23,7 +23,7 @@ public class BuscarAcampamentoUC implements UseCase<Long, MethodResponse<Acampam
     @Override
     @Transactional
     public MethodResponse<AcampamentoCompletoDTO> execute(Long input) {
-        boolean exists = this.acampamentoGateway.existsAcampamentoById(input);
+        boolean exists = this.acampamentoGateway.acampamentoEhExistentePorId(input);
         if(!exists) throw new EntityNotFoundException("Acampamento com id [" + input + "] não encontrado.");
         AcampamentoEntityDomain acampamentoEncontrado = this.acampamentoGateway.buscarAcampamentoPorId(input);
         return new MethodResponse<>(200, "Acampamento encontrado com sucesso!", new AcampamentoCompletoDTO(acampamentoEncontrado));

@@ -30,4 +30,11 @@ public enum Resposta {
         }
         throw new EnumConverterException("Valor inválida: " + valor);
     }
+
+    public static Resposta fromBoolean(Boolean aBoolean) {
+        if (aBoolean == null) {
+            return null;
+        }
+        return aBoolean ? SIM : NAO;
+    }
 }

@@ -26,7 +26,7 @@ public class AcampamentoGatewayImpl implements AcampamentoGateway {
     }
 
     @Override
-    public boolean existsAcampamentoById(Long idAcampamento) {
+    public boolean acampamentoEhExistentePorId(Long idAcampamento) {
         return this.acampamentoRepository.existsById(idAcampamento);
     }
 
@@ -48,5 +48,15 @@ public class AcampamentoGatewayImpl implements AcampamentoGateway {
                 .stream()
                 .map(mapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public boolean acampamentoEhExistentePorCodigoRegistro(String codigoRegistro) {
+        return this.acampamentoRepository.existsByCodigoRegistro(codigoRegistro);
+    }
+
+    @Override
+    public AcampamentoEntityDomain buscarAcampamentoPorCodigoRegistro(String codigoRegistro) {
+        return mapper.toDomain(this.acampamentoRepository.findByCodigoRegistro(codigoRegistro));
     }
 }

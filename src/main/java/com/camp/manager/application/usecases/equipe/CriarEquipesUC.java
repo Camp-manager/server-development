@@ -35,7 +35,7 @@ public class CriarEquipesUC implements UseCase<EquipesRequest, MethodResponse<Vo
     @Transactional
     public MethodResponse<Void> execute(EquipesRequest input) {
         if(input.equipes().isEmpty()) throw new IllegalArgumentException("A lista de equipes não pode ser nula ou vazia!");
-        boolean acampamentoEhExistente = this.acampamentoGateway.existsAcampamentoById(input.idAcampamento());
+        boolean acampamentoEhExistente = this.acampamentoGateway.acampamentoEhExistentePorId(input.idAcampamento());
         if(!acampamentoEhExistente) throw new NotFoundException("O acampamento com id [" + input.idAcampamento() + "] não existe!");
 
         AcampamentoEntityDomain acampamentoEncontrado =

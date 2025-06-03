@@ -59,7 +59,7 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
     }
 
     private AcampamentoEntityDomain buscarAcampamentoInformado(Long idAcampamento) {
-        boolean acampamentoEhExistente = this.acampamentoGateway.existsAcampamentoById(idAcampamento);
+        boolean acampamentoEhExistente = this.acampamentoGateway.acampamentoEhExistentePorId(idAcampamento);
         if(!acampamentoEhExistente) {throw new NotFoundException("Acampamento não encontrado com id [" +idAcampamento+"]!" );}
 
         return this.acampamentoGateway.buscarAcampamentoPorId(idAcampamento);

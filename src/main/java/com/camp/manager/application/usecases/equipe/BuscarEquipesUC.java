@@ -27,7 +27,7 @@ public class BuscarEquipesUC implements UseCase<Long, MethodResponse<List<Equipe
 
     @Override
     public MethodResponse<List<EquipeDTO>> execute(Long input) {
-        boolean acampamentoEhExistente = this.acampamentoGateway.existsAcampamentoById(input);
+        boolean acampamentoEhExistente = this.acampamentoGateway.acampamentoEhExistentePorId(input);
         if(!acampamentoEhExistente) throw new NotFoundException("O acampamento com id [" + input + "] não existe!");
 
         List<EquipeEntityDomain> listaDeEquipes = this.equipeGateway.buscarTodasEquipesDeTrabalho(input);
