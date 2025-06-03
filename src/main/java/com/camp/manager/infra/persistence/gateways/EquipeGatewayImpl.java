@@ -27,7 +27,7 @@ public class EquipeGatewayImpl implements EquipeGateway {
     public void inserirTodosAsEquipesDeTrabalho(List<EquipeEntityDomain> equipesDeTrabalho) {
         equipesDeTrabalho.forEach(equipe -> {
             EquipeEntityJpa equipeEntityJpa = this.equipeMapper.toEntity(equipe);
-            this.equipeRepository.save(equipeEntityJpa);
+            this.equipeRepository.saveAndFlush(equipeEntityJpa);
         });
     }
 }
