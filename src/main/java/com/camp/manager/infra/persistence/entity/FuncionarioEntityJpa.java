@@ -22,6 +22,9 @@ public class FuncionarioEntityJpa {
     @Column(name = "nome")
     private String nome;
 
+    @Column(name = "cpf")
+    private String cpf;
+
     @Column(name = "telefone")
     private String telefone;
 

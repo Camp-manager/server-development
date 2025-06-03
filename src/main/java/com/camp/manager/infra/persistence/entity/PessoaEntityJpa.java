@@ -24,6 +24,9 @@ public class PessoaEntityJpa {
     @Column(name = "nome_completo")
     private String nomeCompleto;
 
+    @Column(name = "cpf")
+    private String cpf;
+
     @Column(name = "data_nascimento")
     private String dataNascimento;
 
