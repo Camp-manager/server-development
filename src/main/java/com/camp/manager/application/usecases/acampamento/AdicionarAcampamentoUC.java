@@ -12,6 +12,7 @@ import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.infra.http.request.acampamento.CriarAcampamentoRequest;
 import com.camp.manager.utils.converter.localDate.LocalDateConverterAPP;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,7 @@ public class AdicionarAcampamentoUC implements UseCase<CriarAcampamentoRequest, 
     }
 
     @Override
+    @Transactional
     public MethodResponse<Void> execute(CriarAcampamentoRequest input) {
         this.validarIdDeRelacionamento(input.idTema(), input.idTipoAcampamento());
 
@@ -82,8 +84,8 @@ public class AdicionarAcampamentoUC implements UseCase<CriarAcampamentoRequest, 
     private CronogramaEntityDomain criarCronograma(CriarAcampamentoRequest input) {
         return new CronogramaEntityDomain(
                 null,
-                LocalDateConverterAPP.converterStringParaLocalDate(input.dataInicial()),
-                LocalDateConverterAPP.converterStringParaLocalDate(input.dataFinal()),
+                LocalDateConverterAPP.converterStringParaLocalDate(input.cronogramaRequest().dataInicial()),
+                LocalDateConverterAPP.converterStringParaLocalDate(input.cronogramaRequest().dataFinal()),
                 "Cronograma do Acampamento: " + input.nomeDoAcampamento()
         );
     }

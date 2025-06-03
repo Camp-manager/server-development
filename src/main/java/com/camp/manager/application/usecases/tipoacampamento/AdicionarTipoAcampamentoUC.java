@@ -6,6 +6,7 @@ import com.camp.manager.domain.entity.TipoAcampamentoEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.EntityFoundException;
 import com.camp.manager.infra.http.request.tipoacampamento.CriarTipoAcampamentoRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class AdicionarTipoAcampamentoUC implements UseCase<CriarTipoAcampamentoR
     }
 
     @Override
+    @Transactional
     public MethodResponse<Void> execute(CriarTipoAcampamentoRequest input) {
         boolean tipoAcampamentoExistente = tipoAcampamentoGateway.tipoAcampamentoEhExistentePorDescricao(input.descricao());
         if (tipoAcampamentoExistente) throw new EntityFoundException("Tipo de acampamento já cadastrado com essa descrição!");

@@ -4,6 +4,7 @@ import com.camp.manager.application.gateway.TipoAcampamentoGateway;
 import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class DeletarTipoAcampanentoUC implements UseCase<Long, MethodResponse<Vo
     }
 
     @Override
+    @Transactional
     public MethodResponse<Void> execute(Long input) {
         boolean tipoAcampamentoExiste = this.tipoAcampamentoGateway.tipoAcampamentoEhExistentePorId(input);
         if(!tipoAcampamentoExiste) throw new EntityNotFoundException("Tipo de acampamento com id [" + input + "] não encontrado.");

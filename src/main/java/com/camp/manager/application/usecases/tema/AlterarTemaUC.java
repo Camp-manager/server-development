@@ -6,6 +6,7 @@ import com.camp.manager.domain.entity.TemaEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.http.request.tema.AtualizarTemaRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,7 @@ public class AlterarTemaUC implements UseCase<AtualizarTemaRequest, MethodRespon
     }
 
     @Override
+    @Transactional
     public MethodResponse<Void> execute(AtualizarTemaRequest input) {
         boolean temaEhExistente = this.temaGateway.temaEhExistentePorId(input.id());
         if(!temaEhExistente) throw new NotFoundException("Tema não encontrado com o id [" + input.id() + "]!");

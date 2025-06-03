@@ -6,6 +6,7 @@ import com.camp.manager.domain.entity.TemaEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.http.dto.tema.TemaDTO;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,7 @@ public class BuscarTemasUC implements UseCase<MethodResponse<Void>, MethodRespon
     }
 
     @Override
+    @Transactional
     public MethodResponse<List<TemaDTO>> execute(MethodResponse<Void> input) {
         List<TemaEntityDomain> listaDeTemas = this.temaGateway.buscarTodosOsTemas();
         if(listaDeTemas.isEmpty()) throw new NotFoundException("Não existem temas cadastrados!");

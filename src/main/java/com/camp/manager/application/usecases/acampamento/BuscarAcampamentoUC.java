@@ -6,6 +6,7 @@ import com.camp.manager.domain.entity.AcampamentoEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.infra.http.dto.acampamento.AcampamentoCompletoDTO;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class BuscarAcampamentoUC implements UseCase<Long, MethodResponse<Acampam
     }
 
     @Override
+    @Transactional
     public MethodResponse<AcampamentoCompletoDTO> execute(Long input) {
         boolean exists = this.acampamentoGateway.existsAcampamentoById(input);
         if(!exists) throw new EntityNotFoundException("Acampamento com id [" + input + "] não encontrado.");

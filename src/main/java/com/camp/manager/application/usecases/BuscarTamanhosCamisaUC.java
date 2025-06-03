@@ -2,6 +2,7 @@ package com.camp.manager.application.usecases;
 
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.enums.TamanhoCamiseta;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 public class BuscarTamanhosCamisaUC implements UseCase<Void, MethodResponse<List<String>>> {
 
     @Override
+    @Transactional
     public MethodResponse<List<String>> execute(Void input) {
         List<String> tamanhos = Arrays
                 .stream(TamanhoCamiseta.values())

@@ -12,6 +12,7 @@ import com.camp.manager.domain.exception.custom.FileTypeException;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.http.request.imagens.InserirImagemRequest;
 import com.camp.manager.utils.converter.localDate.LocalDateConverterAPP;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,7 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
     }
 
     @Override
+    @Transactional
     public MethodResponse<Void> execute(InserirImagemRequest imagensParaSerInserido) {
         AcampamentoEntityDomain acampamentoEncontrado = this.buscarAcampamentoInformado(imagensParaSerInserido.idAcampamento());
 

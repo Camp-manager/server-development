@@ -23,6 +23,7 @@ public class RegistrarUsuarioUC implements UseCase<CreateUserRequest, MethodResp
         this.passwordEncoderAdapter = passwordEncoderAdapter;
     }
 
+    @Override
     @Transactional
     public MethodResponse<Void> execute(CreateUserRequest request) {
        boolean usuarioEhExistente = this.usuarioGateway.existsUserByLogin(request.login());

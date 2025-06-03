@@ -7,6 +7,7 @@ import com.camp.manager.domain.enums.TipoEquipe;
 import com.camp.manager.infra.persistence.entity.AcampamentoEntityJpa;
 import com.camp.manager.infra.persistence.entity.CronogramaEntityJpa;
 import com.camp.manager.infra.persistence.entity.EquipeEntityJpa;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,7 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
     private final Mapper<CronogramaEntityJpa, CronogramaEntityDomain> mapperCronograma;
     private final Mapper<AcampamentoEntityJpa, AcampamentoEntityDomain> mapperAcampamento;
 
+    @Autowired
     public EquipeMapper(@Lazy Mapper<CronogramaEntityJpa, CronogramaEntityDomain> mapperCronograma,
                         @Lazy Mapper<AcampamentoEntityJpa, AcampamentoEntityDomain> mapperAcampamento) {
         this.mapperCronograma = mapperCronograma;

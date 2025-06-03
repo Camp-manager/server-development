@@ -7,6 +7,7 @@ import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.EntityFoundException;
 import com.camp.manager.domain.exception.custom.FileProcessingException;
 import com.camp.manager.infra.http.request.tema.CriarTemaRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +25,7 @@ public class AdicionarTemaUC implements UseCase<CriarTemaRequest, MethodResponse
     }
 
     @Override
+    @Transactional
     public MethodResponse<Void> execute(CriarTemaRequest input) {
         boolean temaEhExistente = this.temaGateway.temaEhExistentePorDescricao(input.descricao());
         if(temaEhExistente) {throw new EntityFoundException("Tema já cadastrado!");}

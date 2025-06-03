@@ -4,6 +4,7 @@ import com.camp.manager.application.gateway.TemaGateway;
 import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.NotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class DeletarTemaUC implements UseCase<Long, MethodResponse<Void>> {
     }
 
     @Override
+    @Transactional
     public MethodResponse<Void> execute(Long input) {
         if(input == null) throw new NotFoundException("O ID do tema não pode ser nulo!");
 
