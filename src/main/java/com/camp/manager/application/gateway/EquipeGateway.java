@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface EquipeGateway {
     void inserirTodosAsEquipesDeTrabalho(List<EquipeEntityDomain> equipesDeTrabalho);
+    List<EquipeEntityDomain> buscarTodasEquipesDeTrabalho(Long idAcampamento);
 }

@@ -30,4 +30,12 @@ public class EquipeGatewayImpl implements EquipeGateway {
             this.equipeRepository.saveAndFlush(equipeEntityJpa);
         });
     }
+
+    @Override
+    public List<EquipeEntityDomain> buscarTodasEquipesDeTrabalho(Long idAcampamento) {
+        return this.equipeRepository.findByAcampamento_Id(idAcampamento)
+                .stream()
+                .map(equipeMapper::toDomain)
+                .toList();
+    }
 }

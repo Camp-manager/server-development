@@ -25,8 +25,6 @@ public class ImagemController {
         this.adicionarImagensUC = adicionarImagensUC;
     }
 
-
-
     @PostMapping(path = "/inserir-zip/{idAcampamento}/{anoDasImagens}")
     public ResponseEntity<Void> inserirImagensNoAcampamentoPorZip(
             @PathVariable Long idAcampamento,
