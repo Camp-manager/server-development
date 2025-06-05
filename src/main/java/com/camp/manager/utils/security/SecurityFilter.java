@@ -26,7 +26,9 @@ public class SecurityFilter extends OncePerRequestFilter {
     private final Mapper<UserEntityJpa, UserEntityDomain> userEntityJpaMapper;
 
     @Autowired
-    public SecurityFilter(TokenEncoderAdapter tokenEncoderAdapter, UsuarioGateway usuarioGateway, Mapper<UserEntityJpa, UserEntityDomain> userEntityJpaMapper) {
+    public SecurityFilter(TokenEncoderAdapter tokenEncoderAdapter,
+                          UsuarioGateway usuarioGateway,
+                          Mapper<UserEntityJpa, UserEntityDomain> userEntityJpaMapper) {
         this.tokenEncoderAdapter = tokenEncoderAdapter;
         this.usuarioGateway = usuarioGateway;
         this.userEntityJpaMapper = userEntityJpaMapper;

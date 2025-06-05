@@ -43,10 +43,19 @@ public class UserEntityJpa implements UserDetails {
         if(role == UserRole.ADMIN){
             return List.of(
                     new SimpleGrantedAuthority("ROLE_ADMIN"),
-                    new SimpleGrantedAuthority("ROLE_USER"));
-        } else {
-            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+                    new SimpleGrantedAuthority("ROLE_CAMPISTA"),
+                    new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
         }
+
+        if(role == UserRole.CAMPISTA){
+            return List.of(new SimpleGrantedAuthority("ROLE_CAMPISTA"));
+        }
+
+        if(role == UserRole.FUNCIONARIO){
+            return List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
+        }
+
+        return List.of();
     }
 
     @Override

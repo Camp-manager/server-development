@@ -21,11 +21,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntityJpa user = userRepository.findByLogin(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario com username: [" + username + "] não encontrado!"));
         return UserEntityJpa.builder()
                 .login(user.getLogin())
                 .password(user.getPassword())
-                .role(UserRole.valueOf("ADMIN"))
+                .role(user.getRole())
                 .build();
     }
 }
