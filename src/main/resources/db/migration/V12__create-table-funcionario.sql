@@ -3,6 +3,7 @@ CREATE TABLE funcionario(
     nome VARCHAR(75) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
     cpf VARCHAR(14) NOT NULL UNIQUE,
+    codigo_acampamento VARCHAR(6) NOT NULL,
     habilidade TEXT,
 
     id_camiseta BIGINT NOT NULL,

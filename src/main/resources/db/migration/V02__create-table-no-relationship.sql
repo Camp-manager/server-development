@@ -16,11 +16,6 @@ CREATE TABLE medicamento(
     valor NUMERIC(10,2)
 );
 
-CREATE TABLE carteirinha(
-    id BIGSERIAL PRIMARY KEY,
-    texto_apresentacao TEXT NOT NULL
-);
-
 CREATE TABLE estoque(
     id BIGSERIAL PRIMARY KEY,
     local VARCHAR(1) NOT NULL,
@@ -42,4 +37,12 @@ CREATE TABLE tipo_acampamento(
     categoria VARCHAR(1) NOT NULL
 );
 
+
+CREATE TABLE carteirinha(
+    id BIGSERIAL PRIMARY KEY,
+    texto_apresentacao TEXT NOT NULL,
+    id_tema BIGINT NOT NULL,
+
+    CONSTRAINT fk_carteirinha_tema FOREIGN KEY (id_tema) REFERENCES tema(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
 

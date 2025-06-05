@@ -4,6 +4,7 @@ CREATE TABLE campista(
     tem_alergia VARCHAR(1) NOT NULL,
     alergias TEXT,
     ja_fez_acampamento VARCHAR(1) NOT NULL,
+    codigo_acampamento VARCHAR(6) NOT NULL,
     acampamentos_feitos TEXT,
     tem_barraca VARCHAR(1) NOT NULL,
 
