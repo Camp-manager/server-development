@@ -21,4 +21,8 @@ public class CarteirinhaEntityJpa {
 
     @Column(name = "texto_apresentacao")
     private String textoApresentacao;
+
+    @JoinColumn(name = "id_tema")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private TemaEntityJpa tema;
 }

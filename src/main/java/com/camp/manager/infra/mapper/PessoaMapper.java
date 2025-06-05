@@ -40,8 +40,8 @@ public class PessoaMapper implements Mapper<PessoaEntityJpa, PessoaEntityDomain>
                 pessoaEntityJpa.getAlimentoPredileto(),
                 pessoaEntityJpa.getFoiBatizado() == Resposta.SIM ? Boolean.TRUE : Boolean.FALSE,
                 pessoaEntityJpa.getTemPrimeiraComunhao() == Resposta.SIM ? Boolean.TRUE : Boolean.FALSE,
-                mapperEndereco.toDomain(pessoaEntityJpa.getEndereco()),
-                mapperFamiliar.toDomain(pessoaEntityJpa.getFamiliar())
+                this.mapperEndereco.toDomain(pessoaEntityJpa.getEndereco()),
+                this.mapperFamiliar.toDomain(pessoaEntityJpa.getFamiliar())
         );
     }
 
@@ -59,8 +59,8 @@ public class PessoaMapper implements Mapper<PessoaEntityJpa, PessoaEntityDomain>
                 pessoaEntityDomain.alimentoPredileto(),
                 Resposta.fromBoolean(pessoaEntityDomain.foiBatizado()),
                 Resposta.fromBoolean(pessoaEntityDomain.temPrimeiraComunhao()),
-                mapperEndereco.toEntity(pessoaEntityDomain.endereco()),
-                mapperFamiliar.toEntity(pessoaEntityDomain.familiar())
+                this.mapperEndereco.toEntity(pessoaEntityDomain.endereco()),
+                this.mapperFamiliar.toEntity(pessoaEntityDomain.familiar())
         );
     }
 }

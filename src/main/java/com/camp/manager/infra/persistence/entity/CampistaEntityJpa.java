@@ -29,6 +29,9 @@ public class CampistaEntityJpa {
     @Column(name = "alegias")
     private String alergias;
 
+    @Column(name = "codigo_acampamento")
+    private String codigoRegistro;
+
     @Column(name = "ja_fez_acampamento")
     private Resposta jaFezAcampamento;
 

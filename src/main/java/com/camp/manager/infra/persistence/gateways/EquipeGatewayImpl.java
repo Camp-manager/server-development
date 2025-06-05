@@ -2,6 +2,7 @@ package com.camp.manager.infra.persistence.gateways;
 
 import com.camp.manager.application.gateway.EquipeGateway;
 import com.camp.manager.domain.entity.EquipeEntityDomain;
+import com.camp.manager.infra.mapper.EquipeMapper;
 import com.camp.manager.infra.mapper.Mapper;
 import com.camp.manager.infra.persistence.entity.EquipeEntityJpa;
 import com.camp.manager.infra.persistence.repository.EquipeRepository;

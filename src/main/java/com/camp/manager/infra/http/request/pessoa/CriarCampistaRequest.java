@@ -1,4 +1,12 @@
 package com.camp.manager.infra.http.request.pessoa;
 
-public record CriarCampistaRequest() {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+public class CriarCampistaRequest{
+
+    @Setter
+    private String codigoRegistro;
+
 }

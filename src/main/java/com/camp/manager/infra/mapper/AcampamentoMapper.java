@@ -38,9 +38,9 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
                 acampamentoEntityJpa.getLimiteCampistas(),
                 acampamentoEntityJpa.getLimiteFuncionario(),
                 acampamentoEntityJpa.getCodigoRegistro(),
-                mapperTema.toDomain(acampamentoEntityJpa.getTema()),
-                mapperTipo.toDomain(acampamentoEntityJpa.getTipoAcampamento()),
-                mapperCronograma.toDomain(acampamentoEntityJpa.getCronograma()),
+                this.mapperTema.toDomain(acampamentoEntityJpa.getTema()),
+                this.mapperTipo.toDomain(acampamentoEntityJpa.getTipoAcampamento()),
+                this.mapperCronograma.toDomain(acampamentoEntityJpa.getCronograma()),
                 this.mapDomainImagens(acampamentoEntityJpa.getListImagem()),
                 this.mapDomainEquipe(acampamentoEntityJpa.getListEquipe())
         );
@@ -54,9 +54,9 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
                 acampamentoEntityDomain.limiteCampistas(),
                 acampamentoEntityDomain.limiteFuncionario(),
                 acampamentoEntityDomain.codigoRegistro(),
-                mapperTema.toEntity(acampamentoEntityDomain.tema()),
-                mapperTipo.toEntity(acampamentoEntityDomain.tipoAcampamento()),
-                mapperCronograma.toEntity(acampamentoEntityDomain.cronograma()),
+                this.mapperTema.toEntity(acampamentoEntityDomain.tema()),
+                this.mapperTipo.toEntity(acampamentoEntityDomain.tipoAcampamento()),
+                this.mapperCronograma.toEntity(acampamentoEntityDomain.cronograma()),
                 this.mapEntityImagens(acampamentoEntityDomain.imagensDoAcampamento()),
                 this.mapEntityEquipe(acampamentoEntityDomain.equipesDoAcampamento())
         );

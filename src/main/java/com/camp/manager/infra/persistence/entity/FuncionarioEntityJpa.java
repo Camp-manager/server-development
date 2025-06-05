@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "funcionario", schema = "public")
-public class FuncionarioEntityJpa {
+public class    FuncionarioEntityJpa {
 
     @Id
     @Column(name = "id")
@@ -27,6 +27,9 @@ public class FuncionarioEntityJpa {
 
     @Column(name = "telefone")
     private String telefone;
+
+    @Column(name = "codigo_acampamento")
+    private String codigoRegistro;
 
     @Column(name = "habilidade")
     private String habilidade;

@@ -30,8 +30,8 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
                 equipeEntityJpa.getId(),
                 equipeEntityJpa.getNome(),
                 equipeEntityJpa.getTipoEquipe().getDescricao(),
-                mapperCronograma.toDomain(equipeEntityJpa.getCronograma()),
-                mapperAcampamento.toDomain(equipeEntityJpa.getAcampamento())
+                this.mapperCronograma.toDomain(equipeEntityJpa.getCronograma()),
+                this.mapperAcampamento.toDomain(equipeEntityJpa.getAcampamento())
         );
     }
 
@@ -41,8 +41,8 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
                 equipeEntityDomain.id(),
                 equipeEntityDomain.nome(),
                 TipoEquipe.fromDescricao(equipeEntityDomain.tipoEquipe()),
-                mapperCronograma.toEntity(equipeEntityDomain.cronograma()),
-                mapperAcampamento.toEntity(equipeEntityDomain.acampamento())
+                this.mapperCronograma.toEntity(equipeEntityDomain.cronograma()),
+                this.mapperAcampamento.toEntity(equipeEntityDomain.acampamento())
         );
     }
 

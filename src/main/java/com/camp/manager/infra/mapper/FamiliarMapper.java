@@ -25,7 +25,7 @@ public class FamiliarMapper implements Mapper<FamiliarEntityJpa, FamiliarEntityD
                 familiarEntityJpa.getNome(),
                 familiarEntityJpa.getParentesco().getDescricao(),
                 familiarEntityJpa.getTelefone(),
-                mapperEndereco.toDomain(familiarEntityJpa.getEndereco())
+                this.mapperEndereco.toDomain(familiarEntityJpa.getEndereco())
         );
     }
 
@@ -36,7 +36,7 @@ public class FamiliarMapper implements Mapper<FamiliarEntityJpa, FamiliarEntityD
                 familiarEntityDomain.nome(),
                 Parentesco.fromDescricao(familiarEntityDomain.parentesco()),
                 familiarEntityDomain.telefone(),
-                mapperEndereco.toEntity(familiarEntityDomain.endereco())
+                this.mapperEndereco.toEntity(familiarEntityDomain.endereco())
         );
     }
 }
