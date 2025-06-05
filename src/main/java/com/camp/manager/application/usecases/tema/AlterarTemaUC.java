@@ -41,7 +41,7 @@ public class AlterarTemaUC implements UseCase<AtualizarTemaRequest, MethodRespon
 
         this.realizarAlteracaoTema(input, temaDomain);
 
-        return new MethodResponse<>(200, "Tema atualizado com sucesso!", null);
+        return new MethodResponse<>(202, "Tema atualizado com sucesso!", null);
     }
 
     private boolean verificarAlteracaoDeCampos(AtualizarTemaRequest input, TemaEntityDomain temaDomain) {
