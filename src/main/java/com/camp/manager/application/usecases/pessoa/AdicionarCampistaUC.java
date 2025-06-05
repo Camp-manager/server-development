@@ -2,13 +2,16 @@ package com.camp.manager.application.usecases.pessoa;
 
 import com.camp.manager.application.gateway.AcampamentoGateway;
 import com.camp.manager.application.gateway.CampistaGateway;
+import com.camp.manager.application.gateway.UsuarioGateway;
 import com.camp.manager.application.usecases.UseCase;
-import com.camp.manager.domain.entity.AcampamentoEntityDomain;
+import com.camp.manager.domain.entity.*;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.enums.TipoEquipe;
 import com.camp.manager.domain.exception.custom.LimitOverflowException;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.http.request.pessoa.CriarCampistaRequest;
+import com.camp.manager.utils.converter.localDate.LocalDateConverterAPP;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +20,15 @@ public class AdicionarCampistaUC implements UseCase<CriarCampistaRequest, Method
 
     private final CampistaGateway campistaGateway;
     private final AcampamentoGateway acampamentoGateway;
+    private final UsuarioGateway usuarioGateway;
 
     @Autowired
     public AdicionarCampistaUC(CampistaGateway campistaGateway,
-                               AcampamentoGateway acampamentoGateway) {
+                               AcampamentoGateway acampamentoGateway,
+                               UsuarioGateway usuarioGateway) {
         this.campistaGateway = campistaGateway;
         this.acampamentoGateway = acampamentoGateway;
+        this.usuarioGateway = usuarioGateway;
     }
 
     @Override
@@ -33,9 +39,15 @@ public class AdicionarCampistaUC implements UseCase<CriarCampistaRequest, Method
         AcampamentoEntityDomain acampamentoEncontrado = this.acampamentoGateway.buscarAcampamentoPorCodigoRegistro(input.getCodigoRegistro());
         this.validarQuantidadeDeCampistas(acampamentoEncontrado);
 
-        boolean campistaEhExistente = this.campistaGateway.campistaEhExistentePorCpf();
+        boolean campistaEhExistente = this.campistaGateway.campistaEhExistentePorCpf(input.getPessoa().cpf());
+        if(campistaEhExistente) throw new EntityNotFoundException("Já existe um campista cadastrado com o CPF [" + input.getPessoa().cpf() + "]!");
 
-        return null;
+        CampistaEntityDomain campistaCriado = this.converterRequestParaDomain(input, acampamentoEncontrado);
+
+        this.campistaGateway.inserirCampista(campistaCriado);
+        this.inserirCampistaParaLogin(campistaCriado);
+
+        return new MethodResponse<>(201, "Campista adicionado com sucesso!", null);
     }
 
     private void validarQuantidadeDeCampistas(AcampamentoEntityDomain acampamentoEncontrado) {
@@ -55,5 +67,66 @@ public class AdicionarCampistaUC implements UseCase<CriarCampistaRequest, Method
                     + acampamentoEncontrado.codigoRegistro()
                     + "] já atingiu o limite de funcionários permitidos!");
         }
+    }
+    private CampistaEntityDomain converterRequestParaDomain(CriarCampistaRequest input, AcampamentoEntityDomain acampamentoEncontrado) {
+        return new CampistaEntityDomain(
+                null,
+                input.getUsaMedicamento(),
+                input.getTemAlergia(),
+                input.getAlergias(),
+                input.getCodigoRegistro(),
+                input.getJaFezAcampamento(),
+                input.getAcampamentosFeitos(),
+                input.getTemBarraca(),
+                new CamisetaEntityDomain(null, input.getTamanhoCamisa(), acampamentoEncontrado.tema()),
+                new PessoaEntityDomain(
+                        null,
+                        input.getPessoa().nomeCompleto().split(" ", 2)[0],
+                        input.getPessoa().nomeCompleto().split(" ", 2)[1],
+                        input.getPessoa().cpf(),
+                        LocalDateConverterAPP.converterStringParaLocalDate(input.getPessoa().dataNascimento()),
+                        input.getPessoa().telefone(),
+                        input.getPessoa().sexo(),
+                        input.getPessoa().peso(),
+                        input.getPessoa().altura(),
+                        input.getPessoa().alimentoPredileto(),
+                        input.getPessoa().foiBatizado(),
+                        input.getPessoa().temPrimeiraComunhao(),
+                        new EnderecoEntityDomain(
+                                null,
+                                input.getPessoa().endereco().cep(),
+                                input.getPessoa().endereco().rua(),
+                                Long.valueOf(input.getPessoa().endereco().numero()),
+                                input.getPessoa().endereco().cidade(),
+                                input.getPessoa().endereco().bairro(),
+                                input.getPessoa().endereco().pontoReferencia()
+                        ),
+                        new FamiliarEntityDomain(
+                                null,
+                                input.getPessoa().familiar().nome(),
+                                input.getPessoa().familiar().parentesco(),
+                                input.getPessoa().familiar().telefone(),
+                                new EnderecoEntityDomain(
+                                        null,
+                                        input.getPessoa().familiar().endereco().cep(),
+                                        input.getPessoa().familiar().endereco().rua(),
+                                        Long.valueOf(input.getPessoa().familiar().endereco().numero()),
+                                        input.getPessoa().familiar().endereco().cidade(),
+                                        input.getPessoa().familiar().endereco().bairro(),
+                                        input.getPessoa().familiar().endereco().pontoReferencia()
+                                )
+                        )
+                ),
+                null
+        );
+    }
+    private void inserirCampistaParaLogin(CampistaEntityDomain campistaEntityDomain){
+        String senhaPadrao = campistaEntityDomain.pessoa().cpf().substring(0, 3);
+        UserEntityDomain usuarioCriado = new UserEntityDomain(null,
+                campistaEntityDomain.pessoa().nome(),
+                campistaEntityDomain.pessoa().telefone(),
+                senhaPadrao,
+                "CAMPISTA");
+        this.usuarioGateway.salvarNovoUsuario(usuarioCriado);
     }
 }

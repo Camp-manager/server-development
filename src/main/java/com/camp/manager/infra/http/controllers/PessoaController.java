@@ -2,6 +2,7 @@ package com.camp.manager.infra.http.controllers;
 
 import com.camp.manager.application.usecases.pessoa.AdicionarCampistaUC;
 import com.camp.manager.application.usecases.pessoa.AdicionarFuncionarioUC;
+import com.camp.manager.application.usecases.pessoa.BuscarCampistasUC;
 import com.camp.manager.application.usecases.pessoa.BuscarFuncionariosUC;
 import com.camp.manager.infra.http.dto.pessoa.CampistaBasicoDTO;
 import com.camp.manager.infra.http.dto.pessoa.FuncionarioBasicoDTO;
@@ -21,14 +22,16 @@ public class PessoaController {
     private final AdicionarCampistaUC adicionarCampistaUC;
     private final AdicionarFuncionarioUC adicionarFuncionarioUC;
     private final BuscarFuncionariosUC buscarFuncionariosUC;
+    private final BuscarCampistasUC buscarCampistasUC;
 
     @Autowired
     public PessoaController(AdicionarCampistaUC adicionarCampistaUC,
                             AdicionarFuncionarioUC adicionarFuncionarioUC,
-                            BuscarFuncionariosUC buscarFuncionariosUC) {
+                            BuscarFuncionariosUC buscarFuncionariosUC, BuscarCampistasUC buscarCampistasUC) {
         this.adicionarCampistaUC = adicionarCampistaUC;
         this.adicionarFuncionarioUC = adicionarFuncionarioUC;
         this.buscarFuncionariosUC = buscarFuncionariosUC;
+        this.buscarCampistasUC = buscarCampistasUC;
     }
 
     @GetMapping(path = "/buscar-todos/funcionarios/{idAcampamento}")
@@ -41,7 +44,7 @@ public class PessoaController {
 
     @GetMapping(path = "/buscar-todos/campistas/{idAcampamento}")
     public ResponseEntity<List<CampistaBasicoDTO>> buscarTodosCampistas(@PathVariable Long idAcampamento) {
-        //var response = this.adicionarCampistaUC.buscarTodosCampistas(idAcampamento);
+        var response = this.buscarCampistasUC.execute(idAcampamento);
 
         return ResponseEntity.ok(List.of());
     }

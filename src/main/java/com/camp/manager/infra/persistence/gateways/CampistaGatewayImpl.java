@@ -41,4 +41,13 @@ public class CampistaGatewayImpl implements CampistaGateway {
                 .map(campistaMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public List<CampistaEntityDomain> buscarTodosOsCampistasComBaseNoCodigoRegistro(String codigoRegistro) {
+        return this.campistaRepository
+                .findAllByCodigoRegistroOrderByPessoa_NomeCompleto(codigoRegistro)
+                .stream()
+                .map(campistaMapper::toDomain)
+                .toList();
+    }
 }

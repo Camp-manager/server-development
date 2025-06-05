@@ -8,4 +8,5 @@ public interface CampistaGateway {
     boolean campistaEhExistentePorCpf(String cpf);
     void inserirCampista(CampistaEntityDomain campistaDomain);
     List<CampistaEntityDomain> buscarTodosOsCampistasComBaseNaEquipe(Long id);
+    List<CampistaEntityDomain> buscarTodosOsCampistasComBaseNoCodigoRegistro(String codigoRegistro);
 }

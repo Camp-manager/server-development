@@ -41,8 +41,6 @@ public class CampistaEntityJpa {
     @Column(name = "tem_barraca")
     private Resposta temBarraca;
 
-
-
     @OneToOne
     @JoinColumn(name = "id_camiseta")
     private CamisetaEntityJpa camiseta;

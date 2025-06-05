@@ -10,4 +10,6 @@ import java.util.List;
 public interface CampistaRepository extends JpaRepository<CampistaEntityJpa, Long> {
     List<CampistaEntityJpa> findAllByEquipe_Id(Long equipeId);
     boolean existsByPessoa_Cpf(String cpf);
+
+    List<CampistaEntityJpa> findAllByCodigoRegistroOrderByPessoa_NomeCompleto(String codigoRegistro);
 }
