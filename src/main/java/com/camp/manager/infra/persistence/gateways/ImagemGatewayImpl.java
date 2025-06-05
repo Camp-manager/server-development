@@ -31,7 +31,6 @@ public class ImagemGatewayImpl implements ImagemGateway {
     }
 
     @Override
-    @Transactional
     public void inserirNovaImagem(String path, String data, AcampamentoEntityDomain acampamentoEncontrado) {
         AcampamentoEntityJpa acampamentoEntityJpa = acampamentoMapper.toEntity(acampamentoEncontrado);
         this.imagemRepository

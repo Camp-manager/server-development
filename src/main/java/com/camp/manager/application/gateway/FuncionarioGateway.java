@@ -8,4 +8,5 @@ public interface FuncionarioGateway {
     boolean funcionarioEhExistentePorCpf(String cpf);
     void inserirFuncionario(FuncionarioEntityDomain funcionarioDomain);
     List<FuncionarioEntityDomain> buscarTodosOsFuncionariosComBaseNaEquipe(Long idEquipe);
+    List<FuncionarioEntityDomain> buscarTodosOsFuncionariosComBaseNoCodigoRegistro(String codigoRegistro);
 }

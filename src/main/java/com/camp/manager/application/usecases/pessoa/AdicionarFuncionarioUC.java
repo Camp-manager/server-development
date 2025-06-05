@@ -11,6 +11,7 @@ import com.camp.manager.domain.exception.custom.EntityFoundException;
 import com.camp.manager.domain.exception.custom.LimitOverflowException;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.http.request.pessoa.CriarFuncionarioRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class AdicionarFuncionarioUC implements UseCase<CriarFuncionarioRequest, 
     }
 
     @Override
+    @Transactional
     public MethodResponse<Void> execute(CriarFuncionarioRequest input) {
         boolean acampamentoEhExistente = this.acampamentoGateway.acampamentoEhExistentePorCodigoRegistro(input.getCodigoRegistro());
         if(!acampamentoEhExistente) throw new NotFoundException("O acampamento com código de registro [" + input.getCodigoRegistro() + "] não existe!");
@@ -79,12 +81,16 @@ public class AdicionarFuncionarioUC implements UseCase<CriarFuncionarioRequest, 
         if (acampamentoEncontrado.limiteFuncionario() <= quantidadeDeFuncionariosAtual) {
             throw new LimitOverflowException("O acampamento com código de registro ["
                     + acampamentoEncontrado.codigoRegistro()
-                    + "] já atingiu o limite de funcionários permitidos!");
+                    + "] já atingiu o limite de campistas permitidos!");
         }
     }
     private void inserirUsuarioParaLogin(FuncionarioEntityDomain funcionarioCriado) {
         String senhaPadrao = funcionarioCriado.cpf().substring(0, 3);
-        UserEntityDomain usuarioCriado = new UserEntityDomain(null, funcionarioCriado.nome(), funcionarioCriado.email(), senhaPadrao, "FUNCIONARIO");
+        UserEntityDomain usuarioCriado = new UserEntityDomain(null,
+                funcionarioCriado.nome(),
+                funcionarioCriado.email(),
+                senhaPadrao,
+                "FUNCIONARIO");
         this.usuarioGateway.salvarNovoUsuario(usuarioCriado);
     }
 }

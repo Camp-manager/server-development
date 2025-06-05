@@ -36,7 +36,16 @@ public class FuncionarioGatewayImpl implements FuncionarioGateway {
     @Override
     public List<FuncionarioEntityDomain> buscarTodosOsFuncionariosComBaseNaEquipe(Long idEquipe) {
         return this.funcionarioRepository
-                .findAllByEquipe_Id(idEquipe)
+                .findAllByEquipe_IdOrderByNome(idEquipe)
+                .stream()
+                .map(funcionarioMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    public List<FuncionarioEntityDomain> buscarTodosOsFuncionariosComBaseNoCodigoRegistro(String codigoRegistro) {
+        return this.funcionarioRepository
+                .findAllByCodigoRegistroOrderByNome(codigoRegistro)
                 .stream()
                 .map(funcionarioMapper::toDomain)
                 .toList();

@@ -31,7 +31,6 @@ public class TemaGatewayImpl implements TemaGateway {
     }
 
     @Override
-    @Transactional
     public void inserirTema(TemaEntityDomain temaDomain) {
         this.temaRepository.save(temaMapper.toEntity(temaDomain));
     }
@@ -49,7 +48,6 @@ public class TemaGatewayImpl implements TemaGateway {
     }
 
     @Override
-    @Transactional
     public void atualizarTema(TemaEntityDomain temaDomain) {
         this.temaRepository.save(temaMapper.toEntity(temaDomain));
     }

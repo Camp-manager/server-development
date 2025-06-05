@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface FuncionarioRepository extends JpaRepository<FuncionarioEntityJpa, Long> {
     boolean existsByCpf(String cpf);
-    List<FuncionarioEntityJpa> findAllByEquipe_Id(Long equipeId);
+    List<FuncionarioEntityJpa> findAllByEquipe_IdOrderByNome(Long equipeId);
+    List<FuncionarioEntityJpa> findAllByCodigoRegistroOrderByNome(String codigoRegistro);
 }

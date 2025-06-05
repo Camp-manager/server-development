@@ -29,6 +29,7 @@ public class RealizarLoginUC implements UseCase<LogarUsuarioRequest, MethodRespo
         this.passwordEncoderAdapter = passwordEncoderAdapter;
     }
 
+    @Override
     @Transactional
     public MethodResponse<TokenResponseDTO> execute(LogarUsuarioRequest request) {
         boolean usuarioEhExistente = this.usuarioGateway.existsUserByLogin(request.login());

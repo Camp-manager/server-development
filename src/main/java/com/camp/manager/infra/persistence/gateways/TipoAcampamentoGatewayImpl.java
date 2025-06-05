@@ -43,13 +43,11 @@ public class TipoAcampamentoGatewayImpl implements TipoAcampamentoGateway {
     }
 
     @Override
-    @Transactional
     public void inserirTipoAcampamento(TipoAcampamentoEntityDomain tipoAcampamentoDomain) {
         this.tipoAcampamentoRepository.save(tipoAcampamentoMapper.toEntity(tipoAcampamentoDomain));
     }
 
     @Override
-    @Transactional
     public void deletarTipoAcampamentoPorId(Long idDoTipoAcampamento) {
         this.tipoAcampamentoRepository.deleteById(idDoTipoAcampamento);
     }
