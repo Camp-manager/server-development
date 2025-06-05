@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface UsuarioGateway {
     Optional<UserEntityDomain> findUserByLogin(String login);
     boolean existsUserByLogin(String login);
-    void salvar(UserEntityDomain user);
+    void salvarNovoUsuario(UserEntityDomain user);
 }

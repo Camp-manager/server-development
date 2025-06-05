@@ -8,6 +8,8 @@ import com.camp.manager.infra.persistence.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FuncionarioGatewayImpl implements FuncionarioGateway {
 
@@ -29,5 +31,14 @@ public class FuncionarioGatewayImpl implements FuncionarioGateway {
     @Override
     public void inserirFuncionario(FuncionarioEntityDomain funcionarioDomain) {
         this.funcionarioRepository.save(this.funcionarioMapper.toEntity(funcionarioDomain));
+    }
+
+    @Override
+    public List<FuncionarioEntityDomain> buscarTodosOsFuncionariosComBaseNaEquipe(Long idEquipe) {
+        return this.funcionarioRepository
+                .findAllByEquipe_Id(idEquipe)
+                .stream()
+                .map(funcionarioMapper::toDomain)
+                .toList();
     }
 }

@@ -33,7 +33,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 "Argumentos fornecidos inválidos",
                 request.getDescription(false)
         );
-
         if (serverIncludeStackTrace) {
             errorResponse.setStackTrace(ex.getStackTrace()[0]);
         }
@@ -51,7 +50,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 "Variavel de caminho não encontrada",
                 request.getDescription(false)
         );
-
         if (serverIncludeStackTrace) {
             errorResponse.setStackTrace(ex.getStackTrace()[0]);
         }
@@ -69,7 +67,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 "Método não suportado",
                 request.getDescription(false)
         );
-
         if (serverIncludeStackTrace) {
             errorResponse.setStackTrace(ex.getStackTrace()[0]);
         }
@@ -87,11 +84,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 "Erro interno do servidor",
                 request.getDescription(false)
         );
-
         if (serverIncludeStackTrace) {
             errorResponse.setStackTrace(ex.getStackTrace()[0]);
         }
-
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(errorResponse);
@@ -109,11 +104,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 request.getDescription(false)
         );
-
         if (serverIncludeStackTrace) {
             errorResponse.setStackTrace(ex.getStackTrace()[0]);
         }
-
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .body(errorResponse);
@@ -128,11 +121,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 request.getDescription(false)
         );
-
         if (serverIncludeStackTrace) {
             errorResponse.setStackTrace(ex.getStackTrace()[0]);
         }
-
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(errorResponse);
@@ -147,11 +138,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 request.getDescription(false)
         );
-
         if (serverIncludeStackTrace) {
             errorResponse.setStackTrace(ex.getStackTrace()[0]);
         }
-
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(errorResponse);
@@ -166,11 +155,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 request.getDescription(false)
         );
-
         if (serverIncludeStackTrace) {
             errorResponse.setStackTrace(ex.getStackTrace()[0]);
         }
-
         return ResponseEntity
                 .status(HttpStatus.NOT_ACCEPTABLE)
                 .body(errorResponse);
@@ -185,11 +172,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 request.getDescription(false)
         );
-
         if (serverIncludeStackTrace) {
             errorResponse.setStackTrace(ex.getStackTrace()[0]);
         }
-
         return ResponseEntity
                 .status(HttpStatus.NOT_ACCEPTABLE)
                 .body(errorResponse);
@@ -204,11 +189,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 request.getDescription(false)
         );
-
         if (serverIncludeStackTrace) {
             errorResponse.setStackTrace(ex.getStackTrace()[0]);
         }
-
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(errorResponse);
@@ -223,11 +206,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 request.getDescription(false)
         );
-
         if (serverIncludeStackTrace) {
             errorResponse.setStackTrace(ex.getStackTrace()[0]);
         }
-
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(errorResponse);
@@ -242,14 +223,28 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 request.getDescription(false)
         );
-
         if (serverIncludeStackTrace) {
             errorResponse.setStackTrace(ex.getStackTrace()[0]);
         }
-
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .body(errorResponse);
+    }
 
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ExceptionHandler(LimitOverflowException.class)
+    private ResponseEntity<Object> limitOverflowExceptionHandler(LimitOverflowException ex, WebRequest request) {
+        log.error("LimitOverflowException: {}", ex.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.NOT_ACCEPTABLE.name(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        if (serverIncludeStackTrace) {
+            errorResponse.setStackTrace(ex.getStackTrace()[0]);
+        }
+        return ResponseEntity
+                .status(HttpStatus.NOT_ACCEPTABLE)
+                .body(errorResponse);
     }
 }

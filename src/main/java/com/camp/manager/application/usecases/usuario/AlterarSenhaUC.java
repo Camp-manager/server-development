@@ -1,7 +1,6 @@
 package com.camp.manager.application.usecases.usuario;
 
 import com.camp.manager.application.gateway.PasswordEncoderAdapter;
-import com.camp.manager.application.gateway.TokenEncoderAdapter;
 import com.camp.manager.application.gateway.UsuarioGateway;
 import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.UserEntityDomain;
@@ -17,15 +16,12 @@ import org.springframework.stereotype.Service;
 public class AlterarSenhaUC implements UseCase<AlterarSenhaUsuarioRequest, MethodResponse<Void>> {
 
     private final UsuarioGateway usuarioGateway;
-    private final TokenEncoderAdapter tokenEncoderAdapter;
     private final PasswordEncoderAdapter passwordEncoderAdapter;
 
     @Autowired
     public AlterarSenhaUC(UsuarioGateway usuarioGateway,
-                          TokenEncoderAdapter tokenEncoderAdapter,
                           PasswordEncoderAdapter passwordEncoderAdapter) {
         this.usuarioGateway = usuarioGateway;
-        this.tokenEncoderAdapter = tokenEncoderAdapter;
         this.passwordEncoderAdapter = passwordEncoderAdapter;
     }
 
@@ -43,7 +39,7 @@ public class AlterarSenhaUC implements UseCase<AlterarSenhaUsuarioRequest, Metho
 
         String novaSenhaCriptografada = this.passwordEncoderAdapter.encode(input.novaSenha());
 
-        this.usuarioGateway.salvar( new UserEntityDomain(
+        this.usuarioGateway.salvarNovoUsuario( new UserEntityDomain(
                 usuarioBuscado.id(),
                 usuarioBuscado.username(),
                 usuarioBuscado.login(),

@@ -34,7 +34,7 @@ public class    FuncionarioEntityJpa {
     @Column(name = "habilidade")
     private String habilidade;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_camiseta")
     private CamisetaEntityJpa camiseta;
 

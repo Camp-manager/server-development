@@ -33,7 +33,7 @@ public class RegistrarUsuarioUC implements UseCase<CriarUsuarioRequest, MethodRe
 
        UserEntityDomain usuarioCadastrado = new UserEntityDomain( null ,request.username(), request.login(), senhaCriptografada, request.roleUser());
 
-       this.usuarioGateway.salvar(usuarioCadastrado);
+       this.usuarioGateway.salvarNovoUsuario(usuarioCadastrado);
        return new MethodResponse<>(201, "Usuário cadastrado com sucesso!", null);
     }
 }

@@ -36,7 +36,7 @@ public class UsuarioGatewayImpl implements UsuarioGateway {
 
     @Override
     @Transactional
-    public void salvar(UserEntityDomain user) {
+    public void salvarNovoUsuario(UserEntityDomain user) {
         this.userRepository.save(mapper.toEntity(user));
     }
 }
