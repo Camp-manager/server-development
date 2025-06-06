@@ -39,40 +39,70 @@ public class AdicionarPessoasEquipeUC implements UseCase<AdicionarPessoasEquipeR
 
         EquipeEntityDomain equipeEncontrada = this.equipeGateway.buscarEquipePorId(input.idEquipe());
 
-        List<Object> pessoasParaAdicionar = this.buscarCampistasEFuncionarios(input.idsPessoas(), equipeEncontrada);
+        List<CampistaEntityDomain> pessoasParaAdicionarCampista = new ArrayList<>();
+        List<FuncionarioEntityDomain> pessoasParaAdicionarFuncionario = new ArrayList<>();
 
-        this.adicionarPessoasNaEquipe(equipeEncontrada, pessoasParaAdicionar);
+        if(equipeEncontrada.tipoEquipe().equals("CAMPISTA")){
+             pessoasParaAdicionarCampista = this.buscarCampistas(input.idsPessoas(), equipeEncontrada);
+        } else {
+            pessoasParaAdicionarFuncionario = this.buscarFuncionario(input.idsPessoas(), equipeEncontrada);
+        }
 
-        return null;
+        this.adicionarPessoasNaEquipe(equipeEncontrada, pessoasParaAdicionarCampista, pessoasParaAdicionarFuncionario);
+
+        return new MethodResponse<>(201, "Pessoas adicionadas com sucesso!", null);
     }
 
-    private List<Object> buscarCampistasEFuncionarios(List<Long> idsPessoas, EquipeEntityDomain equipeEncontrada) {
-        List<Object> pessoasParaAdicionar = new ArrayList<>();
+    private List<CampistaEntityDomain> buscarCampistas(List<Long> idsPessoas, EquipeEntityDomain equipeEncontrada) {
+        List<CampistaEntityDomain> pessoasParaAdicionar = new ArrayList<>();
 
-        if(equipeEncontrada.tipoEquipe().equals("CAMPISTA")) {
-            idsPessoas.forEach(id -> {
-                boolean campistaEhExistente = this.campistaGateway.campistaEhExistentePorId(id);
-                if(!campistaEhExistente) throw new NotFoundException("Campista com id [" + id + "] não existe!");
-                CampistaEntityDomain campistaEncontrado = this.campistaGateway.buscarCampistaPorId(id);
-                pessoasParaAdicionar.add(campistaEncontrado);
-            });
-        } else {
-            idsPessoas.forEach(id -> {
-                boolean funcionarioEhExistente = this.funcionarioGateway.funcionarioEhExistentePorId(id);
-                if(!funcionarioEhExistente) throw new NotFoundException("Funcionário com id [" + id + "] não existe!");
-                FuncionarioEntityDomain funcionarioEncontrado = this.funcionarioGateway.buscarFuncionarioPorId(id);
-                pessoasParaAdicionar.add(funcionarioEncontrado);
-            });
-        }
+        idsPessoas.forEach(id -> {
+            boolean campistaEhExistente = this.campistaGateway.campistaEhExistentePorId(id);
+            if(!campistaEhExistente) throw new NotFoundException("Campista com id [" + id + "] não existe!");
+            CampistaEntityDomain campistaEncontrado = this.campistaGateway.buscarCampistaPorId(id);
+            pessoasParaAdicionar.add(campistaEncontrado);
+        });
+
         return pessoasParaAdicionar;
     }
 
-    private void adicionarPessoasNaEquipe(EquipeEntityDomain equipeEncontrada, List<Object> pessoasParaAdicionar) {
-        if(equipeEncontrada.tipoEquipe().equals("CAMPISTA")) {
+    private List<FuncionarioEntityDomain> buscarFuncionario(List<Long> idsPessoas, EquipeEntityDomain equipeEncontrada) {
+        List<FuncionarioEntityDomain> pessoasParaAdicionar = new ArrayList<>();
 
+        idsPessoas.forEach(id -> {
+            boolean funcionarioEhExistente = this.funcionarioGateway.funcionarioEhExistentePorId(id);
+            if(!funcionarioEhExistente) throw new NotFoundException("Funcionário com id [" + id + "] não existe!");
+            FuncionarioEntityDomain funcionarioEncontrado = this.funcionarioGateway.buscarFuncionarioPorId(id);
+            pessoasParaAdicionar.add(funcionarioEncontrado);
+        });
+
+        return pessoasParaAdicionar;
+    }
+
+    private void adicionarPessoasNaEquipe(EquipeEntityDomain equipeEncontrada, List<CampistaEntityDomain> pessoasParaAdicionar, List<FuncionarioEntityDomain> pessoasParaAdicionarFuncionario) {
+        EquipeEntityDomain equipeComPessoasAdicionadas;
+        if(equipeEncontrada.tipoEquipe().equals("CAMPISTA")) {
+            equipeComPessoasAdicionadas = new EquipeEntityDomain(
+                    equipeEncontrada.id(),
+                    equipeEncontrada.nome(),
+                    equipeEncontrada.tipoEquipe(),
+                    equipeEncontrada.cronograma(),
+                    equipeEncontrada.acampamento(),
+                    pessoasParaAdicionar,
+                    equipeEncontrada.funcionariosNaEquipe()
+            );
         } else {
-            List<FuncionarioEntityDomain> funcionarios = new ArrayList<>();
-            pessoasParaAdicionar.forEach(pessoa -> funcionarios.add((FuncionarioEntityDomain) pessoa));
+            equipeComPessoasAdicionadas = new EquipeEntityDomain(
+                    equipeEncontrada.id(),
+                    equipeEncontrada.nome(),
+                    equipeEncontrada.tipoEquipe(),
+                    equipeEncontrada.cronograma(),
+                    equipeEncontrada.acampamento(),
+                    equipeEncontrada.campistasNaEquipe(),
+                    pessoasParaAdicionarFuncionario
+            );
         }
+
+        this.equipeGateway.salvarEquipe(equipeComPessoasAdicionadas);
     }
 }

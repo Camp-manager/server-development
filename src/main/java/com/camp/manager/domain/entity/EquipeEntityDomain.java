@@ -7,5 +7,7 @@ public record EquipeEntityDomain(
         String nome,
         String tipoEquipe,
         CronogramaEntityDomain cronograma,
-        AcampamentoEntityDomain acampamento){
+        AcampamentoEntityDomain acampamento,
+        List<CampistaEntityDomain> campistasNaEquipe,
+        List<FuncionarioEntityDomain> funcionariosNaEquipe){
 }

@@ -73,6 +73,8 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
                 .toList();
     }
 
+
+
     private List<EquipeEntityDomain> mapDomainEquipe(List<EquipeEntityJpa> equipeJpa) {
         return equipeJpa.stream()
                 .map(mapperEquipe::toDomain)
