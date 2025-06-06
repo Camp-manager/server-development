@@ -11,6 +11,7 @@ import java.util.List;
 public class AcampamentoBasicoDTO {
     private final Long idAcampamento;
     private final String nomeAcampamento;
+    private final String codigoRegistro;
     private final LocalDate dataInicio;
     private final LocalDate dataFim;
     private final Long limiteFuncionarios;
@@ -20,6 +21,7 @@ public class AcampamentoBasicoDTO {
     public AcampamentoBasicoDTO(AcampamentoEntityDomain acampamentoEntityDomain){
         this.idAcampamento = acampamentoEntityDomain.id();
         this.nomeAcampamento = acampamentoEntityDomain.nome();
+        this.codigoRegistro = acampamentoEntityDomain.codigoRegistro();
         this.dataInicio = acampamentoEntityDomain.cronograma().dataInicio();
         this.dataFim = acampamentoEntityDomain.cronograma().dataFinal();
         this.limiteFuncionarios = acampamentoEntityDomain.limiteFuncionario();
