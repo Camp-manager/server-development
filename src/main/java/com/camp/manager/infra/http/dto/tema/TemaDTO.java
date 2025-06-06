@@ -15,7 +15,7 @@ public class TemaDTO {
     public TemaDTO(TemaEntityDomain temaEntityDomain) {
         this.id = temaEntityDomain.id();
         this.descricao = temaEntityDomain.descricao();
-        this.design = Base64.getEncoder().encodeToString(temaEntityDomain.imagemDesign());
+        this.design = temaEntityDomain.descricao() != null ? Base64.getEncoder().encodeToString(temaEntityDomain.imagemDesign()) : null;
     }
 
     public static List<TemaDTO> converter(List<TemaEntityDomain> temaEntityDomains) {
