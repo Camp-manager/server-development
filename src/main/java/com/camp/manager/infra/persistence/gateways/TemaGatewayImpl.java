@@ -65,4 +65,9 @@ public class TemaGatewayImpl implements TemaGateway {
     public void deletarTemaPorId(Long idTema) {
         this.temaRepository.deleteById(idTema);
     }
+
+    @Override
+    public void salvarTemaComImagem(TemaEntityDomain temaAtualizado) {
+        this.temaRepository.save(this.temaMapper.toEntity(temaAtualizado));
+    }
 }

@@ -26,7 +26,7 @@ CREATE TABLE estoque(
 CREATE TABLE tema(
     id BIGSERIAL PRIMARY KEY,
     descricao TEXT NOT NULL,
-    design TEXT NOT NULL,
+    design TEXT,
     preco_camiseta NUMERIC(10,2),
     preco_acampamento NUMERIC(10,2)
 );

@@ -12,4 +12,5 @@ public interface TemaGateway {
     void atualizarTema(TemaEntityDomain temaDomain);
     List<TemaEntityDomain> buscarTodosOsTemas();
     void deletarTemaPorId(Long idTema);
+    void salvarTemaComImagem(TemaEntityDomain temaAtualizado);
 }
