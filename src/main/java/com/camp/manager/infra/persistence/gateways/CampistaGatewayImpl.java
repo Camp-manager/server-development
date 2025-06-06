@@ -29,6 +29,11 @@ public class CampistaGatewayImpl implements CampistaGateway {
     }
 
     @Override
+    public boolean campistaEhExistentePorId(Long id) {
+        return this.campistaRepository.existsById(id);
+    }
+
+    @Override
     public void inserirCampista(CampistaEntityDomain campistaDomain) {
         this.campistaRepository.save(this.campistaMapper.toEntity(campistaDomain));
     }
@@ -49,5 +54,13 @@ public class CampistaGatewayImpl implements CampistaGateway {
                 .stream()
                 .map(campistaMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public CampistaEntityDomain buscarCampistaPorId(Long id) {
+        return this.campistaRepository
+                .findById(id)
+                .map(campistaMapper::toDomain)
+                .orElse(null) ;
     }
 }

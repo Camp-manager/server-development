@@ -1,6 +1,7 @@
 package com.camp.manager.infra.mapper;
 
 import com.camp.manager.domain.entity.AcampamentoEntityDomain;
+import com.camp.manager.domain.entity.CampistaEntityDomain;
 import com.camp.manager.domain.entity.CronogramaEntityDomain;
 import com.camp.manager.domain.entity.EquipeEntityDomain;
 import com.camp.manager.domain.enums.TipoEquipe;
@@ -10,6 +11,8 @@ import com.camp.manager.infra.persistence.entity.EquipeEntityJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>{
@@ -27,23 +30,18 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
     @Override
     public EquipeEntityDomain toDomain(EquipeEntityJpa equipeEntityJpa) {
         return new EquipeEntityDomain(
-                equipeEntityJpa.getId(),
-                equipeEntityJpa.getNome(),
-                equipeEntityJpa.getTipoEquipe().getDescricao(),
-                this.mapperCronograma.toDomain(equipeEntityJpa.getCronograma()),
-                this.mapperAcampamento.toDomain(equipeEntityJpa.getAcampamento())
+                null,
+                null,
+                null,
+                null,
+                null
         );
     }
 
     @Override
     public EquipeEntityJpa toEntity(EquipeEntityDomain equipeEntityDomain) {
-        return new EquipeEntityJpa(
-                equipeEntityDomain.id(),
-                equipeEntityDomain.nome(),
-                TipoEquipe.fromDescricao(equipeEntityDomain.tipoEquipe()),
-                this.mapperCronograma.toEntity(equipeEntityDomain.cronograma()),
-                this.mapperAcampamento.toEntity(equipeEntityDomain.acampamento())
-        );
+        return new EquipeEntityJpa();
     }
+
 
 }

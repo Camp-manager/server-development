@@ -41,16 +41,16 @@ public class CampistaEntityJpa {
     @Column(name = "tem_barraca")
     private Resposta temBarraca;
 
-    @OneToOne
     @JoinColumn(name = "id_camiseta")
+    @OneToOne(cascade = CascadeType.ALL)
     private CamisetaEntityJpa camiseta;
 
-    @OneToOne
     @JoinColumn(name = "id_pessoa")
+    @OneToOne(cascade = CascadeType.ALL)
     private PessoaEntityJpa pessoa;
 
-    @ManyToOne
     @JoinColumn(name = "id_equipe")
+    @ManyToOne(cascade = CascadeType.ALL)
     private EquipeEntityJpa equipe;
 
 }

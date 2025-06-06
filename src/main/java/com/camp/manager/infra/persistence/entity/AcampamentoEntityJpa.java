@@ -34,16 +34,17 @@ public class AcampamentoEntityJpa {
     @Column(name = "codigo_registro")
     private String codigoRegistro;
 
-    @OneToOne
+
     @JoinColumn(name = "id_tema")
+    @OneToOne(cascade = CascadeType.ALL)
     private TemaEntityJpa tema;
 
     @ManyToOne
     @JoinColumn(name = "id_tipo_acampamento")
     private TipoAcampamentoEntityJpa tipoAcampamento;
 
-    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_cronograma")
+    @OneToOne(cascade = CascadeType.ALL)
     private CronogramaEntityJpa cronograma;
 
     @OneToMany(mappedBy = "acampamento")
@@ -51,5 +52,4 @@ public class AcampamentoEntityJpa {
 
     @OneToMany(mappedBy = "acampamento")
     private List<EquipeEntityJpa> listEquipe;
-
 }

@@ -31,7 +31,7 @@ public class FamiliarEntityJpa {
     private String telefone;
 
     @JoinColumn(name = "id_endereco")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private EnderecoEntityJpa endereco;
 
 }

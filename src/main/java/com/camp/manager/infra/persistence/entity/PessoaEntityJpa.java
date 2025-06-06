@@ -52,11 +52,11 @@ public class PessoaEntityJpa {
     private Resposta temPrimeiraComunhao;
 
     @JoinColumn(name = "id_endereco")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private EnderecoEntityJpa endereco;
 
     @JoinColumn(name = "id_familiar")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private FamiliarEntityJpa familiar;
 
 }

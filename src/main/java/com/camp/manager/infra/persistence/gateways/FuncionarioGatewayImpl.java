@@ -29,6 +29,11 @@ public class FuncionarioGatewayImpl implements FuncionarioGateway {
     }
 
     @Override
+    public boolean funcionarioEhExistentePorId(Long id) {
+        return this.funcionarioRepository.existsById(id);
+    }
+
+    @Override
     public void inserirFuncionario(FuncionarioEntityDomain funcionarioDomain) {
         this.funcionarioRepository.save(this.funcionarioMapper.toEntity(funcionarioDomain));
     }
@@ -49,5 +54,13 @@ public class FuncionarioGatewayImpl implements FuncionarioGateway {
                 .stream()
                 .map(funcionarioMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public FuncionarioEntityDomain buscarFuncionarioPorId(Long id) {
+        return this.funcionarioRepository
+                .findById(id)
+                .map(funcionarioMapper::toDomain)
+                .orElse(null);
     }
 }

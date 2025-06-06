@@ -39,4 +39,19 @@ public class EquipeGatewayImpl implements EquipeGateway {
                 .map(equipeMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public boolean equipeEhExistente(Long idEquipe) {
+        return this.equipeRepository.existsById(idEquipe);
+    }
+
+    @Override
+    public void salvarEquipe(EquipeEntityDomain equipeEntityDomain) {
+        this.equipeRepository.saveAndFlush(this.equipeMapper.toEntity(equipeEntityDomain));
+    }
+
+    @Override
+    public EquipeEntityDomain buscarEquipePorId(Long idEquipe) {
+        return this.equipeMapper.toDomain(this.equipeRepository.findById(idEquipe).orElse(null));
+    }
 }

@@ -29,7 +29,7 @@ public class AtividadeEntityJpa {
     @Column(name = "descricao")
     private String descricao;
 
-    @ManyToOne
     @JoinColumn(name = "id_cronograma")
+    @ManyToOne(cascade = CascadeType.ALL)
     private CronogramaEntityJpa cronograma;
 }
