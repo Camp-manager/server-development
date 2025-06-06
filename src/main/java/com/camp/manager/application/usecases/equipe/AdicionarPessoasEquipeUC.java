@@ -42,10 +42,10 @@ public class AdicionarPessoasEquipeUC implements UseCase<AdicionarPessoasEquipeR
         List<CampistaEntityDomain> pessoasParaAdicionarCampista = new ArrayList<>();
         List<FuncionarioEntityDomain> pessoasParaAdicionarFuncionario = new ArrayList<>();
 
-        if(equipeEncontrada.tipoEquipe().equals("CAMPISTA")){
-             pessoasParaAdicionarCampista = this.buscarCampistas(input.idsPessoas(), equipeEncontrada);
-        } else {
-            pessoasParaAdicionarFuncionario = this.buscarFuncionario(input.idsPessoas(), equipeEncontrada);
+        if(equipeEncontrada.tipoEquipe().equals("Campista")){
+             pessoasParaAdicionarCampista = this.buscarCampistas(input.idsPessoas());
+        } else if(equipeEncontrada.tipoEquipe().equals("Trabalho")) {
+            pessoasParaAdicionarFuncionario = this.buscarFuncionario(input.idsPessoas());
         }
 
         this.adicionarPessoasNaEquipe(equipeEncontrada, pessoasParaAdicionarCampista, pessoasParaAdicionarFuncionario);
@@ -53,7 +53,7 @@ public class AdicionarPessoasEquipeUC implements UseCase<AdicionarPessoasEquipeR
         return new MethodResponse<>(201, "Pessoas adicionadas com sucesso!", null);
     }
 
-    private List<CampistaEntityDomain> buscarCampistas(List<Long> idsPessoas, EquipeEntityDomain equipeEncontrada) {
+    private List<CampistaEntityDomain> buscarCampistas(List<Long> idsPessoas) {
         List<CampistaEntityDomain> pessoasParaAdicionar = new ArrayList<>();
 
         idsPessoas.forEach(id -> {
@@ -66,7 +66,7 @@ public class AdicionarPessoasEquipeUC implements UseCase<AdicionarPessoasEquipeR
         return pessoasParaAdicionar;
     }
 
-    private List<FuncionarioEntityDomain> buscarFuncionario(List<Long> idsPessoas, EquipeEntityDomain equipeEncontrada) {
+    private List<FuncionarioEntityDomain> buscarFuncionario(List<Long> idsPessoas) {
         List<FuncionarioEntityDomain> pessoasParaAdicionar = new ArrayList<>();
 
         idsPessoas.forEach(id -> {
@@ -81,7 +81,7 @@ public class AdicionarPessoasEquipeUC implements UseCase<AdicionarPessoasEquipeR
 
     private void adicionarPessoasNaEquipe(EquipeEntityDomain equipeEncontrada, List<CampistaEntityDomain> pessoasParaAdicionar, List<FuncionarioEntityDomain> pessoasParaAdicionarFuncionario) {
         EquipeEntityDomain equipeComPessoasAdicionadas;
-        if(equipeEncontrada.tipoEquipe().equals("CAMPISTA")) {
+        if(equipeEncontrada.tipoEquipe().equals("Campista")) {
             equipeComPessoasAdicionadas = new EquipeEntityDomain(
                     equipeEncontrada.id(),
                     equipeEncontrada.nome(),
