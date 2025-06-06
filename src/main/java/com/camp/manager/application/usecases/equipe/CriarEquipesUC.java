@@ -62,7 +62,9 @@ public class CriarEquipesUC implements UseCase<EquipesRequest, MethodResponse<Vo
                             LocalDateConverterAPP.converterStringParaLocalDate(equipe.cronograma().dataInicial()),
                             LocalDateConverterAPP.converterStringParaLocalDate(equipe.cronograma().dataFinal()),
                             equipe.cronograma().descricao()),
-                    acampamentoEncontrado
+                    acampamentoEncontrado,
+                    new ArrayList<>(),
+                    new ArrayList<>()
             );
             equipesDeTrabalho.add(equipeCriada);
         });
