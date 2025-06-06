@@ -34,9 +34,8 @@ public class AcampamentoEntityJpa {
     @Column(name = "codigo_registro")
     private String codigoRegistro;
 
-
+    @OneToOne
     @JoinColumn(name = "id_tema")
-    @OneToOne(cascade = CascadeType.ALL)
     private TemaEntityJpa tema;
 
     @ManyToOne
