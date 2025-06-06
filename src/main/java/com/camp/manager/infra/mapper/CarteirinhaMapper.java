@@ -5,6 +5,7 @@ import com.camp.manager.domain.entity.TemaEntityDomain;
 import com.camp.manager.infra.persistence.entity.CarteirinhaEntityJpa;
 import com.camp.manager.infra.persistence.entity.TemaEntityJpa;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +14,7 @@ public class CarteirinhaMapper implements Mapper<CarteirinhaEntityJpa, Carteirin
     private final Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema;
 
     @Autowired
-    public CarteirinhaMapper(Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema) {
+    public CarteirinhaMapper(@Lazy Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema) {
         this.mapperTema = mapperTema;
     }
 

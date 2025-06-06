@@ -4,6 +4,7 @@ import com.camp.manager.domain.entity.*;
 import com.camp.manager.domain.enums.Resposta;
 import com.camp.manager.infra.persistence.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,9 +17,9 @@ public class CampistaMapper implements Mapper<CampistaEntityJpa, CampistaEntityD
     private final Mapper<EquipeEntityJpa, EquipeEntityDomain> equipeMapper;
 
     @Autowired
-    public CampistaMapper(Mapper<CamisetaEntityJpa, CamisetaEntityDomain> camisetaMapper,
-                          Mapper<PessoaEntityJpa, PessoaEntityDomain> pessoaMapper,
-                          Mapper<EquipeEntityJpa, EquipeEntityDomain> equipeMapper) {
+    public CampistaMapper(@Lazy Mapper<CamisetaEntityJpa, CamisetaEntityDomain> camisetaMapper,
+                          @Lazy Mapper<PessoaEntityJpa, PessoaEntityDomain> pessoaMapper,
+                          @Lazy Mapper<EquipeEntityJpa, EquipeEntityDomain> equipeMapper) {
         this.camisetaMapper = camisetaMapper;
         this.pessoaMapper = pessoaMapper;
         this.equipeMapper = equipeMapper;

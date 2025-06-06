@@ -3,6 +3,7 @@ package com.camp.manager.infra.mapper;
 import com.camp.manager.domain.entity.*;
 import com.camp.manager.infra.persistence.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,9 +14,9 @@ public class FuncionarioMapper implements Mapper<FuncionarioEntityJpa, Funcionar
     private final Mapper<EquipeEntityJpa, EquipeEntityDomain> mapperEquipe;
 
     @Autowired
-    public FuncionarioMapper(Mapper<CarteirinhaEntityJpa, CarteirinhaEntityDomain> mapperCarteirinha,
-                             Mapper<CamisetaEntityJpa, CamisetaEntityDomain> mapperCamiseta,
-                             Mapper<EquipeEntityJpa, EquipeEntityDomain> mapperEquipe) {
+    public FuncionarioMapper(@Lazy Mapper<CarteirinhaEntityJpa, CarteirinhaEntityDomain> mapperCarteirinha,
+                             @Lazy Mapper<CamisetaEntityJpa, CamisetaEntityDomain> mapperCamiseta,
+                             @Lazy Mapper<EquipeEntityJpa, EquipeEntityDomain> mapperEquipe) {
         this.mapperCarteirinha = mapperCarteirinha;
         this.mapperCamiseta = mapperCamiseta;
         this.mapperEquipe = mapperEquipe;

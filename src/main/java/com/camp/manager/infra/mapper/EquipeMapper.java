@@ -20,8 +20,8 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
     @Autowired
     public EquipeMapper(@Lazy Mapper<CronogramaEntityJpa, CronogramaEntityDomain> mapperCronograma,
                         @Lazy Mapper<AcampamentoEntityJpa, AcampamentoEntityDomain> mapperAcampamento,
-                        Mapper<CampistaEntityJpa, CampistaEntityDomain> mapperCampista,
-                        Mapper<FuncionarioEntityJpa, FuncionarioEntityDomain> mapperFuncionario) {
+                        @Lazy Mapper<CampistaEntityJpa, CampistaEntityDomain> mapperCampista,
+                        @Lazy Mapper<FuncionarioEntityJpa, FuncionarioEntityDomain> mapperFuncionario) {
         this.mapperCronograma = mapperCronograma;
         this.mapperAcampamento = mapperAcampamento;
         this.mapperCampista = mapperCampista;

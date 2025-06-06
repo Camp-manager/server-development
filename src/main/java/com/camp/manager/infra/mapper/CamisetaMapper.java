@@ -6,6 +6,7 @@ import com.camp.manager.domain.enums.TamanhoCamiseta;
 import com.camp.manager.infra.persistence.entity.CamisetaEntityJpa;
 import com.camp.manager.infra.persistence.entity.TemaEntityJpa;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +15,7 @@ public class CamisetaMapper implements Mapper<CamisetaEntityJpa, CamisetaEntityD
     private final Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema;
 
     @Autowired
-    public CamisetaMapper(Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema) {
+    public CamisetaMapper(@Lazy Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema) {
         this.mapperTema = mapperTema;
     }
 

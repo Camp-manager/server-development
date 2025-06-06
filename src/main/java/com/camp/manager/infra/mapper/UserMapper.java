@@ -13,12 +13,9 @@ public class UserMapper implements Mapper<UserEntityJpa, UserEntityDomain> {
     @Override
     public UserEntityJpa toEntity(UserEntityDomain userDomain) {
         String role = userDomain.role();
-
         String id = userDomain.id();
 
-        if(userDomain.id() == null){
-            id = UUID.randomUUID().toString();
-        }
+        if(userDomain.id() == null)id = UUID.randomUUID().toString();
 
         return new UserEntityJpa(
                 UUID.fromString(id),

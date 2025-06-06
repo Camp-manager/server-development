@@ -6,6 +6,7 @@ import com.camp.manager.domain.enums.Parentesco;
 import com.camp.manager.infra.persistence.entity.EnderecoEntityJpa;
 import com.camp.manager.infra.persistence.entity.FamiliarEntityJpa;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +15,7 @@ public class FamiliarMapper implements Mapper<FamiliarEntityJpa, FamiliarEntityD
     private final Mapper<EnderecoEntityJpa, EnderecoEntityDomain> mapperEndereco;
 
     @Autowired
-    public FamiliarMapper(Mapper<EnderecoEntityJpa, EnderecoEntityDomain> mapperEndereco) {
+    public FamiliarMapper(@Lazy Mapper<EnderecoEntityJpa, EnderecoEntityDomain> mapperEndereco) {
         this.mapperEndereco = mapperEndereco;
     }
 
