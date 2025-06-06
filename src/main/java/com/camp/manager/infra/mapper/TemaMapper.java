@@ -15,7 +15,7 @@ public class TemaMapper implements Mapper<TemaEntityJpa, TemaEntityDomain> {
         return new TemaEntityDomain(
                 temaEntityJpa.getId(),
                 temaEntityJpa.getDescricao(),
-                Base64.getDecoder().decode(temaEntityJpa.getDesign()),
+                temaEntityJpa.getDesign() != null ? Base64.getDecoder().decode(temaEntityJpa.getDesign()) : null,
                 BigDecimal.valueOf(temaEntityJpa.getPrecoCamiseta()),
                 BigDecimal.valueOf(temaEntityJpa.getPrecoAcampamento())
                 );
@@ -26,7 +26,7 @@ public class TemaMapper implements Mapper<TemaEntityJpa, TemaEntityDomain> {
         return new TemaEntityJpa(
                 temaEntityDomain.id(),
                 temaEntityDomain.descricao(),
-                Base64.getEncoder().encodeToString(temaEntityDomain.imagemDesign()),
+                temaEntityDomain.imagemDesign() != null ? Base64.getEncoder().encodeToString(temaEntityDomain.imagemDesign()) : null,
                 temaEntityDomain.precoCamiseta().doubleValue(),
                 temaEntityDomain.precoAcampamento().doubleValue()
         );
