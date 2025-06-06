@@ -37,7 +37,7 @@ public class TemaController {
     }
 
     @PostMapping(path = "/adicionar", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Void> adicionarTema(
+    public ResponseEntity<Long> adicionarTema(
             @RequestPart("infotema") @Valid CriarTemaRequest temaRequest,
             @RequestPart("arquivotema") MultipartFile imagemTema) {
         CriarTemaRequest temaRequestComImagem = new CriarTemaRequest(

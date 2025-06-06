@@ -31,8 +31,8 @@ public class TemaGatewayImpl implements TemaGateway {
     }
 
     @Override
-    public void inserirTema(TemaEntityDomain temaDomain) {
-        this.temaRepository.save(temaMapper.toEntity(temaDomain));
+    public TemaEntityDomain inserirTema(TemaEntityDomain temaDomain) {
+        return this.temaMapper.toDomain(this.temaRepository.save(this.temaMapper.toEntity(temaDomain)));
     }
 
     @Override

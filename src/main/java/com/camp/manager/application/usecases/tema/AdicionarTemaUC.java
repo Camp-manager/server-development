@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.math.BigDecimal;
 
 @Service
-public class AdicionarTemaUC implements UseCase<CriarTemaRequest, MethodResponse<Void>> {
+public class AdicionarTemaUC implements UseCase<CriarTemaRequest, MethodResponse<Long>> {
 
     private final TemaGateway temaGateway;
 
@@ -26,16 +26,16 @@ public class AdicionarTemaUC implements UseCase<CriarTemaRequest, MethodResponse
 
     @Override
     @Transactional
-    public MethodResponse<Void> execute(CriarTemaRequest input) {
+    public MethodResponse<Long> execute(CriarTemaRequest input) {
         boolean temaEhExistente = this.temaGateway.temaEhExistentePorDescricao(input.descricao());
         if(temaEhExistente) {throw new EntityFoundException("Tema já cadastrado!");}
 
         byte[] imagemTema = validarETransformar(input.arquivoImagemTema());
 
-        this.temaGateway.inserirTema(
+        TemaEntityDomain temaCadastrado = this.temaGateway.inserirTema(
                 new TemaEntityDomain(null, input.descricao(), imagemTema, BigDecimal.valueOf(input.precoCamiseta()), BigDecimal.valueOf(input.precoAcampamento())));
 
-        return new MethodResponse<>(201, "Tema cadastrado com sucesso!", null);
+        return new MethodResponse<>(201, "Tema cadastrado com sucesso!", temaCadastrado.id());
     }
 
     private byte[] validarETransformar(MultipartFile imagem) {

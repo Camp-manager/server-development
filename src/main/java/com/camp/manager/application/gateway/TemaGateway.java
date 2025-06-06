@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TemaGateway {
     boolean temaEhExistentePorDescricao(String descricaoDoTema);
-    void inserirTema(TemaEntityDomain temaDomain);
+    TemaEntityDomain inserirTema(TemaEntityDomain temaDomain);
     boolean temaEhExistentePorId(Long idTema);
     TemaEntityDomain buscarTemaPorId(Long idTema);
     void atualizarTema(TemaEntityDomain temaDomain);
