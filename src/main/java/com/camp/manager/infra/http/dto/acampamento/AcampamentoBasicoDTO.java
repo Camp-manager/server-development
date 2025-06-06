@@ -1,6 +1,7 @@
 package com.camp.manager.infra.http.dto.acampamento;
 
 import com.camp.manager.domain.entity.AcampamentoEntityDomain;
+import com.camp.manager.infra.http.dto.tema.TemaDTO;
 import com.camp.manager.infra.http.dto.tipoacampamento.TipoAcampamentoDTO;
 import lombok.Getter;
 
@@ -17,6 +18,7 @@ public class AcampamentoBasicoDTO {
     private final Long limiteFuncionarios;
     private final Long limiteCampistas;
     private final TipoAcampamentoDTO tipoAcampamento;
+    private final TemaDTO tema;
 
     public AcampamentoBasicoDTO(AcampamentoEntityDomain acampamentoEntityDomain){
         this.idAcampamento = acampamentoEntityDomain.id();
@@ -27,6 +29,7 @@ public class AcampamentoBasicoDTO {
         this.limiteFuncionarios = acampamentoEntityDomain.limiteFuncionario();
         this.limiteCampistas = acampamentoEntityDomain.limiteCampistas();
         this.tipoAcampamento = new TipoAcampamentoDTO(acampamentoEntityDomain.tipoAcampamento());
+        this.tema = new TemaDTO(acampamentoEntityDomain.tema());
     }
 
     public static List<AcampamentoBasicoDTO> converter(List<AcampamentoEntityDomain> acampamentos) {
