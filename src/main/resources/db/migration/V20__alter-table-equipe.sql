@@ -1,0 +1,1 @@
+ALTER TABLE equipe ADD COLUMN id_campista BIGINT;
