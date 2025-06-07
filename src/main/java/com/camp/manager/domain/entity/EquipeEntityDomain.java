@@ -9,5 +9,6 @@ public record EquipeEntityDomain(
         CronogramaEntityDomain cronograma,
         AcampamentoEntityDomain acampamento,
         List<CampistaEntityDomain> campistasNaEquipe,
-        List<FuncionarioEntityDomain> funcionariosNaEquipe){
+        List<FuncionarioEntityDomain> funcionariosNaEquipe,
+        CampistaEntityDomain liderDaEquipe) {
 }

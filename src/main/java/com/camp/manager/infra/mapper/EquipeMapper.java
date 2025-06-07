@@ -37,7 +37,8 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
                 this.mapperCronograma.toDomain(equipeEntityJpa.getCronograma()),
                 this.mapperAcampamento.toDomain(equipeEntityJpa.getAcampamento()),
                 this.mapDomainCampistas(equipeEntityJpa.getCampistas()),
-                this.mapDomainFuncionarios(equipeEntityJpa.getFuncionarios())
+                this.mapDomainFuncionarios(equipeEntityJpa.getFuncionarios()),
+                equipeEntityJpa.getCampistaLider() != null ? this.mapperCampista.toDomain(equipeEntityJpa.getCampistaLider()) : null
         );
     }
 
@@ -50,7 +51,8 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
                 this.mapperCronograma.toEntity(equipeEntityDomain.cronograma()),
                 this.mapperAcampamento.toEntity(equipeEntityDomain.acampamento()),
                 this.mapEntityCampistas(equipeEntityDomain.campistasNaEquipe()),
-                this.mapEntityFuncionarios(equipeEntityDomain.funcionariosNaEquipe())
+                this.mapEntityFuncionarios(equipeEntityDomain.funcionariosNaEquipe()),
+                equipeEntityDomain.liderDaEquipe() != null ? this.mapperCampista.toEntity(equipeEntityDomain.liderDaEquipe()) : null
         );
     }
 

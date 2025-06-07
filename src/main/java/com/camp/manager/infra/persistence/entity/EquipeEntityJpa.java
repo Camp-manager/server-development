@@ -43,4 +43,7 @@ public class EquipeEntityJpa {
     @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FuncionarioEntityJpa> funcionarios;
 
+    @OneToOne
+    @JoinColumn(name = "id_campista")
+    private CampistaEntityJpa campistaLider;
 }

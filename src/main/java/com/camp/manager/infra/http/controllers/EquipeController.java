@@ -3,10 +3,12 @@ package com.camp.manager.infra.http.controllers;
 import com.camp.manager.application.usecases.equipe.AdicionarPessoasEquipeUC;
 import com.camp.manager.application.usecases.equipe.BuscarEquipesUC;
 import com.camp.manager.application.usecases.equipe.CriarEquipesUC;
+import com.camp.manager.application.usecases.equipe.SelecionarLiderDeEquipeUC;
 import com.camp.manager.infra.http.dto.equipe.EquipeDTO;
 import com.camp.manager.infra.http.request.equipe.AdicionarPessoasEquipeRequest;
 import com.camp.manager.infra.http.request.equipe.EquipeRequest;
 import com.camp.manager.infra.http.request.equipe.EquipesRequest;
+import com.camp.manager.infra.http.request.equipe.LiderEquipeRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +23,17 @@ public class EquipeController {
     private final CriarEquipesUC criarEquipesUC;
     private final BuscarEquipesUC buscarEquipesUC;
     private final AdicionarPessoasEquipeUC adicionarPessoasEquipeUC;
+    private final SelecionarLiderDeEquipeUC selecionarLiderDeEquipeUC;
 
     @Autowired
     public EquipeController(CriarEquipesUC criarEquipesUC,
                             BuscarEquipesUC buscarEquipesUC,
-                            AdicionarPessoasEquipeUC adicionarPessoasEquipeUC) {
+                            AdicionarPessoasEquipeUC adicionarPessoasEquipeUC,
+                            SelecionarLiderDeEquipeUC selecionarLiderDeEquipeUC) {
         this.criarEquipesUC = criarEquipesUC;
         this.buscarEquipesUC = buscarEquipesUC;
         this.adicionarPessoasEquipeUC = adicionarPessoasEquipeUC;
+        this.selecionarLiderDeEquipeUC = selecionarLiderDeEquipeUC;
     }
 
     @PostMapping(path = "/cadastrar/{idAcampamento}")
@@ -38,6 +43,17 @@ public class EquipeController {
                 .status(response.status())
                 .body(response.data());
     }
+
+    @PutMapping(path = "/selecionar-lider/{idEquipe}/{idPessoa}/{idAcampamento}")
+    public ResponseEntity<Void> selecionarLiderEquipe(@PathVariable Long idEquipe,
+                                                              @PathVariable Long idPessoa,
+                                                              @PathVariable Long idAcampamento) {
+        var response = this.selecionarLiderDeEquipeUC.execute(new LiderEquipeRequest(idEquipe, idPessoa, idAcampamento));
+        return ResponseEntity
+                .status(response.status())
+                .body(response.data());
+    }
+
 
     @PostMapping(path = "/adicionar-pessoas/{idEquipe}")
     public ResponseEntity<Void> adicionarPessoasEquipe(@PathVariable Long idEquipe, @RequestBody List<Long> idsPessoas) {
