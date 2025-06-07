@@ -11,11 +11,15 @@ public class TemaDTO {
     private final Long id;
     private final String descricao;
     private final String design;
+    private final Double precoCamiseta;
+    private final Double precoAcampamento;
 
     public TemaDTO(TemaEntityDomain temaEntityDomain) {
         this.id = temaEntityDomain.id();
         this.descricao = temaEntityDomain.descricao();
         this.design = temaEntityDomain.descricao() != null ? Base64.getEncoder().encodeToString(temaEntityDomain.imagemDesign()) : null;
+        this.precoCamiseta = temaEntityDomain.precoCamiseta().doubleValue();
+        this.precoAcampamento = temaEntityDomain.precoAcampamento().doubleValue();
     }
 
     public static List<TemaDTO> converter(List<TemaEntityDomain> temaEntityDomains) {
@@ -23,5 +27,4 @@ public class TemaDTO {
                 .map(TemaDTO::new)
                 .toList();
     }
-
 }
