@@ -64,7 +64,8 @@ public class CriarEquipesUC implements UseCase<EquipesRequest, MethodResponse<Vo
                             equipe.cronograma().descricao()),
                     acampamentoEncontrado,
                     new ArrayList<>(),
-                    new ArrayList<>()
+                    new ArrayList<>(),
+                    null
             );
             equipesDeTrabalho.add(equipeCriada);
         });
