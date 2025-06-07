@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class FuncionarioMapper implements Mapper<FuncionarioEntityJpa, FuncionarioEntityDomain>{
 
-    private final Mapper<CarteirinhaEntityJpa, CarteirinhaEntityDomain> mapperCarteirinha;
-    private final Mapper<CamisetaEntityJpa, CamisetaEntityDomain> mapperCamiseta;
-    private final Mapper<EquipeEntityJpa, EquipeEntityDomain> mapperEquipe;
+    private final CarteirinhaMapper mapperCarteirinha;
+    private final CamisetaMapper mapperCamiseta;
+    private final EquipeMapper mapperEquipe;
 
     @Autowired
-    public FuncionarioMapper(@Lazy Mapper<CarteirinhaEntityJpa, CarteirinhaEntityDomain> mapperCarteirinha,
-                             @Lazy Mapper<CamisetaEntityJpa, CamisetaEntityDomain> mapperCamiseta,
-                             @Lazy Mapper<EquipeEntityJpa, EquipeEntityDomain> mapperEquipe) {
+    public FuncionarioMapper(@Lazy CarteirinhaMapper mapperCarteirinha,
+                             @Lazy CamisetaMapper mapperCamiseta,
+                             @Lazy EquipeMapper mapperEquipe) {
         this.mapperCarteirinha = mapperCarteirinha;
         this.mapperCamiseta = mapperCamiseta;
         this.mapperEquipe = mapperEquipe;

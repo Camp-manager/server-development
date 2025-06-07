@@ -16,12 +16,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class PessoaMapper implements Mapper<PessoaEntityJpa, PessoaEntityDomain>{
 
-    private final Mapper<EnderecoEntityJpa, EnderecoEntityDomain> mapperEndereco;
-    private final Mapper<FamiliarEntityJpa, FamiliarEntityDomain> mapperFamiliar;
+    private final EnderecoMapper mapperEndereco;
+    private final FamiliarMapper mapperFamiliar;
 
     @Autowired
-    public PessoaMapper(@Lazy Mapper<EnderecoEntityJpa, EnderecoEntityDomain> mapperEndereco,
-                        @Lazy Mapper<FamiliarEntityJpa, FamiliarEntityDomain> mapperFamiliar) {
+    public PessoaMapper(@Lazy EnderecoMapper mapperEndereco,
+                        @Lazy FamiliarMapper mapperFamiliar) {
         this.mapperEndereco = mapperEndereco;
         this.mapperFamiliar = mapperFamiliar;
     }

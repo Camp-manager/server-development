@@ -12,16 +12,16 @@ import java.util.List;
 @Component
 public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>{
 
-    private final Mapper<CronogramaEntityJpa, CronogramaEntityDomain> mapperCronograma;
-    private final Mapper<AcampamentoEntityJpa, AcampamentoEntityDomain> mapperAcampamento;
-    private final Mapper<CampistaEntityJpa, CampistaEntityDomain> mapperCampista;
-    private final Mapper<FuncionarioEntityJpa, FuncionarioEntityDomain> mapperFuncionario;
+    private final CronogramaMapper mapperCronograma;
+    private final AcampamentoMapper mapperAcampamento;
+    private final CampistaMapper mapperCampista;
+    private final FuncionarioMapper mapperFuncionario;
 
     @Autowired
-    public EquipeMapper(@Lazy Mapper<CronogramaEntityJpa, CronogramaEntityDomain> mapperCronograma,
-                        @Lazy Mapper<AcampamentoEntityJpa, AcampamentoEntityDomain> mapperAcampamento,
-                        @Lazy Mapper<CampistaEntityJpa, CampistaEntityDomain> mapperCampista,
-                        @Lazy Mapper<FuncionarioEntityJpa, FuncionarioEntityDomain> mapperFuncionario) {
+    public EquipeMapper(@Lazy CronogramaMapper mapperCronograma,
+                        @Lazy AcampamentoMapper mapperAcampamento,
+                        @Lazy CampistaMapper mapperCampista,
+                        @Lazy FuncionarioMapper mapperFuncionario) {
         this.mapperCronograma = mapperCronograma;
         this.mapperAcampamento = mapperAcampamento;
         this.mapperCampista = mapperCampista;

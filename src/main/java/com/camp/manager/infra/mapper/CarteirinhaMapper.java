@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class CarteirinhaMapper implements Mapper<CarteirinhaEntityJpa, CarteirinhaEntityDomain>{
 
-    private final Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema;
+    private final TemaMapper mapperTema;
 
     @Autowired
-    public CarteirinhaMapper(@Lazy Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema) {
+    public CarteirinhaMapper(@Lazy TemaMapper mapperTema) {
         this.mapperTema = mapperTema;
     }
 

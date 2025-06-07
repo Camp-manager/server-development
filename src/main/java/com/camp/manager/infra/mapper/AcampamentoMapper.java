@@ -11,18 +11,18 @@ import java.util.List;
 @Component
 public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, AcampamentoEntityDomain> {
 
-    private final Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema;
-    private final Mapper<TipoAcampamentoEntityJpa, TipoAcampamentoEntityDomain> mapperTipo;
-    private final Mapper<CronogramaEntityJpa, CronogramaEntityDomain> mapperCronograma;
-    private final Mapper<EquipeEntityJpa, EquipeEntityDomain> mapperEquipe;
-    private final Mapper<ImagemEntityJpa, ImagemEntityDomain> mapperImagem;
+    private final TemaMapper mapperTema;
+    private final TipoAcampamentoMapper mapperTipo;
+    private final CronogramaMapper mapperCronograma;
+    private final EquipeMapper mapperEquipe;
+    private final ImagemMapper mapperImagem;
 
     @Autowired
-    public AcampamentoMapper(@Lazy Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema,
-                             @Lazy Mapper<TipoAcampamentoEntityJpa, TipoAcampamentoEntityDomain> mapperTipo,
-                             @Lazy Mapper<CronogramaEntityJpa, CronogramaEntityDomain> mapperCronograma,
-                             @Lazy Mapper<EquipeEntityJpa, EquipeEntityDomain> mapperEquipe,
-                             @Lazy Mapper<ImagemEntityJpa, ImagemEntityDomain> mapperImagem) {
+    public AcampamentoMapper(@Lazy TemaMapper mapperTema,
+                             @Lazy TipoAcampamentoMapper mapperTipo,
+                             @Lazy CronogramaMapper mapperCronograma,
+                             @Lazy EquipeMapper mapperEquipe,
+                             @Lazy ImagemMapper mapperImagem) {
         this.mapperTema = mapperTema;
         this.mapperTipo = mapperTipo;
         this.mapperCronograma = mapperCronograma;

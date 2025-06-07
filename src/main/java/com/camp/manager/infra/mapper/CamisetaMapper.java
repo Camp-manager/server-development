@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class CamisetaMapper implements Mapper<CamisetaEntityJpa, CamisetaEntityDomain>{
 
-    private final Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema;
+    private final TemaMapper mapperTema;
 
     @Autowired
-    public CamisetaMapper(@Lazy Mapper<TemaEntityJpa, TemaEntityDomain> mapperTema) {
+    public CamisetaMapper(@Lazy TemaMapper mapperTema) {
         this.mapperTema = mapperTema;
     }
 

@@ -12,14 +12,14 @@ import java.util.List;
 @Component
 public class CampistaMapper implements Mapper<CampistaEntityJpa, CampistaEntityDomain>{
 
-    private final Mapper<CamisetaEntityJpa, CamisetaEntityDomain> camisetaMapper;
-    private final Mapper<PessoaEntityJpa, PessoaEntityDomain> pessoaMapper;
-    private final Mapper<EquipeEntityJpa, EquipeEntityDomain> equipeMapper;
+    private final CamisetaMapper camisetaMapper;
+    private final PessoaMapper pessoaMapper;
+    private final EquipeMapper equipeMapper;
 
     @Autowired
-    public CampistaMapper(@Lazy Mapper<CamisetaEntityJpa, CamisetaEntityDomain> camisetaMapper,
-                          @Lazy Mapper<PessoaEntityJpa, PessoaEntityDomain> pessoaMapper,
-                          @Lazy Mapper<EquipeEntityJpa, EquipeEntityDomain> equipeMapper) {
+    public CampistaMapper(@Lazy CamisetaMapper camisetaMapper,
+                          @Lazy PessoaMapper pessoaMapper,
+                          @Lazy EquipeMapper equipeMapper) {
         this.camisetaMapper = camisetaMapper;
         this.pessoaMapper = pessoaMapper;
         this.equipeMapper = equipeMapper;
