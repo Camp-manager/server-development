@@ -2,6 +2,7 @@ package com.camp.manager.infra.persistence.gateways;
 
 import com.camp.manager.application.gateway.CampistaGateway;
 import com.camp.manager.domain.entity.CampistaEntityDomain;
+import com.camp.manager.infra.mapper.CampistaMapper;
 import com.camp.manager.infra.mapper.Mapper;
 import com.camp.manager.infra.persistence.entity.CampistaEntityJpa;
 import com.camp.manager.infra.persistence.repository.CampistaRepository;
@@ -14,11 +15,11 @@ import java.util.List;
 public class CampistaGatewayImpl implements CampistaGateway {
 
     private final CampistaRepository campistaRepository;
-    private final Mapper<CampistaEntityJpa, CampistaEntityDomain> campistaMapper;
+    private final CampistaMapper campistaMapper;
 
     @Autowired
     public CampistaGatewayImpl(CampistaRepository campistaRepository,
-                               Mapper<CampistaEntityJpa, CampistaEntityDomain> campistaMapper) {
+                               CampistaMapper campistaMapper) {
         this.campistaRepository = campistaRepository;
         this.campistaMapper = campistaMapper;
     }

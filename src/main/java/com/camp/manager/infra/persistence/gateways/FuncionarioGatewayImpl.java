@@ -2,8 +2,7 @@ package com.camp.manager.infra.persistence.gateways;
 
 import com.camp.manager.application.gateway.FuncionarioGateway;
 import com.camp.manager.domain.entity.FuncionarioEntityDomain;
-import com.camp.manager.infra.mapper.Mapper;
-import com.camp.manager.infra.persistence.entity.FuncionarioEntityJpa;
+import com.camp.manager.infra.mapper.FuncionarioMapper;
 import com.camp.manager.infra.persistence.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +13,11 @@ import java.util.List;
 public class FuncionarioGatewayImpl implements FuncionarioGateway {
 
     private final FuncionarioRepository funcionarioRepository;
-    private final Mapper<FuncionarioEntityJpa, FuncionarioEntityDomain> funcionarioMapper;
+    private final FuncionarioMapper funcionarioMapper;
 
     @Autowired
     public FuncionarioGatewayImpl(FuncionarioRepository funcionarioRepository,
-                                  Mapper<FuncionarioEntityJpa, FuncionarioEntityDomain> funcionarioMapper) {
+                                  FuncionarioMapper funcionarioMapper) {
         this.funcionarioRepository = funcionarioRepository;
         this.funcionarioMapper = funcionarioMapper;
     }

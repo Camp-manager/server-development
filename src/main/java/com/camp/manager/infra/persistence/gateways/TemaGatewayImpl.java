@@ -2,6 +2,7 @@ package com.camp.manager.infra.persistence.gateways;
 
 import com.camp.manager.application.gateway.TemaGateway;
 import com.camp.manager.domain.entity.TemaEntityDomain;
+import com.camp.manager.infra.mapper.TemaMapper;
 import com.camp.manager.infra.persistence.entity.TemaEntityJpa;
 import com.camp.manager.infra.mapper.Mapper;
 import com.camp.manager.infra.persistence.repository.TemaRepository;
@@ -16,11 +17,11 @@ import java.util.stream.Collectors;
 public class TemaGatewayImpl implements TemaGateway {
 
     private final TemaRepository temaRepository;
-    private final Mapper<TemaEntityJpa, TemaEntityDomain> temaMapper;
+    private final TemaMapper temaMapper;
 
     @Autowired
     public TemaGatewayImpl(TemaRepository temaRepository,
-                           Mapper<TemaEntityJpa, TemaEntityDomain> temaMapper) {
+                           TemaMapper temaMapper) {
         this.temaRepository = temaRepository;
         this.temaMapper = temaMapper;
     }

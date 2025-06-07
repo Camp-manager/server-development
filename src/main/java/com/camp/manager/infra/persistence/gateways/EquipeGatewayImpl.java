@@ -3,23 +3,23 @@ package com.camp.manager.infra.persistence.gateways;
 import com.camp.manager.application.gateway.EquipeGateway;
 import com.camp.manager.domain.entity.EquipeEntityDomain;
 import com.camp.manager.infra.mapper.EquipeMapper;
-import com.camp.manager.infra.mapper.Mapper;
 import com.camp.manager.infra.persistence.entity.EquipeEntityJpa;
 import com.camp.manager.infra.persistence.repository.EquipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EquipeGatewayImpl implements EquipeGateway {
 
     private final EquipeRepository equipeRepository;
-    private final Mapper<EquipeEntityJpa, EquipeEntityDomain> equipeMapper;
+    private final EquipeMapper equipeMapper;
 
     @Autowired
     public EquipeGatewayImpl(EquipeRepository equipeRepository,
-                             Mapper<EquipeEntityJpa, EquipeEntityDomain> equipeMapper) {
+                             EquipeMapper equipeMapper) {
         this.equipeRepository = equipeRepository;
         this.equipeMapper = equipeMapper;
     }
@@ -52,6 +52,6 @@ public class EquipeGatewayImpl implements EquipeGateway {
 
     @Override
     public EquipeEntityDomain buscarEquipePorId(Long idEquipe) {
-        return this.equipeMapper.toDomain(this.equipeRepository.findById(idEquipe).orElse(null));
+        return this.equipeMapper.toDomain(Objects.requireNonNull(this.equipeRepository.findById(idEquipe).orElse(null)));
     }
 }

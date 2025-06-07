@@ -2,6 +2,7 @@ package com.camp.manager.infra.persistence.gateways;
 
 import com.camp.manager.application.gateway.MedicamentoGateway;
 import com.camp.manager.domain.entity.MedicamentoEntityDomain;
+import com.camp.manager.infra.mapper.MedicamentoMapper;
 import com.camp.manager.infra.persistence.entity.MedicamentoEntityJpa;
 import com.camp.manager.infra.mapper.Mapper;
 import com.camp.manager.infra.persistence.repository.MedicamentoRepository;
@@ -15,11 +16,11 @@ import java.util.stream.Collectors;
 public class MedicamentoGatewayImpl implements MedicamentoGateway {
 
     private final MedicamentoRepository medicamentoRepository;
-    private final Mapper<MedicamentoEntityJpa, MedicamentoEntityDomain> medicamentoMapper;
+    private final MedicamentoMapper medicamentoMapper;
 
     @Autowired
     public MedicamentoGatewayImpl(MedicamentoRepository medicamentoRepository,
-                                  Mapper<MedicamentoEntityJpa, MedicamentoEntityDomain> medicamentoMapper) {
+                                  MedicamentoMapper medicamentoMapper) {
         this.medicamentoRepository = medicamentoRepository;
         this.medicamentoMapper = medicamentoMapper;
     }
