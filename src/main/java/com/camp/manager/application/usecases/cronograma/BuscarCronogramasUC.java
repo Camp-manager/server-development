@@ -1,8 +1,6 @@
 package com.camp.manager.application.usecases.cronograma;
 
 import com.camp.manager.application.gateway.AcampamentoGateway;
-import com.camp.manager.application.gateway.CronogramaGateway;
-import com.camp.manager.application.gateway.EquipeGateway;
 import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.AcampamentoEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
