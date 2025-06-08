@@ -7,24 +7,22 @@ import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.AcampamentoEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.NotFoundException;
+import com.camp.manager.infra.http.dto.cronograma.CronogramaComEquipeDTO;
 import com.camp.manager.infra.http.dto.cronograma.TodosCronogramaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class BuscarCronogramasUC implements UseCase<Long, MethodResponse<TodosCronogramaDTO>> {
 
-    private final CronogramaGateway cronogramaGateway;
     private final AcampamentoGateway acampamentoGateway;
-    private final EquipeGateway equipeGateway;
 
     @Autowired
-    public BuscarCronogramasUC(CronogramaGateway cronogramaGateway,
-                               AcampamentoGateway acampamentoGateway,
-                               EquipeGateway equipeGateway) {
-        this.cronogramaGateway = cronogramaGateway;
+    public BuscarCronogramasUC(AcampamentoGateway acampamentoGateway) {
         this.acampamentoGateway = acampamentoGateway;
-        this.equipeGateway = equipeGateway;
     }
 
     @Override
@@ -34,8 +32,17 @@ public class BuscarCronogramasUC implements UseCase<Long, MethodResponse<TodosCr
 
         AcampamentoEntityDomain acampamentoEncontrado = this.acampamentoGateway.buscarAcampamentoPorId(input);
 
+        List<CronogramaComEquipeDTO> cronogramaComPorEquipeTrabalho = new ArrayList<>();
+        List<CronogramaComEquipeDTO> cronogramaComPorEquipeCampistas = new ArrayList<>();
 
+        acampamentoEncontrado.equipesDoAcampamento().forEach(equipeEncontrado -> {
+            if(equipeEncontrado.tipoEquipe().equals("TRABALHO")) {
+                cronogramaComPorEquipeTrabalho.add(new CronogramaComEquipeDTO(equipeEncontrado));
+            } else if (equipeEncontrado.tipoEquipe().equals("CAMPISTA")) {
+                cronogramaComPorEquipeCampistas.add(new CronogramaComEquipeDTO(equipeEncontrado));
+            }
+        });
 
-        return null;
+        return new MethodResponse<>(200, "Cronogramas encontrados com sucesso!", new TodosCronogramaDTO(cronogramaComPorEquipeCampistas, cronogramaComPorEquipeTrabalho));
     }
 }
