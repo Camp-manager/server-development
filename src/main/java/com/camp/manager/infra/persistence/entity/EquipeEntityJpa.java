@@ -30,8 +30,8 @@ public class EquipeEntityJpa {
     private TipoEquipe tipoEquipe;
 
     @JoinColumn(name = "id_cronograma")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private CronogramaEntityJpa cronograma;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CronogramaEntityJpa> cronograma;
 
     @JoinColumn(name = "id_acampamento")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

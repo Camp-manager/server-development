@@ -8,6 +8,7 @@ import com.camp.manager.domain.entity.CronogramaEntityDomain;
 import com.camp.manager.domain.entity.EquipeEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.NotFoundException;
+import com.camp.manager.infra.http.request.cronograma.CriarCronogramaRequest;
 import com.camp.manager.infra.http.request.equipe.EquipeRequest;
 import com.camp.manager.infra.http.request.equipe.EquipesRequest;
 import com.camp.manager.utils.converter.localDate.LocalDateConverterAPP;
@@ -57,11 +58,7 @@ public class CriarEquipesUC implements UseCase<EquipesRequest, MethodResponse<Vo
                     null,
                     equipe.nome(),
                     equipe.tipoEquipe(),
-                    new CronogramaEntityDomain(
-                            null,
-                            LocalDateConverterAPP.converterStringParaLocalDate(equipe.cronograma().dataInicial()),
-                            LocalDateConverterAPP.converterStringParaLocalDate(equipe.cronograma().dataFinal()),
-                            equipe.cronograma().descricao()),
+                    this.converterDeCronogramaRequestParaDomain(equipe.cronogramas()),
                     acampamentoEncontrado,
                     new ArrayList<>(),
                     new ArrayList<>(),
@@ -71,5 +68,15 @@ public class CriarEquipesUC implements UseCase<EquipesRequest, MethodResponse<Vo
         });
 
         return equipesDeTrabalho;
+    }
+
+    private List<CronogramaEntityDomain> converterDeCronogramaRequestParaDomain(List<CriarCronogramaRequest> cronogramas){
+        return cronogramas.stream()
+                .map(cronograma -> new CronogramaEntityDomain(
+                        null,
+                        LocalDateConverterAPP.converterStringParaLocalDate(cronograma.dataInicial()),
+                        LocalDateConverterAPP.converterStringParaLocalDate(cronograma.dataFinal()),
+                        cronograma.descricao()))
+                .toList();
     }
 }

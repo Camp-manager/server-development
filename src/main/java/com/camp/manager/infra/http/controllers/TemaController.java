@@ -21,17 +21,21 @@ public class TemaController {
     private final AdicionarTemaUC adicionarTemaUC;
     private final AdicionarImagemTemaUC adicionarImagemUC;
     private final AlterarTemaUC alterarTemaUC;
+    private final BuscarTemaUC buscarTemaUC;
     private final BuscarTemasUC buscarTemasUC;
     private final DeletarTemaUC deletarTemaUC;
 
     @Autowired
-    public TemaController(AdicionarTemaUC adicionarTemaUC, AdicionarImagemTemaUC adicionarImagemUC,
+    public TemaController(AdicionarTemaUC adicionarTemaUC,
+                          AdicionarImagemTemaUC adicionarImagemUC,
                           AlterarTemaUC alterarTemaUC,
+                          BuscarTemaUC buscarTemaUC,
                           BuscarTemasUC buscarTemasUC,
                           DeletarTemaUC deletarTemaUC) {
         this.adicionarTemaUC = adicionarTemaUC;
         this.adicionarImagemUC = adicionarImagemUC;
         this.alterarTemaUC = alterarTemaUC;
+        this.buscarTemaUC = buscarTemaUC;
         this.buscarTemasUC = buscarTemasUC;
         this.deletarTemaUC = deletarTemaUC;
     }
@@ -64,6 +68,14 @@ public class TemaController {
     @GetMapping(path = "/buscar-todos")
     public ResponseEntity<List<TemaDTO>> buscarTemas() {
         var response = this.buscarTemasUC.execute(null);
+        return ResponseEntity
+                .status(response.status())
+                .body(response.data());
+    }
+
+    @GetMapping(path = "/buscar/{idTema}")
+    public ResponseEntity<TemaDTO> buscarTema(@PathVariable Long idTema) {
+        var response = this.buscarTemaUC.execute(idTema);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());

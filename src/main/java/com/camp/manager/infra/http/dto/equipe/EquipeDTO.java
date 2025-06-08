@@ -12,13 +12,13 @@ public class EquipeDTO {
     private final Long id;
     private final String nome;
     private final String tipoEquipe;
-    private final CronogramaDTO cronograma;
+    private final List<CronogramaDTO> cronogramas;
 
     public EquipeDTO(EquipeEntityDomain equipeEntityDomain) {
         this.id = equipeEntityDomain.id();
         this.nome = equipeEntityDomain.nome();
         this.tipoEquipe = equipeEntityDomain.tipoEquipe();
-        this.cronograma = new CronogramaDTO(equipeEntityDomain.cronograma());
+        this.cronogramas = CronogramaDTO.converter(equipeEntityDomain.cronograma());
     }
 
     public static List<EquipeDTO> converter(List<EquipeEntityDomain> listEquipe) {
@@ -26,5 +26,4 @@ public class EquipeDTO {
                 .map(EquipeDTO::new)
                 .toList();
     }
-
 }

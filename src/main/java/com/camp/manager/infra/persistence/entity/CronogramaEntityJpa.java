@@ -11,7 +11,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cronograma", schema = "public")
+@Table(name = "cronogramas", schema = "public")
 public class CronogramaEntityJpa {
 
     @Id

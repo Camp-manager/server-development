@@ -34,7 +34,7 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
                 equipeEntityJpa.getId(),
                 equipeEntityJpa.getNome(),
                 equipeEntityJpa.getTipoEquipe().getDescricao(),
-                this.mapperCronograma.toDomain(equipeEntityJpa.getCronograma()),
+                this.mapDomainCronogramas(equipeEntityJpa.getCronograma()),
                 this.mapperAcampamento.toDomain(equipeEntityJpa.getAcampamento()),
                 this.mapDomainCampistas(equipeEntityJpa.getCampistas()),
                 this.mapDomainFuncionarios(equipeEntityJpa.getFuncionarios()),
@@ -48,7 +48,7 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
                 equipeEntityDomain.id(),
                 equipeEntityDomain.nome(),
                 TipoEquipe.fromDescricao(equipeEntityDomain.tipoEquipe()),
-                this.mapperCronograma.toEntity(equipeEntityDomain.cronograma()),
+                this.mapEntityCronogramas(equipeEntityDomain.cronograma()),
                 this.mapperAcampamento.toEntity(equipeEntityDomain.acampamento()),
                 this.mapEntityCampistas(equipeEntityDomain.campistasNaEquipe()),
                 this.mapEntityFuncionarios(equipeEntityDomain.funcionariosNaEquipe()),
@@ -76,6 +76,18 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
     private List<FuncionarioEntityJpa> mapEntityFuncionarios(List<FuncionarioEntityDomain> funcionariosDomain) {
         return funcionariosDomain.stream()
                 .map(mapperFuncionario::toEntity)
+                .toList();
+    }
+
+
+    private List<CronogramaEntityDomain> mapDomainCronogramas(List<CronogramaEntityJpa> cronogramasJpa) {
+        return cronogramasJpa.stream()
+                .map(mapperCronograma::toDomain)
+                .toList();
+    }
+    private List<CronogramaEntityJpa> mapEntityCronogramas(List<CronogramaEntityDomain> cronogramasDomain) {
+        return cronogramasDomain.stream()
+                .map(mapperCronograma::toEntity)
                 .toList();
     }
 

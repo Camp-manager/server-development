@@ -4,6 +4,7 @@ import com.camp.manager.domain.entity.CronogramaEntityDomain;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 public class CronogramaDTO {
@@ -18,5 +19,11 @@ public class CronogramaDTO {
         this.dataInicio = cronogramaEntityDomain.dataInicio();
         this.dataFinal = cronogramaEntityDomain.dataFinal();
         this.descricao = cronogramaEntityDomain.descricao();
+    }
+
+    public static List<CronogramaDTO> converter(List<CronogramaEntityDomain> listCronograma) {
+        return listCronograma.stream()
+                .map(CronogramaDTO::new)
+                .toList();
     }
 }

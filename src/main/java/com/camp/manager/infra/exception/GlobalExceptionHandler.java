@@ -247,4 +247,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .status(HttpStatus.NOT_ACCEPTABLE)
                 .body(errorResponse);
     }
+
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ExceptionHandler(LocalDateInvalidException.class)
+    private ResponseEntity<Object> localDateInvalidExceptionHandler(LocalDateInvalidException ex, WebRequest request) {
+        log.error("LocalDateInvalidException: {}", ex.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.NOT_ACCEPTABLE.name(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        if (serverIncludeStackTrace) {
+            errorResponse.setStackTrace(ex.getStackTrace()[0]);
+        }
+        return ResponseEntity
+                .status(HttpStatus.NOT_ACCEPTABLE)
+                .body(errorResponse);
+    }
 }
