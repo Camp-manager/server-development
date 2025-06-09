@@ -8,7 +8,9 @@ import com.camp.manager.domain.exception.custom.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BuscarTodasImagensAcampamentoUC implements UseCase<Void, MethodResponse<Void>> {
@@ -24,6 +26,11 @@ public class BuscarTodasImagensAcampamentoUC implements UseCase<Void, MethodResp
         List<ImagemEntityDomain> todasAsImagens = this.imagemGateway.buscarTodasImagens();
         if(todasAsImagens.isEmpty()) throw new NotFoundException("Não existem imagens cadastradas!");
 
+        Map<String, ImagemEntityDomain> imagensPorAcampamento = new HashMap<>();
+
+        todasAsImagens.forEach(imagemEntityDomain -> {
+            imagensPorAcampamento.put(imagemEntityDomain.nomeAcampamento(), imagemEntityDomain);
+        });
 
 
 

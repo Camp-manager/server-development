@@ -8,5 +8,4 @@ import java.util.List;
 
 @Repository
 public interface CronogramaRepository extends JpaRepository<CronogramaEntityJpa, Long> {
-    List<CronogramaEntityJpa> findByIdAca(Long acampamentoId);
 }
