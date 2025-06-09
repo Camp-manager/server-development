@@ -26,7 +26,7 @@ public class CampistaEntityJpa {
     @Column(name = "tem_alergia")
     private Resposta temAlergia;
 
-    @Column(name = "alegias")
+    @Column(name = "alergias")
     private String alergias;
 
     @Column(name = "codigo_acampamento")
