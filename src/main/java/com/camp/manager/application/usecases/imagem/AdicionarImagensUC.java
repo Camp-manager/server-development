@@ -136,6 +136,8 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
         this.validarDiretorio(diretorioDasPastas);
 
         imagensExtraidas.forEach(imagemExtraida -> {
+            if (imagemExtraida.bytesDaImagem() == null || imagemExtraida.bytesDaImagem().length == 0) return;
+
             Path diretorioCompletoDaImagem = diretorioDasPastas.resolve(imagemExtraida.nomeDoArquivo());
             try {
                 Files.write(diretorioCompletoDaImagem, imagemExtraida.bytesDaImagem());
