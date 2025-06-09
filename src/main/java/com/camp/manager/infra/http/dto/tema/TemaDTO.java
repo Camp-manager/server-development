@@ -17,7 +17,7 @@ public class TemaDTO {
     public TemaDTO(TemaEntityDomain temaEntityDomain) {
         this.id = temaEntityDomain.id();
         this.descricao = temaEntityDomain.descricao();
-        this.design = temaEntityDomain.descricao() != null ? Base64.getEncoder().encodeToString(temaEntityDomain.imagemDesign()) : null;
+        this.design = temaEntityDomain.imagemDesign() != null ? Base64.getEncoder().encodeToString(temaEntityDomain.imagemDesign()) : null;
         this.precoCamiseta = temaEntityDomain.precoCamiseta().doubleValue();
         this.precoAcampamento = temaEntityDomain.precoAcampamento().doubleValue();
     }
