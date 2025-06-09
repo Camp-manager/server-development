@@ -14,5 +14,5 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntityJp
     FuncionarioEntityJpa findByCpf(String input);
 
     FuncionarioEntityJpa findByEquipe_Acampamento_IdAndCpf(Long idAcampamento, String cpf);
-    boolean existByEquipe_Acampamento_IdAndCpf(Long idAcampamento, String cpf);
+    boolean existsByEquipe_Acampamento_IdAndCpf(Long idAcampamento, String cpf);
 }
