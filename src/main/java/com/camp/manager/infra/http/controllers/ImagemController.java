@@ -2,6 +2,7 @@ package com.camp.manager.infra.http.controllers;
 
 import com.camp.manager.application.usecases.imagem.AdicionarImagensUC;
 import com.camp.manager.application.usecases.imagem.BuscarTodasImagensAcampamentoUC;
+import com.camp.manager.infra.http.dto.galeria.DiretorioDeImagensDTO;
 import com.camp.manager.infra.http.dto.galeria.ImagemDTO;
 import com.camp.manager.infra.http.request.imagens.InserirImagemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,14 @@ public class ImagemController {
             @RequestParam("file") MultipartFile zipComAsImagens,
             @PathVariable Long anoDasImagens) {
         var response = this.adicionarImagensUC.execute(new InserirImagemRequest(idAcampamento, zipComAsImagens, anoDasImagens));
+        return ResponseEntity
+                .status(response.status())
+                .body(response.data());
+    }
+
+    @GetMapping(path = "/buscar-todas")
+    public ResponseEntity<List<DiretorioDeImagensDTO>> buscarTodasImagensDoAcampamento() {
+        var response = this.buscarTodasImagensAcampamentoUC.execute(null);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());
