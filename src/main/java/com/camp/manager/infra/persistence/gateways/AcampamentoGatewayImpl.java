@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AcampamentoGatewayImpl implements AcampamentoGateway {
@@ -44,7 +45,7 @@ public class AcampamentoGatewayImpl implements AcampamentoGateway {
         return this.acampamentoRepository.findAll()
                 .stream()
                 .map(mapper::toDomain)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class EquipeGatewayImpl implements EquipeGateway {
@@ -37,7 +38,7 @@ public class EquipeGatewayImpl implements EquipeGateway {
         return this.equipeRepository.findByAcampamento_Id(idAcampamento)
                 .stream()
                 .map(equipeMapper::toDomain)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override

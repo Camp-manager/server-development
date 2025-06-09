@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class TipoAcampamentoGatewayImpl implements TipoAcampamentoGateway {
@@ -31,7 +32,7 @@ public class TipoAcampamentoGatewayImpl implements TipoAcampamentoGateway {
         return this.tipoAcampamentoRepository.findAll()
                 .stream()
                 .map(tipoAcampamentoMapper::toDomain)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CronogramaGatewayImpl implements CronogramaGateway {
@@ -41,6 +42,9 @@ public class CronogramaGatewayImpl implements CronogramaGateway {
 
     @Override
     public List<CronogramaEntityDomain> buscarTodosCronogramasPorAcampamento() {
-        return List.of();
+        return this.cronogramaRepository.findAll()
+                .stream()
+                .map(cronogramaMapper::toDomain)
+                .collect(Collectors.toList());
     }
 }

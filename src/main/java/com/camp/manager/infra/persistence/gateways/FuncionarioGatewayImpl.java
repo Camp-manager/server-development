@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FuncionarioGatewayImpl implements FuncionarioGateway {
@@ -43,7 +44,7 @@ public class FuncionarioGatewayImpl implements FuncionarioGateway {
                 .findAllByEquipe_IdOrderByNome(idEquipe)
                 .stream()
                 .map(funcionarioMapper::toDomain)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -52,7 +53,7 @@ public class FuncionarioGatewayImpl implements FuncionarioGateway {
                 .findAllByCodigoRegistroOrderByNome(codigoRegistro)
                 .stream()
                 .map(funcionarioMapper::toDomain)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     @Override
