@@ -45,7 +45,7 @@ public class PessoaEntityJpa {
     @Column(name = "alimento_predileto")
     private String alimentoPredileto;
 
-    @Column(name = "foi_batizado")
+    @Column(name = "foi_batizada")
     private Resposta foiBatizado;
 
     @Column(name = "tem_primeira_comunhao")
