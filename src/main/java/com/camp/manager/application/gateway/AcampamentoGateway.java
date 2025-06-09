@@ -1,6 +1,7 @@
 package com.camp.manager.application.gateway;
 
 import com.camp.manager.domain.entity.AcampamentoEntityDomain;
+import com.camp.manager.domain.entity.CampistaEntityDomain;
 
 import java.util.List;
 

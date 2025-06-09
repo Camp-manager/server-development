@@ -14,4 +14,7 @@ public interface CampistaRepository extends JpaRepository<CampistaEntityJpa, Lon
 
     List<CampistaEntityJpa> findAllByCodigoRegistroOrderByPessoa_NomeCompleto(String codigoRegistro);
     CampistaEntityJpa findByPessoa_Cpf(String cpf);
+
+    CampistaEntityJpa findByEquipe_Acampamento_IdAndPessoa_Cpf(Long idDoAcampamento, String codigo);
+    boolean existsByEquipe_Acampamento_IdAndPessoa_Cpf(Long idDoAcampamento, String codigo);
 }

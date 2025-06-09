@@ -10,11 +10,12 @@ import com.camp.manager.domain.exception.custom.EntityFoundException;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.http.dto.pessoa.CampistaBasicoDTO;
 import com.camp.manager.infra.http.dto.pessoa.FuncionarioBasicoDTO;
+import com.camp.manager.infra.http.request.pessoa.BuscarPessoaCpfRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BuscarPessoaCpfUC implements UseCase<String, MethodResponse<Object>> {
+public class BuscarPessoaCpfUC implements UseCase<BuscarPessoaCpfRequest, MethodResponse<Object>> {
 
     private final CampistaGateway campistaGateway;
     private final FuncionarioGateway funcionarioGateway;
@@ -27,27 +28,27 @@ public class BuscarPessoaCpfUC implements UseCase<String, MethodResponse<Object>
     }
 
     @Override
-    public MethodResponse<Object> execute(String input) {
-        boolean campistaEhExistentePorCpf = this.campistaGateway.campistaEhExistentePorCpf(input);
-        boolean funcionarioEhExistentePorCpf = this.funcionarioGateway.funcionarioEhExistentePorCpf(input);
+    public MethodResponse<Object> execute(BuscarPessoaCpfRequest input) {
+        boolean campistaEhExistentePorCpfNoAcampamento = this.campistaGateway.campistaEhExistenteNoAcampamentoPorCpf(input.idAcampamento(), input.cpf());
+        boolean funcionarioEhExistentePorCpfNoAcampamento = this.funcionarioGateway.funcionarioEhExistenteNoAcampamentoPorCpf(input.idAcampamento(), input.cpf());
 
         Object objetoDeRetorno = null;
 
-        if(campistaEhExistentePorCpf && funcionarioEhExistentePorCpf) {
-            throw new EntityFoundException("O cpf [" + input + "] repete em campista e funcionario!");
+        if(campistaEhExistentePorCpfNoAcampamento && funcionarioEhExistentePorCpfNoAcampamento) {
+            throw new EntityFoundException("O cpf [" + input + "] repete para funcionário e campista no acampamento com id [" + input.idAcampamento() + "]!");
         }
 
-        if(!campistaEhExistentePorCpf && !funcionarioEhExistentePorCpf) {
+        if(!campistaEhExistentePorCpfNoAcampamento && !funcionarioEhExistentePorCpfNoAcampamento) {
             throw new NotFoundException("O cpf [" + input + "] não existe em nenhum cadastro de pessoa!");
         }
 
-        if(campistaEhExistentePorCpf) {
-            CampistaEntityDomain campistaEncontrado = this.campistaGateway.buscarCampistaPorCpf(input);
+        if(campistaEhExistentePorCpfNoAcampamento) {
+            CampistaEntityDomain campistaEncontrado = this.campistaGateway.buscarCampistaNoAcampamentoPorCpf(input.idAcampamento(), input.cpf());
             objetoDeRetorno = new CampistaBasicoDTO(campistaEncontrado);
         }
 
-        if(funcionarioEhExistentePorCpf) {
-            FuncionarioEntityDomain funcionarioEncontrado = this.funcionarioGateway.buscarFuncionarioPorCpf(input);
+        if(funcionarioEhExistentePorCpfNoAcampamento) {
+            FuncionarioEntityDomain funcionarioEncontrado = this.funcionarioGateway.buscarFuncionarioNoAcampamentoPorCpf(input.idAcampamento(), input.cpf());
             objetoDeRetorno = new FuncionarioBasicoDTO(funcionarioEncontrado);
         }
 

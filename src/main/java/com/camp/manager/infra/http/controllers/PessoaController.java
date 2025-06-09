@@ -4,6 +4,7 @@ import com.camp.manager.application.usecases.pessoa.*;
 import com.camp.manager.infra.http.dto.pessoa.CampistaBasicoDTO;
 import com.camp.manager.infra.http.dto.pessoa.FuncionarioBasicoDTO;
 import com.camp.manager.infra.http.request.pessoa.AtribuirCarteirinhaRequest;
+import com.camp.manager.infra.http.request.pessoa.BuscarPessoaCpfRequest;
 import com.camp.manager.infra.http.request.pessoa.CriarCampistaRequest;
 import com.camp.manager.infra.http.request.pessoa.CriarFuncionarioRequest;
 import jakarta.validation.Valid;
@@ -63,9 +64,9 @@ public class PessoaController {
                 .body(response.data());
     }
 
-    @GetMapping(path = "/buscar-pessoa-por-cpf/{cpf}")
-    public ResponseEntity<Object> buscarPessoaPorCpf(@PathVariable String cpf) {
-        var response = this.buscarPessoaCpfUC.execute(cpf);
+    @GetMapping(path = "/buscar-pessoa-por-cpf/{cpf}/{idAcampamento}")
+    public ResponseEntity<Object> buscarPessoaPorCpf(@PathVariable String cpf, @PathVariable Long idAcampamento) {
+        var response = this.buscarPessoaCpfUC.execute(new BuscarPessoaCpfRequest(cpf, idAcampamento));
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());

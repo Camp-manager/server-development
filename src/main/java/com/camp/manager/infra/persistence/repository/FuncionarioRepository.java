@@ -12,4 +12,7 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntityJp
     List<FuncionarioEntityJpa> findAllByEquipe_IdOrderByNome(Long equipeId);
     List<FuncionarioEntityJpa> findAllByCodigoRegistroOrderByNome(String codigoRegistro);
     FuncionarioEntityJpa findByCpf(String input);
+
+    FuncionarioEntityJpa findByEquipe_Acampamento_IdAndCpf(Long idAcampamento, String cpf);
+    boolean existByEquipe_Acampamento_IdAndCpf(Long idAcampamento, String cpf);
 }

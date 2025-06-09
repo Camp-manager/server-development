@@ -2,6 +2,7 @@ package com.camp.manager.infra.persistence.gateways;
 
 import com.camp.manager.application.gateway.AcampamentoGateway;
 import com.camp.manager.domain.entity.AcampamentoEntityDomain;
+import com.camp.manager.domain.entity.CampistaEntityDomain;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.mapper.AcampamentoMapper;
 import com.camp.manager.infra.persistence.repository.AcampamentoRepository;
