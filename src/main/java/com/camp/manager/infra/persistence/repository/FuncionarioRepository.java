@@ -11,4 +11,5 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntityJp
     boolean existsByCpf(String cpf);
     List<FuncionarioEntityJpa> findAllByEquipe_IdOrderByNome(Long equipeId);
     List<FuncionarioEntityJpa> findAllByCodigoRegistroOrderByNome(String codigoRegistro);
+    FuncionarioEntityJpa findByCpf(String input);
 }

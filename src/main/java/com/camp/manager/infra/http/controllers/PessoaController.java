@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/pessoa")
@@ -21,18 +22,20 @@ public class PessoaController {
     private final AdicionarFuncionarioUC adicionarFuncionarioUC;
     private final AtribuirCarteirinhasFuncionarioUC atribuirCarteirinhasFuncionarioUC;
     private final BuscarFuncionariosUC buscarFuncionariosUC;
+    private final BuscarPessoaCpfUC buscarPessoaCpfUC;
     private final BuscarCampistasUC buscarCampistasUC;
 
     @Autowired
     public PessoaController(AdicionarCampistaUC adicionarCampistaUC,
                             AdicionarFuncionarioUC adicionarFuncionarioUC,
                             AtribuirCarteirinhasFuncionarioUC atribuirCarteirinhasFuncionarioUC,
-                            BuscarFuncionariosUC buscarFuncionariosUC,
+                            BuscarFuncionariosUC buscarFuncionariosUC, BuscarPessoaCpfUC buscarPessoaCpfUC,
                             BuscarCampistasUC buscarCampistasUC) {
         this.adicionarCampistaUC = adicionarCampistaUC;
         this.adicionarFuncionarioUC = adicionarFuncionarioUC;
         this.atribuirCarteirinhasFuncionarioUC = atribuirCarteirinhasFuncionarioUC;
         this.buscarFuncionariosUC = buscarFuncionariosUC;
+        this.buscarPessoaCpfUC = buscarPessoaCpfUC;
         this.buscarCampistasUC = buscarCampistasUC;
     }
 
@@ -55,6 +58,14 @@ public class PessoaController {
     @PutMapping(path = "/atribur-carteirinha")
     public ResponseEntity<Void> atribuirCarteirinha(@RequestBody AtribuirCarteirinhaRequest input) {
         var response = this.atribuirCarteirinhasFuncionarioUC.execute(input);
+        return ResponseEntity
+                .status(response.status())
+                .body(response.data());
+    }
+
+    @GetMapping(path = "/buscar-pessoa-por-cpf/{cpf}")
+    public ResponseEntity<Object> buscarPessoaPorCpf(@PathVariable String cpf) {
+        var response = this.buscarPessoaCpfUC.execute(cpf);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());

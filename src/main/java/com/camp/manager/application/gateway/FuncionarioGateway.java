@@ -11,4 +11,5 @@ public interface FuncionarioGateway {
     List<FuncionarioEntityDomain> buscarTodosOsFuncionariosComBaseNaEquipe(Long idEquipe);
     List<FuncionarioEntityDomain> buscarTodosOsFuncionariosComBaseNoCodigoRegistro(String codigoRegistro);
     FuncionarioEntityDomain buscarFuncionarioPorId(Long id);
+    FuncionarioEntityDomain buscarFuncionarioPorCpf(String input);
 }

@@ -65,4 +65,10 @@ public class CampistaGatewayImpl implements CampistaGateway {
                 .map(campistaMapper::toDomain)
                 .orElse(null) ;
     }
+
+    @Override
+    public CampistaEntityDomain buscarCampistaPorCpf(String cpf) {
+        return this.campistaMapper.toDomain(this.campistaRepository
+                .findByPessoa_Cpf(cpf));
+    }
 }

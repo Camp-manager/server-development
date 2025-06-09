@@ -135,29 +135,15 @@ public class AdicionarImagensUC implements UseCase<InserirImagemRequest, MethodR
 
         this.validarDiretorio(diretorioDasPastas);
 
-
-        List<ImagemDescription> listaDeImagens = new ArrayList<>(imagensExtraidas);
-
-        for (int i = 0; i < listaDeImagens.size(); i++) {
-            ImagemDescription imagemExtraida = listaDeImagens.get(i);
-
-            int numeroSequencial = i + 1;
-            String novoNomeDoArquivo = String.format("%s %d",
-                    acampamentoEncontrado.nome(),
-                    numeroSequencial
-            );
-            Path diretorioCompletoDaImagem = diretorioDasPastas.resolve(novoNomeDoArquivo);
-
+        imagensExtraidas.forEach(imagemExtraida -> {
+            Path diretorioCompletoDaImagem = diretorioDasPastas.resolve(imagemExtraida.nomeDoArquivo());
             try {
                 Files.write(diretorioCompletoDaImagem, imagemExtraida.bytesDaImagem());
             } catch (IOException e) {
-                throw new FileProcessingException("Erro ao processar imagem: " + novoNomeDoArquivo);
+                throw new FileProcessingException("Erro ao processar imagens!");
             }
-            this.imagemGateway.inserirNovaImagem(
-                    diretorioCompletoDaImagem.toString(),
-                    LocalDateConverterAPP.converterLocalDateParaString(LocalDate.now()),
-                    acampamentoEncontrado
-            );
-        }
+
+            this.imagemGateway.inserirNovaImagem(diretorioCompletoDaImagem.toString(), LocalDateConverterAPP.converterLocalDateParaString(LocalDate.now()), acampamentoEncontrado);
+        });
     }
 }

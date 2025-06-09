@@ -63,4 +63,9 @@ public class FuncionarioGatewayImpl implements FuncionarioGateway {
                 .map(funcionarioMapper::toDomain)
                 .orElse(null);
     }
+
+    @Override
+    public FuncionarioEntityDomain buscarFuncionarioPorCpf(String input) {
+        return this.funcionarioMapper.toDomain(this.funcionarioRepository.findByCpf(input));
+    }
 }
