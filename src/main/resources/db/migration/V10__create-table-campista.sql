@@ -8,9 +8,9 @@ CREATE TABLE campista(
     acampamentos_feitos TEXT,
     tem_barraca VARCHAR(1) NOT NULL,
 
-    id_camiseta BIGINT NOT NULL,
-    id_pessoa BIGINT NOT NULL,
-    id_equipe BIGINT NOT NULL,
+    id_camiseta BIGINT,
+    id_pessoa BIGINT,
+    id_equipe BIGINT,
 
     CONSTRAINT fk_campista_camiseta FOREIGN KEY (id_camiseta) REFERENCES camiseta(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_campista_pessoa FOREIGN KEY (id_pessoa) REFERENCES pessoa(id) ON DELETE RESTRICT ON UPDATE CASCADE,

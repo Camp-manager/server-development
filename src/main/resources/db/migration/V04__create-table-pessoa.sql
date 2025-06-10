@@ -12,7 +12,7 @@ CREATE TABLE pessoa(
     tem_primeira_comunhao VARCHAR(1) NOT NULL,
 
     id_endereco BIGINT NOT NULL,
-    id_familiar BIGINT NOT NULL,
+    id_familiar BIGINT,
 
     CONSTRAINT fk_pessoa_endereco FOREIGN KEY (id_endereco) REFERENCES endereco(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_pessoa_familiar FOREIGN KEY (id_familiar) REFERENCES familiar(id) ON DELETE RESTRICT ON UPDATE CASCADE
