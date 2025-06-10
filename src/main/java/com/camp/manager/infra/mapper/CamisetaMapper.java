@@ -23,7 +23,7 @@ public class CamisetaMapper implements Mapper<CamisetaEntityJpa, CamisetaEntityD
     public CamisetaEntityDomain toDomain(CamisetaEntityJpa camisetaEntityJpa) {
         return new CamisetaEntityDomain(
                 camisetaEntityJpa.getId(),
-                camisetaEntityJpa.getTamanhoCamiseta().getDescricao(),
+                camisetaEntityJpa.getTamanhoCamiseta().getValor(),
                 this.mapperTema.toDomain(camisetaEntityJpa.getTema())
         );
     }
@@ -32,7 +32,7 @@ public class CamisetaMapper implements Mapper<CamisetaEntityJpa, CamisetaEntityD
     public CamisetaEntityJpa toEntity(CamisetaEntityDomain camisetaEntityDomain) {
         return new CamisetaEntityJpa(
                 camisetaEntityDomain.id(),
-                TamanhoCamiseta.fromDescricao(camisetaEntityDomain.tamanhoCamiseta()),
+                TamanhoCamiseta.fromValor(camisetaEntityDomain.tamanhoCamiseta()),
                 this.mapperTema.toEntity(camisetaEntityDomain.tema())
         );
     }
