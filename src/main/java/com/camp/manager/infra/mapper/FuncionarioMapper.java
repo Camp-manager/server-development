@@ -29,12 +29,12 @@ public class FuncionarioMapper implements Mapper<FuncionarioEntityJpa, Funcionar
                 funcionarioEntityJpa.getNome(),
                 funcionarioEntityJpa.getCpf(),
                 funcionarioEntityJpa.getTelefone(),
-                null,
+                funcionarioEntityJpa.getEmail(),
                 funcionarioEntityJpa.getCodigoRegistro(),
                 funcionarioEntityJpa.getHabilidade(),
-                this.mapperCamiseta.toDomain(funcionarioEntityJpa.getCamiseta()),
-                this.mapperEquipe.toDomain(funcionarioEntityJpa.getEquipe()),
-                this.mapperCarteirinha.toDomain(funcionarioEntityJpa.getCarteirinha())
+                funcionarioEntityJpa.getCamiseta() != null ? this.mapperCamiseta.toDomain(funcionarioEntityJpa.getCamiseta()) : null,
+                funcionarioEntityJpa.getEquipe() != null ? this.mapperEquipe.toDomain(funcionarioEntityJpa.getEquipe()) : null,
+                funcionarioEntityJpa.getCarteirinha() != null ? this.mapperCarteirinha.toDomain(funcionarioEntityJpa.getCarteirinha()) : null
         );
     }
 
@@ -45,11 +45,12 @@ public class FuncionarioMapper implements Mapper<FuncionarioEntityJpa, Funcionar
                 funcionarioEntityDomain.nome(),
                 funcionarioEntityDomain.cpf(),
                 funcionarioEntityDomain.telefone(),
+                funcionarioEntityDomain.email(),
                 funcionarioEntityDomain.codigoRegistro(),
                 funcionarioEntityDomain.habilidade(),
-                this.mapperCamiseta.toEntity(funcionarioEntityDomain.camiseta()),
-                this.mapperEquipe.toEntity(funcionarioEntityDomain.equipe()),
-                this.mapperCarteirinha.toEntity(funcionarioEntityDomain.carteirinha())
+                funcionarioEntityDomain.camiseta() != null ? this.mapperCamiseta.toEntity(funcionarioEntityDomain.camiseta()) : null,
+                funcionarioEntityDomain.equipe() != null ? this.mapperEquipe.toEntity(funcionarioEntityDomain.equipe()) : null,
+                funcionarioEntityDomain.carteirinha() != null ? this.mapperCarteirinha.toEntity(funcionarioEntityDomain.carteirinha()) : null
         );
     }
 }

@@ -28,6 +28,9 @@ public class    FuncionarioEntityJpa {
     @Column(name = "telefone")
     private String telefone;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "codigo_acampamento")
     private String codigoRegistro;
 

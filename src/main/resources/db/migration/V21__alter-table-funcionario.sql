@@ -1,0 +1,1 @@
+ALTER TABLE funcionario ADD COLUMN email VARCHAR(100);

@@ -36,9 +36,9 @@ public class CampistaMapper implements Mapper<CampistaEntityJpa, CampistaEntityD
                 campistaEntityJpa.getJaFezAcampamento() == Resposta.SIM ? Boolean.TRUE : Boolean.FALSE,
                 List.of(campistaEntityJpa.getAcampamentosFeitos().split(",")),
                 campistaEntityJpa.getTemBarraca() == Resposta.SIM ? Boolean.TRUE : Boolean.FALSE,
-                this.camisetaMapper.toDomain(campistaEntityJpa.getCamiseta()),
+                campistaEntityJpa.getCamiseta() != null ? this.camisetaMapper.toDomain(campistaEntityJpa.getCamiseta()) : null,
                 this.pessoaMapper.toDomain(campistaEntityJpa.getPessoa()),
-                this.equipeMapper.toDomain(campistaEntityJpa.getEquipe())
+                campistaEntityJpa.getEquipe() != null ? this.equipeMapper.toDomain(campistaEntityJpa.getEquipe()) : null
         );
     }
 
@@ -53,9 +53,9 @@ public class CampistaMapper implements Mapper<CampistaEntityJpa, CampistaEntityD
                 Resposta.fromBoolean(campistaEntityDomain.jaFezAcampamento()),
                 String.join(",", campistaEntityDomain.acampamentosFeitos()),
                 Resposta.fromBoolean(campistaEntityDomain.temBarraca()),
-                this.camisetaMapper.toEntity(campistaEntityDomain.camiseta()),
+                campistaEntityDomain.camiseta() != null ? this.camisetaMapper.toEntity(campistaEntityDomain.camiseta()) : null,
                 this.pessoaMapper.toEntity(campistaEntityDomain.pessoa()),
-                this.equipeMapper.toEntity(campistaEntityDomain.equipe())
+                campistaEntityDomain.equipe() != null ? this.equipeMapper.toEntity(campistaEntityDomain.equipe()) : null
         );
     }
 }
