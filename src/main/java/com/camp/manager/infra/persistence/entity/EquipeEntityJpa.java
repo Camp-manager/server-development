@@ -34,7 +34,7 @@ public class EquipeEntityJpa {
     private List<CronogramaEntityJpa> cronograma;
 
     @JoinColumn(name = "id_acampamento")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private AcampamentoEntityJpa acampamento;
 
     @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
