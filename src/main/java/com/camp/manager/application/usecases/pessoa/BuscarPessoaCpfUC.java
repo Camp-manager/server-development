@@ -35,11 +35,11 @@ public class BuscarPessoaCpfUC implements UseCase<BuscarPessoaCpfRequest, Method
         Object objetoDeRetorno = null;
 
         if(campistaEhExistentePorCpfNoAcampamento && funcionarioEhExistentePorCpfNoAcampamento) {
-            throw new EntityFoundException("O cpf [" + input + "] repete para funcionário e campista no acampamento com id [" + input.idAcampamento() + "]!");
+            throw new EntityFoundException("O cpf [" + input.cpf() + "] repete para funcionário e campista no acampamento com id [" + input.idAcampamento() + "]!");
         }
 
         if(!campistaEhExistentePorCpfNoAcampamento && !funcionarioEhExistentePorCpfNoAcampamento) {
-            throw new NotFoundException("O cpf [" + input + "] não existe em nenhum cadastro de pessoa!");
+            throw new NotFoundException("O cpf [" + input.cpf() + "] não existe em nenhum cadastro de pessoa!");
         }
 
         if(campistaEhExistentePorCpfNoAcampamento) {

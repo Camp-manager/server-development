@@ -98,7 +98,7 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
     private List<FuncionarioEntityDomain> mapDomainFuncionarios(List<FuncionarioEntityJpa> funcionariosJpa) {
         if (funcionariosJpa == null) return new ArrayList<>();
         return funcionariosJpa.stream()
-                .map(mapperFuncionario::toDomainWithoutEquipe) // Usar o método raso
+                .map(mapperFuncionario::toDomainWithoutEquipe)
                 .toList();
     }
     private List<FuncionarioEntityJpa> mapEntityFuncionarios(List<FuncionarioEntityDomain> funcionariosDomain) {
