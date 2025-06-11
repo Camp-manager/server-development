@@ -6,7 +6,7 @@ public record EquipeEntityDomain(
         Long id,
         String nome,
         String tipoEquipe,
-        List<CronogramaEntityDomain> cronograma,
+        List<CronogramaEquipeEntityDomain> cronograma,
         AcampamentoEntityDomain acampamento,
         List<CampistaEntityDomain> campistasNaEquipe,
         List<FuncionarioEntityDomain> funcionariosNaEquipe,

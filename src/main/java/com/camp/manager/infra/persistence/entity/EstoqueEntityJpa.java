@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -28,5 +30,8 @@ public class EstoqueEntityJpa {
 
     @Column(name = "limite")
     private Long limite;
+
+    @OneToMany(mappedBy = "estoque")
+    private List<ItemEntityJpa> itens;
 
 }

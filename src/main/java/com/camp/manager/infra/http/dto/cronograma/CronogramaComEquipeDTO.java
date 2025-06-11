@@ -8,11 +8,11 @@ import java.util.List;
 @Getter
 public class CronogramaComEquipeDTO {
     private final String nomeEquipe;
-    private final List<CronogramaDTO> cronogramas;
+    private final List<CronogramaEquipeDTO> cronogramas;
 
     public CronogramaComEquipeDTO(EquipeEntityDomain equipe) {
         this.nomeEquipe = equipe.nome();
-        this.cronogramas = CronogramaDTO.converter(equipe.cronograma());
+        this.cronogramas = CronogramaEquipeDTO.converter(equipe.cronograma());
     }
 
     public static List<CronogramaComEquipeDTO> converter(List<EquipeEntityDomain> equipes) {

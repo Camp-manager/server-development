@@ -38,6 +38,4 @@ public class ItemEntityJpa {
     @ManyToOne
     @JoinColumn(name = "id_estoque")
     private EstoqueEntityJpa estoque;
-
-
 }

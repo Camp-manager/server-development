@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -31,10 +30,10 @@ public class EquipeEntityJpa {
 
     @JoinColumn(name = "id_cronograma")
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<CronogramaEntityJpa> cronograma;
+    private List<CronogramaEquipeEntityJpa> cronograma;
 
     @JoinColumn(name = "id_acampamento")
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private AcampamentoEntityJpa acampamento;
 
     @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

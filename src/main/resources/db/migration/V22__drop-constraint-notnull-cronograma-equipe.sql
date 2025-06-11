@@ -1,1 +1,0 @@
-ALTER TABLE equipe ALTER COLUMN id_cronograma DROP NOT NULL ;

@@ -1,7 +1,9 @@
 package com.camp.manager.infra.http.dto.equipe;
 
 import com.camp.manager.domain.entity.EquipeEntityDomain;
+import com.camp.manager.infra.http.dto.cronograma.CronogramaComEquipeDTO;
 import com.camp.manager.infra.http.dto.cronograma.CronogramaDTO;
+import com.camp.manager.infra.http.dto.cronograma.CronogramaEquipeDTO;
 import lombok.Getter;
 
 import java.util.List;
@@ -12,13 +14,13 @@ public class EquipeDTO {
     private final Long id;
     private final String nome;
     private final String tipoEquipe;
-    private final List<CronogramaDTO> cronogramas;
+    private final List<CronogramaEquipeDTO> cronogramas;
 
     public EquipeDTO(EquipeEntityDomain equipeEntityDomain) {
         this.id = equipeEntityDomain.id();
         this.nome = equipeEntityDomain.nome();
         this.tipoEquipe = equipeEntityDomain.tipoEquipe();
-        this.cronogramas = CronogramaDTO.converter(equipeEntityDomain.cronograma());
+        this.cronogramas = CronogramaEquipeDTO.converter(equipeEntityDomain.cronograma());
     }
 
     public static List<EquipeDTO> converter(List<EquipeEntityDomain> listEquipe) {

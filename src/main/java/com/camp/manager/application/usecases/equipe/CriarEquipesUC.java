@@ -5,6 +5,7 @@ import com.camp.manager.application.gateway.EquipeGateway;
 import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.AcampamentoEntityDomain;
 import com.camp.manager.domain.entity.CronogramaEntityDomain;
+import com.camp.manager.domain.entity.CronogramaEquipeEntityDomain;
 import com.camp.manager.domain.entity.EquipeEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.NotFoundException;
@@ -70,13 +71,14 @@ public class CriarEquipesUC implements UseCase<EquipesRequest, MethodResponse<Vo
         return equipesDeTrabalho;
     }
 
-    private List<CronogramaEntityDomain> converterDeCronogramaRequestParaDomain(List<CriarCronogramaRequest> cronogramas){
+    private List<CronogramaEquipeEntityDomain> converterDeCronogramaRequestParaDomain(List<CriarCronogramaRequest> cronogramas){
         return cronogramas.stream()
-                .map(cronograma -> new CronogramaEntityDomain(
+                .map(cronograma -> new CronogramaEquipeEntityDomain(
                         null,
                         LocalDateConverterAPP.converterStringParaLocalDate(cronograma.dataInicial()),
                         LocalDateConverterAPP.converterStringParaLocalDate(cronograma.dataFinal()),
-                        cronograma.descricao()))
+                        cronograma.descricao(),
+                        null))
                 .toList();
     }
 }

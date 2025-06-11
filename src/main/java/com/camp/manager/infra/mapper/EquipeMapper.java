@@ -12,13 +12,13 @@ import java.util.List;
 @Component
 public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>{
 
-    private final CronogramaMapper mapperCronograma;
+    private final CronogramaEquipeMapper mapperCronograma;
     private final AcampamentoMapper mapperAcampamento;
     private final CampistaMapper mapperCampista;
     private final FuncionarioMapper mapperFuncionario;
 
     @Autowired
-    public EquipeMapper(@Lazy CronogramaMapper mapperCronograma,
+    public EquipeMapper(@Lazy CronogramaEquipeMapper mapperCronograma,
                         @Lazy AcampamentoMapper mapperAcampamento,
                         @Lazy CampistaMapper mapperCampista,
                         @Lazy FuncionarioMapper mapperFuncionario) {
@@ -80,12 +80,12 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
     }
 
 
-    private List<CronogramaEntityDomain> mapDomainCronogramas(List<CronogramaEntityJpa> cronogramasJpa) {
+    private List<CronogramaEquipeEntityDomain> mapDomainCronogramas(List<CronogramaEquipeEntityJpa> cronogramasJpa) {
         return cronogramasJpa.stream()
                 .map(mapperCronograma::toDomain)
                 .toList();
     }
-    private List<CronogramaEntityJpa> mapEntityCronogramas(List<CronogramaEntityDomain> cronogramasDomain) {
+    private List<CronogramaEquipeEntityJpa> mapEntityCronogramas(List<CronogramaEquipeEntityDomain> cronogramasDomain) {
         return cronogramasDomain.stream()
                 .map(mapperCronograma::toEntity)
                 .toList();
