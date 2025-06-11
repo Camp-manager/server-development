@@ -35,7 +35,7 @@ public class EquipeGatewayImpl implements EquipeGateway {
 
     @Override
     public List<EquipeEntityDomain> buscarTodasEquipesDeTrabalho(Long idAcampamento) {
-        return this.equipeRepository.findByAcampamento_Id(idAcampamento)
+        return this.equipeRepository.findAllByAcampamento_Id(idAcampamento)
                 .stream()
                 .map(equipeMapper::toDomain)
                 .collect(Collectors.toList());

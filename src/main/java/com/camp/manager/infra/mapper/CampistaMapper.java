@@ -58,4 +58,26 @@ public class CampistaMapper implements Mapper<CampistaEntityJpa, CampistaEntityD
                 campistaEntityDomain.equipe() != null ? this.equipeMapper.toEntity(campistaEntityDomain.equipe()) : null
         );
     }
+
+
+
+
+    public CampistaEntityDomain toDomainWithoutEquipe(CampistaEntityJpa campistaEntityJpa) {
+        if (campistaEntityJpa == null) {
+            return null;
+        }
+        return new CampistaEntityDomain(
+                campistaEntityJpa.getId(),
+                campistaEntityJpa.getUsaMedicamento() == Resposta.SIM,
+                campistaEntityJpa.getTemAlergia() == Resposta.SIM,
+                List.of(campistaEntityJpa.getAlergias().split(",")),
+                campistaEntityJpa.getCodigoRegistro(),
+                campistaEntityJpa.getJaFezAcampamento() == Resposta.SIM,
+                List.of(campistaEntityJpa.getAcampamentosFeitos().split(",")),
+                campistaEntityJpa.getTemBarraca() == Resposta.SIM,
+                campistaEntityJpa.getCamiseta() != null ? this.camisetaMapper.toDomain(campistaEntityJpa.getCamiseta()) : null,
+                this.pessoaMapper.toDomain(campistaEntityJpa.getPessoa()),
+                null
+        );
+    }
 }

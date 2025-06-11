@@ -4,7 +4,6 @@ import com.camp.manager.application.gateway.AcampamentoGateway;
 import com.camp.manager.application.gateway.EquipeGateway;
 import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.AcampamentoEntityDomain;
-import com.camp.manager.domain.entity.CronogramaEntityDomain;
 import com.camp.manager.domain.entity.CronogramaEquipeEntityDomain;
 import com.camp.manager.domain.entity.EquipeEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
@@ -50,22 +49,43 @@ public class CriarEquipesUC implements UseCase<EquipesRequest, MethodResponse<Vo
         return new MethodResponse<>(201, "Equipes adicionadas com sucesso!", null);
     }
 
-
     private List<EquipeEntityDomain> converterListaDeEquipeRequestParaEquipeDomain(List<EquipeRequest> listaDeEquipeRequest, AcampamentoEntityDomain acampamentoEncontrado) {
         List<EquipeEntityDomain> equipesDeTrabalho = new ArrayList<>();
 
-        listaDeEquipeRequest.forEach(equipe -> {
-            EquipeEntityDomain equipeCriada = new EquipeEntityDomain(
+        listaDeEquipeRequest.forEach(equipeRequest -> {
+            EquipeEntityDomain equipeTemporaria = new EquipeEntityDomain(
                     null,
-                    equipe.nome(),
-                    equipe.tipoEquipe(),
-                    this.converterDeCronogramaRequestParaDomain(equipe.cronogramas()),
+                    equipeRequest.nome(),
+                    equipeRequest.tipoEquipe(),
+                    this.converterDeCronogramaRequestParaDomain(equipeRequest.cronogramas()),
                     acampamentoEncontrado,
                     new ArrayList<>(),
                     new ArrayList<>(),
                     null
             );
-            equipesDeTrabalho.add(equipeCriada);
+
+            List<CronogramaEquipeEntityDomain> cronogramasCorrigidos = equipeTemporaria.cronograma().stream()
+                    .map(cronograma -> new CronogramaEquipeEntityDomain(
+                            cronograma.id(),
+                            cronograma.dataInicio(),
+                            cronograma.dataFinal(),
+                            cronograma.descricao(),
+                            equipeTemporaria.id()
+                    ))
+                    .toList();
+
+            EquipeEntityDomain equipeFinal = new EquipeEntityDomain(
+                    equipeTemporaria.id(),
+                    equipeTemporaria.nome(),
+                    equipeTemporaria.tipoEquipe(),
+                    cronogramasCorrigidos,
+                    equipeTemporaria.acampamento(),
+                    equipeTemporaria.campistasNaEquipe(),
+                    equipeTemporaria.funcionariosNaEquipe(),
+                    equipeTemporaria.liderDaEquipe()
+            );
+
+            equipesDeTrabalho.add(equipeFinal);
         });
 
         return equipesDeTrabalho;

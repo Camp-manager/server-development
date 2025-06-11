@@ -1,5 +1,6 @@
 package com.camp.manager.infra.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(schema = "public", name = "cronograma_equipe")
 public class CronogramaEquipeEntityJpa {
 
@@ -28,7 +28,19 @@ public class CronogramaEquipeEntityJpa {
     @Column(name = "descricao")
     private String descricao;
 
-    @JoinColumn(name = "id_cronograma")
+    @Column(name = "id_equipe")
+    private Long equipeId;
+
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "id_equipe", insertable = false, updatable = false)
     private EquipeEntityJpa equipe;
+
+    public CronogramaEquipeEntityJpa(Long id, String dataInicio, String dataFinal, String descricao, Long equipeId) {
+        this.id = id;
+        this.dataInicio = dataInicio;
+        this.dataFinal = dataFinal;
+        this.descricao = descricao;
+        this.equipeId = equipeId;
+    }
 }

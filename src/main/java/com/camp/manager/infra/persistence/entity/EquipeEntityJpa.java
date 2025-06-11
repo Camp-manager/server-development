@@ -1,6 +1,7 @@
 package com.camp.manager.infra.persistence.entity;
 
 import com.camp.manager.domain.enums.TipoEquipe;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,8 +29,8 @@ public class EquipeEntityJpa {
     @Column(name = "tipo")
     private TipoEquipe tipoEquipe;
 
-    @JoinColumn(name = "id_cronograma")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "equipe" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CronogramaEquipeEntityJpa> cronograma;
 
     @JoinColumn(name = "id_acampamento")

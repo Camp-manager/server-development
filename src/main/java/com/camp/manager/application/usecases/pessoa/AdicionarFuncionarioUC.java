@@ -81,7 +81,7 @@ public class AdicionarFuncionarioUC implements UseCase<CriarFuncionarioRequest, 
         if (acampamentoEncontrado.limiteFuncionario() <= quantidadeDeFuncionariosAtual) {
             throw new LimitOverflowException("O acampamento com código de registro ["
                     + acampamentoEncontrado.codigoRegistro()
-                    + "] já atingiu o limite de campistas permitidos!");
+                    + "] já atingiu o limite de FUNCIONÁRIOS permitidos!");
         }
     }
     private void inserirUsuarioParaLogin(FuncionarioEntityDomain funcionarioCriado) {

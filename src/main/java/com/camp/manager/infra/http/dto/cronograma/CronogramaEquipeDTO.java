@@ -8,7 +8,6 @@ import java.util.List;
 
 @Getter
 public class CronogramaEquipeDTO {
-
     private final Long id;
     private final String dataInicio;
     private final String dataFinal;
@@ -20,7 +19,7 @@ public class CronogramaEquipeDTO {
         this.dataInicio = LocalDateConverterAPP.converterLocalDateParaString(cronogramaEquipeEntityDomain.dataInicio());
         this.dataFinal = LocalDateConverterAPP.converterLocalDateParaString(cronogramaEquipeEntityDomain.dataFinal());
         this.descricao = cronogramaEquipeEntityDomain.descricao();
-        this.equipeId = cronogramaEquipeEntityDomain.equipe().id();
+        this.equipeId = cronogramaEquipeEntityDomain.idEquipe();
     }
 
     public static List<CronogramaEquipeDTO> converter(List<CronogramaEquipeEntityDomain> listCronogramaEquipe) {

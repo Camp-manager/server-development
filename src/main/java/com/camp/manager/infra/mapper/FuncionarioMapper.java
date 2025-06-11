@@ -53,4 +53,24 @@ public class FuncionarioMapper implements Mapper<FuncionarioEntityJpa, Funcionar
                 funcionarioEntityDomain.carteirinha() != null ? this.mapperCarteirinha.toEntity(funcionarioEntityDomain.carteirinha()) : null
         );
     }
+
+
+
+    public FuncionarioEntityDomain toDomainWithoutEquipe(FuncionarioEntityJpa funcionarioEntityJpa) {
+        if (funcionarioEntityJpa == null) {
+            return null;
+        }
+        return new FuncionarioEntityDomain(
+                funcionarioEntityJpa.getId(),
+                funcionarioEntityJpa.getNome(),
+                funcionarioEntityJpa.getCpf(),
+                funcionarioEntityJpa.getTelefone(),
+                funcionarioEntityJpa.getEmail(),
+                funcionarioEntityJpa.getCodigoRegistro(),
+                funcionarioEntityJpa.getHabilidade(),
+                funcionarioEntityJpa.getCamiseta() != null ? this.mapperCamiseta.toDomain(funcionarioEntityJpa.getCamiseta()) : null,
+                null,
+                funcionarioEntityJpa.getCarteirinha() != null ? this.mapperCarteirinha.toDomain(funcionarioEntityJpa.getCarteirinha()) : null
+        );
+    }
 }

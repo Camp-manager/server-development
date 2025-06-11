@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface EquipeRepository extends JpaRepository<EquipeEntityJpa, Long> {
-    List<EquipeEntityJpa> findByAcampamento_Id(Long campId);
+    List<EquipeEntityJpa> findAllByAcampamento_Id(Long campId);
 }

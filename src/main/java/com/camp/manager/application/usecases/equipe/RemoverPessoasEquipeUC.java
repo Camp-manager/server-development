@@ -8,6 +8,7 @@ import com.camp.manager.domain.entity.CampistaEntityDomain;
 import com.camp.manager.domain.entity.EquipeEntityDomain;
 import com.camp.manager.domain.entity.FuncionarioEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
+import com.camp.manager.domain.enums.TipoEquipe;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.http.request.equipe.RemoverPessoasEquipeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +45,15 @@ public class RemoverPessoasEquipeUC implements UseCase<RemoverPessoasEquipeReque
         List<FuncionarioEntityDomain> funcionariosAtuais = new ArrayList<>(equipeEncontrada.funcionariosNaEquipe());
         List<CampistaEntityDomain> campistasAtuais = new ArrayList<>(equipeEncontrada.campistasNaEquipe());
 
-        if (equipeEncontrada.tipoEquipe().equals("CAMPISTA")) {
-            campistasAtuais.removeIf(campista -> request.idsPessoas().contains(campista.id()));
-        } else if (equipeEncontrada.tipoEquipe().equals("FUNCIONARIO")) {
-            funcionariosAtuais.removeIf(funcionario -> request.idsPessoas().contains(funcionario.id()));
+        TipoEquipe tipoEquipe = TipoEquipe.fromDescricao(equipeEncontrada.tipoEquipe());
+
+        switch (tipoEquipe) {
+            case CAMPISTA:
+                campistasAtuais.removeIf(campista -> request.idsPessoas().contains(campista.id()));
+                break;
+            case TRABALHO:
+                funcionariosAtuais.removeIf(funcionario -> request.idsPessoas().contains(funcionario.id()));
+                break;
         }
 
         return new EquipeEntityDomain(
