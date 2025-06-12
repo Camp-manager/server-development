@@ -67,11 +67,6 @@ public class CampistaGatewayImpl implements CampistaGateway {
     }
 
     @Override
-    public boolean campistaEhExistenteNoAcampamentoPorCpf(Long idAcampamento, String cpf) {
-        return this.campistaRepository.existsByEquipe_Acampamento_IdAndPessoa_Cpf(idAcampamento, cpf);
-    }
-
-    @Override
     public CampistaEntityDomain buscarCampistaNoAcampamentoPorCpf(Long idAcampamento, String cpf) {
         return this.campistaMapper.toDomain(this.campistaRepository.findByEquipe_Acampamento_IdAndPessoa_Cpf(idAcampamento, cpf));
     }
