@@ -57,13 +57,13 @@ public class BuscarPessoaCpfUC implements UseCase<BuscarPessoaCpfRequest, Method
         }
 
         if(campistaehExistentePorCpf) {
-            CampistaEntityDomain campistaEncontrado = this.campistaGateway.buscarCampistaNoAcampamentoPorCpf(input.idAcampamento(), input.cpf());
+            CampistaEntityDomain campistaEncontrado = this.campistaGateway.buscarCampistaPorCpf(input.cpf());
             if(!Objects.equals(acampamentoEncontrado.codigoRegistro(), campistaEncontrado.codigoRegistro())) throw new EntityFoundException("O cpf [" + input.cpf() + "] não pertence ao acampamento com id [" + input.idAcampamento() + "]!");
             objetoDeRetorno = new CampistaBasicoDTO(campistaEncontrado);
         }
 
         if(funcionarioEhExistentePorCpf) {
-            FuncionarioEntityDomain funcionarioEncontrado = this.funcionarioGateway.buscarFuncionarioNoAcampamentoPorCpf(input.idAcampamento(), input.cpf());
+            FuncionarioEntityDomain funcionarioEncontrado = this.funcionarioGateway.buscarFuncionarioPorCpf(input.cpf());
             if(!Objects.equals(acampamentoEncontrado.codigoRegistro(), funcionarioEncontrado.codigoRegistro())) throw new EntityFoundException("O cpf [" + input.cpf() + "] não pertence ao acampamento com id [" + input.idAcampamento() + "]!");
             objetoDeRetorno = new FuncionarioBasicoDTO(funcionarioEncontrado);
         }

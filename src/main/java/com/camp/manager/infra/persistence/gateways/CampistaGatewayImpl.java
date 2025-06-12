@@ -67,6 +67,11 @@ public class CampistaGatewayImpl implements CampistaGateway {
     }
 
     @Override
+    public CampistaEntityDomain buscarCampistaPorCpf(String cpf) {
+        return this.campistaMapper.toDomain(this.campistaRepository.findByPessoa_Cpf(cpf));
+    }
+
+    @Override
     public CampistaEntityDomain buscarCampistaNoAcampamentoPorCpf(Long idAcampamento, String cpf) {
         return this.campistaMapper.toDomain(this.campistaRepository.findByEquipe_Acampamento_IdAndPessoa_Cpf(idAcampamento, cpf));
     }
