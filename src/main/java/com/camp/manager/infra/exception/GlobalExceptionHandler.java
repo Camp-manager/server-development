@@ -264,4 +264,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .status(HttpStatus.NOT_ACCEPTABLE)
                 .body(errorResponse);
     }
+
+
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ExceptionHandler(NotAcceptableException.class)
+    private ResponseEntity<Object> notAcceptableExceptionHandler(NotAcceptableException ex, WebRequest request) {
+        log.error("NotAcceptableException: {}", ex.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.NOT_ACCEPTABLE.name(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        if (serverIncludeStackTrace) {
+            errorResponse.setStackTrace(ex.getStackTrace()[0]);
+        }
+        return ResponseEntity
+                .status(HttpStatus.NOT_ACCEPTABLE)
+                .body(errorResponse);
+    }
 }

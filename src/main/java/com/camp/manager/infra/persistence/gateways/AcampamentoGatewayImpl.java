@@ -58,4 +58,9 @@ public class AcampamentoGatewayImpl implements AcampamentoGateway {
     public AcampamentoEntityDomain buscarAcampamentoPorCodigoRegistro(String codigoRegistro) {
         return mapper.toDomain(this.acampamentoRepository.findByCodigoRegistro(codigoRegistro));
     }
+
+    @Override
+    public List<AcampamentoEntityDomain> buscarTodosOsAcampamentosComBaseNoTema(Long idTema) {
+        return List.of();
+    }
 }

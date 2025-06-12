@@ -28,5 +28,4 @@ public class EquipeDiaFuncaoEntityJpa {
     @ManyToOne
     @JoinColumn(name = "id_equipe")
     private EquipeEntityJpa equipe;
-
 }

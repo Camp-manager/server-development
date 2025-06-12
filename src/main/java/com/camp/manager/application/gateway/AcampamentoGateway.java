@@ -12,4 +12,5 @@ public interface AcampamentoGateway {
     List<AcampamentoEntityDomain> buscarTodosOsAcampamentos();
     boolean acampamentoEhExistentePorCodigoRegistro(String codigoRegistro);
     AcampamentoEntityDomain buscarAcampamentoPorCodigoRegistro(String codigoRegistro);
+    List<AcampamentoEntityDomain> buscarTodosOsAcampamentosComBaseNoTema(Long idTema);
 }

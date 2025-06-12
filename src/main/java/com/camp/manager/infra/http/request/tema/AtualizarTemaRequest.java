@@ -14,5 +14,8 @@ public record AtualizarTemaRequest(
         String descricao,
 
         @Positive(message = "O preço da camiseta deve ser maior que zero")
-        Double precoCamiseta) {
+        Double precoCamiseta,
+
+        @Positive (message = "O preço do acampamento deve ser maior que zero")
+        Double precoAcampamento) {
 }
