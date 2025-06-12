@@ -1,9 +1,6 @@
 package com.camp.manager.infra.http.controllers;
 
-import com.camp.manager.application.usecases.acampamento.AdicionarAcampamentoUC;
-import com.camp.manager.application.usecases.acampamento.BuscarAcampamentoBasicoUC;
-import com.camp.manager.application.usecases.acampamento.BuscarAcampamentoCompletoUC;
-import com.camp.manager.application.usecases.acampamento.BuscarAcampamentosUC;
+import com.camp.manager.application.usecases.acampamento.*;
 import com.camp.manager.infra.http.dto.acampamento.AcampamentoBasicoDTO;
 import com.camp.manager.infra.http.dto.acampamento.AcampamentoCompletoDTO;
 import com.camp.manager.infra.http.request.acampamento.CriarAcampamentoRequest;
@@ -19,16 +16,19 @@ import java.util.List;
 public class AcampamentoController {
 
     private final AdicionarAcampamentoUC adicionarAcampamentoUC;
+    private final BuscarProximoAcampamentoUC buscarProximoAcampamentoUC;
     private final BuscarAcampamentosUC buscarAcampamentosUC;
     private final BuscarAcampamentoCompletoUC buscarAcampamentoCompletoUC;
     private final BuscarAcampamentoBasicoUC buscarAcampamentoBasicoUC;
 
     @Autowired
     public AcampamentoController(AdicionarAcampamentoUC adicionarAcampamentoUC,
+                                 BuscarProximoAcampamentoUC buscarProximoAcampamentoUC,
                                  BuscarAcampamentosUC buscarAcampamentosUC,
                                  BuscarAcampamentoCompletoUC buscarAcampamentoCompletoUC,
                                  BuscarAcampamentoBasicoUC buscarAcampamentoBasicoUC) {
         this.adicionarAcampamentoUC = adicionarAcampamentoUC;
+        this.buscarProximoAcampamentoUC = buscarProximoAcampamentoUC;
         this.buscarAcampamentosUC = buscarAcampamentosUC;
         this.buscarAcampamentoCompletoUC = buscarAcampamentoCompletoUC;
         this.buscarAcampamentoBasicoUC = buscarAcampamentoBasicoUC;
@@ -37,6 +37,14 @@ public class AcampamentoController {
     @PostMapping(path = "/adicionar")
     public ResponseEntity<Void> adicionarAcampamento(@RequestBody @Valid CriarAcampamentoRequest request) {
         var response = this.adicionarAcampamentoUC.execute(request);
+        return ResponseEntity
+                .status(response.status())
+                .body(response.data());
+    }
+
+    @GetMapping(path = "/proximo")
+    public ResponseEntity<AcampamentoBasicoDTO> buscarProximoAcampamento() {
+        var response = this.buscarProximoAcampamentoUC.execute(null);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());

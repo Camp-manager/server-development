@@ -8,10 +8,8 @@ import com.camp.manager.domain.entity.CronogramaEquipeEntityDomain;
 import com.camp.manager.domain.entity.EquipeEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.NotFoundException;
-import com.camp.manager.infra.http.request.cronograma.CriarCronogramaRequest;
 import com.camp.manager.infra.http.request.equipe.EquipeRequest;
 import com.camp.manager.infra.http.request.equipe.EquipesRequest;
-import com.camp.manager.utils.converter.localDate.LocalDateConverterAPP;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,28 +55,19 @@ public class CriarEquipesUC implements UseCase<EquipesRequest, MethodResponse<Vo
                     null,
                     equipeRequest.nome(),
                     equipeRequest.tipoEquipe(),
-                    this.converterDeCronogramaRequestParaDomain(equipeRequest.cronogramas()),
+                    null,
                     acampamentoEncontrado,
                     new ArrayList<>(),
                     new ArrayList<>(),
                     null
             );
 
-            List<CronogramaEquipeEntityDomain> cronogramasCorrigidos = equipeTemporaria.cronograma().stream()
-                    .map(cronograma -> new CronogramaEquipeEntityDomain(
-                            cronograma.id(),
-                            cronograma.dataInicio(),
-                            cronograma.dataFinal(),
-                            cronograma.descricao(),
-                            equipeTemporaria.id()
-                    ))
-                    .toList();
 
             EquipeEntityDomain equipeFinal = new EquipeEntityDomain(
                     equipeTemporaria.id(),
                     equipeTemporaria.nome(),
                     equipeTemporaria.tipoEquipe(),
-                    cronogramasCorrigidos,
+                    null,
                     equipeTemporaria.acampamento(),
                     equipeTemporaria.campistasNaEquipe(),
                     equipeTemporaria.funcionariosNaEquipe(),
@@ -89,16 +78,5 @@ public class CriarEquipesUC implements UseCase<EquipesRequest, MethodResponse<Vo
         });
 
         return equipesDeTrabalho;
-    }
-
-    private List<CronogramaEquipeEntityDomain> converterDeCronogramaRequestParaDomain(List<CriarCronogramaRequest> cronogramas){
-        return cronogramas.stream()
-                .map(cronograma -> new CronogramaEquipeEntityDomain(
-                        null,
-                        LocalDateConverterAPP.converterStringParaLocalDate(cronograma.dataInicial()),
-                        LocalDateConverterAPP.converterStringParaLocalDate(cronograma.dataFinal()),
-                        cronograma.descricao(),
-                        null))
-                .toList();
     }
 }
