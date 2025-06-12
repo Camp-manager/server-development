@@ -11,6 +11,5 @@ public interface CampistaGateway {
     List<CampistaEntityDomain> buscarTodosOsCampistasComBaseNaEquipe(Long id);
     List<CampistaEntityDomain> buscarTodosOsCampistasComBaseNoCodigoRegistro(String codigoRegistro);
     CampistaEntityDomain buscarCampistaPorId(Long id);
-    boolean campistaEhExistenteNoAcampamentoPorCpf(Long idAcampamento, String cpf);
     CampistaEntityDomain buscarCampistaNoAcampamentoPorCpf(Long idAcampamento, String cpf);
 }

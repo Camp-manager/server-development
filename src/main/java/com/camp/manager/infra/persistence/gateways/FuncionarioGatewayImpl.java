@@ -70,11 +70,6 @@ public class FuncionarioGatewayImpl implements FuncionarioGateway {
     }
 
     @Override
-    public boolean funcionarioEhExistenteNoAcampamentoPorCpf(Long aLong, String cpf) {
-        return this.funcionarioRepository.existsByEquipe_Acampamento_IdAndCpf(aLong, cpf);
-    }
-
-    @Override
     public FuncionarioEntityDomain buscarFuncionarioNoAcampamentoPorCpf(Long idAcampamento, String cpf) {
         return this.funcionarioMapper.toDomain(this.funcionarioRepository.findByEquipe_Acampamento_IdAndCpf(idAcampamento, cpf));
     }
