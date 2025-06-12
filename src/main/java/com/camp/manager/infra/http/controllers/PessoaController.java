@@ -24,25 +24,37 @@ public class PessoaController {
     private final AtribuirCarteirinhasFuncionarioUC atribuirCarteirinhasFuncionarioUC;
     private final BuscarFuncionariosUC buscarFuncionariosUC;
     private final BuscarPessoaCpfUC buscarPessoaCpfUC;
+    private final BuscarParentescoUC buscarParentescoUC;
     private final BuscarCampistasUC buscarCampistasUC;
 
     @Autowired
     public PessoaController(AdicionarCampistaUC adicionarCampistaUC,
                             AdicionarFuncionarioUC adicionarFuncionarioUC,
                             AtribuirCarteirinhasFuncionarioUC atribuirCarteirinhasFuncionarioUC,
-                            BuscarFuncionariosUC buscarFuncionariosUC, BuscarPessoaCpfUC buscarPessoaCpfUC,
+                            BuscarFuncionariosUC buscarFuncionariosUC,
+                            BuscarPessoaCpfUC buscarPessoaCpfUC,
+                            BuscarParentescoUC buscarParentescoUC,
                             BuscarCampistasUC buscarCampistasUC) {
         this.adicionarCampistaUC = adicionarCampistaUC;
         this.adicionarFuncionarioUC = adicionarFuncionarioUC;
         this.atribuirCarteirinhasFuncionarioUC = atribuirCarteirinhasFuncionarioUC;
         this.buscarFuncionariosUC = buscarFuncionariosUC;
         this.buscarPessoaCpfUC = buscarPessoaCpfUC;
+        this.buscarParentescoUC = buscarParentescoUC;
         this.buscarCampistasUC = buscarCampistasUC;
     }
 
     @GetMapping(path = "/buscar-todos/funcionarios/{idAcampamento}")
     public ResponseEntity<List<FuncionarioBasicoDTO>> buscarTodosFuncionarios(@PathVariable Long idAcampamento) {
         var response = this.buscarFuncionariosUC.execute(idAcampamento);
+        return ResponseEntity
+                .status(response.status())
+                .body(response.data());
+    }
+
+    @GetMapping(path = "/buscar-parentesco")
+    public ResponseEntity<List<String>> buscarParentesco() {
+        var response = this.buscarParentescoUC.execute(null);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());
