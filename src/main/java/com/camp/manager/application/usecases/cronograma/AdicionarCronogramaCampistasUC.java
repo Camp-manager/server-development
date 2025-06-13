@@ -12,7 +12,6 @@ import com.camp.manager.infra.http.request.cronograma.CriarCronogramCampistasReq
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class AdicionarCronogramaCampistasUC implements UseCase<CriarCronogramCam
             );
 
             diasDeFuncoesDasEquipes.add(equipeDiaFuncaoNovo);
-        } ));
+        }));
 
         this.equipeDiaFuncaoGateway.salvarTodosEquipeDiaFuncao(diasDeFuncoesDasEquipes);
 
