@@ -58,7 +58,7 @@ public class SelecionarLiderDeEquipeUC implements UseCase<LiderEquipeRequest, Me
         if(!acampamentoEhExistente) throw new NotFoundException("Acampamento com o Id: [" + input.idAcampamento() + "] não existe!");
         boolean campistaEhExistente = this.campistaGateway.campistaEhExistentePorId(input.idCampista());
         if(!campistaEhExistente) throw new NotFoundException("Campista com o Id: [" + input.idCampista() + "] não existe!");
-        boolean equipeEhExistente = this.equipeGateway.equipeEhExistente(input.idEquipe());
+        boolean equipeEhExistente = this.equipeGateway.equipeEhExistentePorId(input.idEquipe());
         if(!equipeEhExistente) throw new NotFoundException("Equipe com o Id: [" + input.idEquipe() + "] não existe!");
     }
 }

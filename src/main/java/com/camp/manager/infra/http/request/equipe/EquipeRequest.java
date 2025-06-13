@@ -1,6 +1,6 @@
 package com.camp.manager.infra.http.request.equipe;
 
-import com.camp.manager.infra.http.request.cronograma.CriarCronogramaRequest;
+import com.camp.manager.infra.http.request.cronograma.CronogramaRequest;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
@@ -13,5 +13,5 @@ public record EquipeRequest(
         String tipoEquipe,
 
         @NotNull(message = "O cronogramas da equipe não pode ser nulo")
-        List<CriarCronogramaRequest> cronogramas) {
+        List<CronogramaRequest> cronogramas) {
 }

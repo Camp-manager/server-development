@@ -29,7 +29,6 @@ public class EquipeEntityJpa {
     @Column(name = "tipo")
     private TipoEquipe tipoEquipe;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "equipe" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CronogramaEquipeEntityJpa> cronograma;
 

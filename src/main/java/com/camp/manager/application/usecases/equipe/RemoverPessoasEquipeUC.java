@@ -1,8 +1,6 @@
 package com.camp.manager.application.usecases.equipe;
 
-import com.camp.manager.application.gateway.CampistaGateway;
 import com.camp.manager.application.gateway.EquipeGateway;
-import com.camp.manager.application.gateway.FuncionarioGateway;
 import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.CampistaEntityDomain;
 import com.camp.manager.domain.entity.EquipeEntityDomain;
@@ -29,7 +27,7 @@ public class RemoverPessoasEquipeUC implements UseCase<RemoverPessoasEquipeReque
 
     @Override
     public MethodResponse<Void> execute(RemoverPessoasEquipeRequest input) {
-        boolean acampamentoEhExistente = this.equipeGateway.equipeEhExistente(input.idEquipe());
+        boolean acampamentoEhExistente = this.equipeGateway.equipeEhExistentePorId(input.idEquipe());
         if (!acampamentoEhExistente) throw new NotFoundException("Equipe com id [" + input.idEquipe() + "] não existe!");
 
         EquipeEntityDomain equipeEncontrada = this.equipeGateway.buscarEquipePorId(input.idEquipe());

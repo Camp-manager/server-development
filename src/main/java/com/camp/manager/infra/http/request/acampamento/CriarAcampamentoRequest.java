@@ -1,11 +1,11 @@
 package com.camp.manager.infra.http.request.acampamento;
 
-import com.camp.manager.infra.http.request.cronograma.CriarCronogramaRequest;
+import com.camp.manager.infra.http.request.cronograma.CronogramaRequest;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public record CriarAcampamentoRequest(
-        CriarCronogramaRequest cronogramaRequest,
+        CronogramaRequest cronogramaRequest,
 
         @NotNull(message = "O nome do acampamento não pode ser nulo")
         String nomeDoAcampamento,

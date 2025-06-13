@@ -7,6 +7,5 @@ public record CronogramaEquipeEntityDomain(
         LocalDate dataInicio,
         LocalDate dataFinal,
         String descricao,
-        Long idEquipe
-) {
+        Long idEquipe) {
 }

@@ -42,7 +42,7 @@ public class EquipeGatewayImpl implements EquipeGateway {
     }
 
     @Override
-    public boolean equipeEhExistente(Long idEquipe) {
+    public boolean equipeEhExistentePorId(Long idEquipe) {
         return this.equipeRepository.existsById(idEquipe);
     }
 

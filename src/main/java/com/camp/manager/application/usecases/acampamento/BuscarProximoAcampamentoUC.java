@@ -33,9 +33,10 @@ public class BuscarProximoAcampamentoUC implements UseCase<Void, MethodResponse<
                 .filter(acampamento -> acampamento.cronograma().dataInicio() != null
                         && acampamento.cronograma().dataFinal() != null
                         && acampamento.cronograma().dataInicio().isAfter(LocalDate.now()))
-                .max(Comparator.comparing(AcampamentoEntityDomain::cronograma, Comparator.comparing(CronogramaEntityDomain::dataInicio)))
+                .min(Comparator.comparing(AcampamentoEntityDomain::cronograma, Comparator.comparing(CronogramaEntityDomain::dataInicio)))
                 .orElse(null);
 
+        assert acampamentoMaisProximo != null;
         return new MethodResponse<>(200, "Acampamento encontrado com sucesso!", new AcampamentoBasicoDTO(acampamentoMaisProximo));
     }
 }

@@ -34,7 +34,7 @@ public class AdicionarPessoasEquipeUC implements UseCase<AdicionarPessoasEquipeR
 
     @Override
     public MethodResponse<Void> execute(AdicionarPessoasEquipeRequest input) {
-        boolean equipeEhExistente = this.equipeGateway.equipeEhExistente(input.idEquipe());
+        boolean equipeEhExistente = this.equipeGateway.equipeEhExistentePorId(input.idEquipe());
         if(!equipeEhExistente) throw new NotFoundException( "Equipe com id [" + input.idEquipe() + "] não existe!");
 
         EquipeEntityDomain equipeEncontrada = this.equipeGateway.buscarEquipePorId(input.idEquipe());

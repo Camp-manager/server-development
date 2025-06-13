@@ -31,5 +31,5 @@ public class AtividadeEntityJpa {
 
     @JoinColumn(name = "id_cronograma")
     @ManyToOne(cascade = CascadeType.ALL)
-    private CronogramaEntityJpa cronograma;
+    private CronogramaEquipeEntityJpa cronograma;
 }

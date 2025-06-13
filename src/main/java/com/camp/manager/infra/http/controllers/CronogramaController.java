@@ -2,9 +2,7 @@ package com.camp.manager.infra.http.controllers;
 
 import com.camp.manager.application.usecases.cronograma.*;
 import com.camp.manager.infra.http.dto.cronograma.TodosCronogramaDTO;
-import com.camp.manager.infra.http.request.cronograma.AlterarCronogramaRequest;
-import com.camp.manager.infra.http.request.cronograma.CriarCronogramaRequest;
-import com.camp.manager.infra.http.request.cronograma.EstenderCronogramaRequest;
+import com.camp.manager.infra.http.request.cronograma.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,28 +12,38 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/cronograma")
 public class CronogramaController {
 
-    private final AdicionarCronogramaUC adicionarCronogramaUC;
+    private final AdicionarCronogramaCampistasUC adicionarCronogramaCampistasUC;
+    private final AdicionarCronogramaTrabalhoUC adicionarCronogramaTrabalhoUC;
     private final AlterarCronogramaUC alterarCronogramaUC;
     private final BuscarCronogramaUC buscarCronogramaUC;
     private final BuscarCronogramasUC buscarCronogramasUC;
     private final EstenderCronogramaUC estenderCronogramaUC;
 
     @Autowired
-    public CronogramaController(AdicionarCronogramaUC adicionarCronogramaUC,
+    public CronogramaController(AdicionarCronogramaCampistasUC adicionarCronogramaCampistasUC, AdicionarCronogramaTrabalhoUC adicionarCronogramaTrabalhoUC,
                                 AlterarCronogramaUC alterarCronogramaUC,
                                 BuscarCronogramaUC buscarCronogramaUC,
                                 BuscarCronogramasUC buscarCronogramasUC,
                                 EstenderCronogramaUC estenderCronogramaUC) {
-        this.adicionarCronogramaUC = adicionarCronogramaUC;
+        this.adicionarCronogramaCampistasUC = adicionarCronogramaCampistasUC;
+        this.adicionarCronogramaTrabalhoUC = adicionarCronogramaTrabalhoUC;
         this.alterarCronogramaUC = alterarCronogramaUC;
         this.buscarCronogramaUC = buscarCronogramaUC;
         this.buscarCronogramasUC = buscarCronogramasUC;
         this.estenderCronogramaUC = estenderCronogramaUC;
     }
 
-    @PostMapping(path = "/adicionar")
-    public ResponseEntity<Void> adicionarCronograma(@Valid @RequestBody CriarCronogramaRequest cronogramaRequest) {
-        var response = this.adicionarCronogramaUC.execute(cronogramaRequest);
+    @PostMapping(path = "/adicionar/campistas")
+    public ResponseEntity<Void> adicionarCronograma(@Valid @RequestBody CriarCronogramCampistasRequest cronogramaRequest) {
+        var response = this.adicionarCronogramaCampistasUC.execute(cronogramaRequest);
+        return ResponseEntity
+                .status(response.status())
+                .body(response.data());
+    }
+
+    @PostMapping(path = "/adicionar/trabalho")
+    public ResponseEntity<Void> adicionarCronogramaTrabalho(@Valid @RequestBody CriarCronogramaTrabalhoRequest cronogramaRequest) {
+        var response = this.adicionarCronogramaTrabalhoUC.execute(cronogramaRequest);
         return ResponseEntity
                 .status(response.status())
                 .body(response.data());
