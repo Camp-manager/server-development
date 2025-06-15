@@ -1,7 +1,6 @@
 package com.camp.manager.infra.persistence.entity;
 
 import com.camp.manager.domain.enums.TipoEquipe;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,20 +28,20 @@ public class EquipeEntityJpa {
     @Column(name = "tipo")
     private TipoEquipe tipoEquipe;
 
-    @OneToMany(mappedBy = "equipe" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "equipe" , cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<CronogramaEquipeEntityJpa> cronograma;
 
     @JoinColumn(name = "id_acampamento")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private AcampamentoEntityJpa acampamento;
 
-    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<CampistaEntityJpa> campistas;
 
-    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<FuncionarioEntityJpa> funcionarios;
 
     @OneToOne
-    @JoinColumn(name = "id_campista")
-    private CampistaEntityJpa campistaLider;
+    @JoinColumn(name = "id_funcionario_lider")
+    private FuncionarioEntityJpa liderDeTime;
 }
