@@ -20,7 +20,7 @@ public class AtividadeEntityJpa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "tipoAtividade")
+    @Column(name = "tipo")
     private TipoAtividade tipoAtividade;
 
     @Column(name = "horario")
@@ -29,7 +29,7 @@ public class AtividadeEntityJpa {
     @Column(name = "descricao")
     private String descricao;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cronograma")
-    @ManyToOne(cascade = CascadeType.ALL)
     private CronogramaEquipeEntityJpa cronograma;
 }

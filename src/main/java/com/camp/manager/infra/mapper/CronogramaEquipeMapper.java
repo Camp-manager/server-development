@@ -3,10 +3,20 @@ package com.camp.manager.infra.mapper;
 import com.camp.manager.domain.entity.CronogramaEquipeEntityDomain;
 import com.camp.manager.infra.persistence.entity.CronogramaEquipeEntityJpa;
 import com.camp.manager.utils.converter.localDate.LocalDateConverterAPP;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CronogramaEquipeMapper implements Mapper<CronogramaEquipeEntityJpa, CronogramaEquipeEntityDomain> {
+
+    private final EquipeMapper equipeMapper;
+    private final AtividadeMapper atividadeMapper;
+
+    @Autowired
+    public CronogramaEquipeMapper(EquipeMapper equipeMapper, AtividadeMapper atividadeMapper) {
+        this.equipeMapper = equipeMapper;
+        this.atividadeMapper = atividadeMapper;
+    }
 
     @Override
     public CronogramaEquipeEntityDomain toDomain(CronogramaEquipeEntityJpa cronogramaEntityJpa) {
@@ -15,7 +25,8 @@ public class CronogramaEquipeMapper implements Mapper<CronogramaEquipeEntityJpa,
                 LocalDateConverterAPP.converterStringParaLocalDate(cronogramaEntityJpa.getDataInicio()),
                 LocalDateConverterAPP.converterStringParaLocalDate(cronogramaEntityJpa.getDataFinal()),
                 cronogramaEntityJpa.getDescricao(),
-                cronogramaEntityJpa.getEquipeId()
+                this.equipeMapper.toDomain(cronogramaEntityJpa.getEquipe()),
+                this.atividadeMapper.toDomainList(cronogramaEntityJpa.getAtividades())
         );
     }
 
@@ -26,7 +37,7 @@ public class CronogramaEquipeMapper implements Mapper<CronogramaEquipeEntityJpa,
                 LocalDateConverterAPP.converterLocalDateParaString(cronogramaEquipeEntityDomain.dataInicio()),
                 LocalDateConverterAPP.converterLocalDateParaString(cronogramaEquipeEntityDomain.dataFinal()),
                 cronogramaEquipeEntityDomain.descricao(),
-                cronogramaEquipeEntityDomain.idEquipe()
+                this.equipeMapper.toEntity(cronogramaEquipeEntityDomain.equipe())
         );
     }
 }

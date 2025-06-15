@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Component
 public class AtividadeMapper implements Mapper<AtividadeEntityJpa, AtividadeEntityDomain> {
@@ -38,5 +39,17 @@ public class AtividadeMapper implements Mapper<AtividadeEntityJpa, AtividadeEnti
                 atividadeEntityDomain.descricao(),
                 cronogramaMapper.toEntity(atividadeEntityDomain.cronograma())
         );
+    }
+
+    public List<AtividadeEntityDomain> toDomainList(List<AtividadeEntityJpa> atividadeEntityJpaList) {
+        return atividadeEntityJpaList.stream()
+                .map(this::toDomain)
+                .toList();
+    }
+
+    public List<AtividadeEntityJpa> toEntityList(List<AtividadeEntityDomain> atividadeEntityDomainList) {
+        return atividadeEntityDomainList.stream()
+                .map(this::toEntity)
+                .toList();
     }
 }

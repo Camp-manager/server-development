@@ -5,6 +5,8 @@ import com.camp.manager.infra.persistence.entity.CronogramaEntityJpa;
 import com.camp.manager.utils.converter.localDate.LocalDateConverterAPP;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class CronogramaMapper implements Mapper<CronogramaEntityJpa, CronogramaEntityDomain> {
 
@@ -26,5 +28,11 @@ public class CronogramaMapper implements Mapper<CronogramaEntityJpa, CronogramaE
                 LocalDateConverterAPP.converterLocalDateParaString(cronogramaEntityDomain.dataFinal()),
                 cronogramaEntityDomain.descricao()
         );
+    }
+
+    public List<CronogramaEntityDomain> toDomainList(List<CronogramaEntityJpa> cronogramaEntityJpaList) {
+        return cronogramaEntityJpaList.stream()
+                .map(this::toDomain)
+                .toList();
     }
 }

@@ -19,7 +19,7 @@ public class CronogramaEquipeDTO {
         this.dataInicio = LocalDateConverterAPP.converterLocalDateParaString(cronogramaEquipeEntityDomain.dataInicio());
         this.dataFinal = LocalDateConverterAPP.converterLocalDateParaString(cronogramaEquipeEntityDomain.dataFinal());
         this.descricao = cronogramaEquipeEntityDomain.descricao();
-        this.equipeId = cronogramaEquipeEntityDomain.idEquipe();
+        this.equipeId = cronogramaEquipeEntityDomain.equipe().id();
     }
 
     public static List<CronogramaEquipeDTO> converter(List<CronogramaEquipeEntityDomain> listCronogramaEquipe) {

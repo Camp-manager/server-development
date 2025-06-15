@@ -1,11 +1,12 @@
 package com.camp.manager.infra.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,19 +29,33 @@ public class CronogramaEquipeEntityJpa {
     @Column(name = "descricao")
     private String descricao;
 
-    @Column(name = "id_equipe")
-    private Long equipeId;
 
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_equipe", insertable = false, updatable = false)
+    @JoinColumn(name = "id_equipe")
+    @ManyToOne(fetch = FetchType.LAZY)
     private EquipeEntityJpa equipe;
 
-    public CronogramaEquipeEntityJpa(Long id, String dataInicio, String dataFinal, String descricao, Long equipeId) {
+    @OneToMany(
+            mappedBy = "cronograma",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<AtividadeEntityJpa> atividades = new ArrayList<>();
+
+    public CronogramaEquipeEntityJpa(Long id, String dataInicio, String dataFinal, String descricao, EquipeEntityJpa equipe) {
         this.id = id;
         this.dataInicio = dataInicio;
         this.dataFinal = dataFinal;
         this.descricao = descricao;
-        this.equipeId = equipeId;
+        this.equipe = equipe;
+    }
+
+    public void addAtividade(AtividadeEntityJpa atividade) {
+        atividades.add(atividade);
+        atividade.setCronograma(this);
+    }
+
+    public void removeAtividade(AtividadeEntityJpa atividade) {
+        atividades.remove(atividade);
+        atividade.setCronograma(null);
     }
 }
