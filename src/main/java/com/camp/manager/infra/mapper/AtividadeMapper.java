@@ -4,6 +4,7 @@ import com.camp.manager.domain.entity.AtividadeEntityDomain;
 import com.camp.manager.domain.enums.TipoAtividade;
 import com.camp.manager.infra.persistence.entity.AtividadeEntityJpa;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
@@ -15,7 +16,7 @@ public class AtividadeMapper implements Mapper<AtividadeEntityJpa, AtividadeEnti
     private final CronogramaEquipeMapper cronogramaMapper;
 
     @Autowired
-    public AtividadeMapper(CronogramaEquipeMapper cronogramaMapper) {
+    public AtividadeMapper(@Lazy CronogramaEquipeMapper cronogramaMapper) {
         this.cronogramaMapper = cronogramaMapper;
     }
 

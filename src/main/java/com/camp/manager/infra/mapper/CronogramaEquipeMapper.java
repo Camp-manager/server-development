@@ -4,6 +4,7 @@ import com.camp.manager.domain.entity.CronogramaEquipeEntityDomain;
 import com.camp.manager.infra.persistence.entity.CronogramaEquipeEntityJpa;
 import com.camp.manager.utils.converter.localDate.LocalDateConverterAPP;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +14,7 @@ public class CronogramaEquipeMapper implements Mapper<CronogramaEquipeEntityJpa,
     private final AtividadeMapper atividadeMapper;
 
     @Autowired
-    public CronogramaEquipeMapper(EquipeMapper equipeMapper, AtividadeMapper atividadeMapper) {
+    public CronogramaEquipeMapper(@Lazy EquipeMapper equipeMapper, @Lazy AtividadeMapper atividadeMapper) {
         this.equipeMapper = equipeMapper;
         this.atividadeMapper = atividadeMapper;
     }
