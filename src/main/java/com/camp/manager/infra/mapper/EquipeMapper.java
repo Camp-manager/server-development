@@ -64,7 +64,7 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
                         cronogramaJpa.setEquipe(equipeJpa);
                         return cronogramaJpa;
                     })
-                    .toList();
+                    .collect(Collectors.toList());
             equipeJpa.setCronograma(cronogramasJpa);
         }
 

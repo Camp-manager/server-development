@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AtividadeGatewayImpl implements AtividadeGateway {
@@ -27,7 +28,7 @@ public class AtividadeGatewayImpl implements AtividadeGateway {
     public void salvarTodasAtividades(List<AtividadeEntityDomain> atividadesParaSalvar) {
         List<AtividadeEntityJpa> atividadesJpa = atividadesParaSalvar.stream()
                 .map(atividadeMapper::toEntity)
-                .toList();
+                .collect(Collectors.toList());
         this.atividadeRepository.saveAll(atividadesJpa);
     }
 }

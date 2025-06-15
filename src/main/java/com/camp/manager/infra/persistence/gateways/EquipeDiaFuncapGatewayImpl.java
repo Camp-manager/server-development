@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EquipeDiaFuncapGatewayImpl implements EquipeDiaFuncaoGateway {
@@ -26,7 +27,7 @@ public class EquipeDiaFuncapGatewayImpl implements EquipeDiaFuncaoGateway {
     public void salvarTodosEquipeDiaFuncao(List<EquipeDiaFuncaoEntityDomain> diasDeFuncoesDasEquipes) {
         List<EquipeDiaFuncaoEntityJpa> diasDeFuncoesDasEquipesJpa = diasDeFuncoesDasEquipes.stream()
                 .map(equipeDiaFuncaoMapper::toEntity)
-                .toList();
+                .collect(Collectors.toList());
         this.equipeDiaFuncaoRepository.saveAll(diasDeFuncoesDasEquipesJpa);
     }
 }
