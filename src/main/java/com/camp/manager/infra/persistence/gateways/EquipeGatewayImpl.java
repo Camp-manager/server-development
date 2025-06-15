@@ -2,9 +2,12 @@ package com.camp.manager.infra.persistence.gateways;
 
 import com.camp.manager.application.gateway.EquipeGateway;
 import com.camp.manager.domain.entity.EquipeEntityDomain;
+import com.camp.manager.domain.enums.TipoEquipe;
+import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.mapper.EquipeMapper;
 import com.camp.manager.infra.persistence.entity.EquipeEntityJpa;
 import com.camp.manager.infra.persistence.repository.EquipeRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,5 +57,20 @@ public class EquipeGatewayImpl implements EquipeGateway {
     @Override
     public EquipeEntityDomain buscarEquipePorId(Long idEquipe) {
         return this.equipeMapper.toDomain(Objects.requireNonNull(this.equipeRepository.findById(idEquipe).orElse(null)));
+    }
+
+    @Override
+    @Transactional
+    public void removerPessoasDaEquipe(Long aLong, List<Long> longs) {
+        EquipeEntityJpa equipeGerida = this.equipeRepository.findById(aLong)
+                .orElseThrow(() -> new NotFoundException("Equipe com id [" + aLong + "] não existe!"));
+
+        TipoEquipe tipoEquipe = equipeGerida.getTipoEquipe();
+
+        if (tipoEquipe == TipoEquipe.CAMPISTA) {
+            equipeGerida.getCampistas().removeIf(campista -> longs.contains(campista.getId()));
+        } else if (tipoEquipe == TipoEquipe.TRABALHO) {
+            equipeGerida.getFuncionarios().removeIf(funcionario -> longs.contains(funcionario.getId()));
+        }
     }
 }

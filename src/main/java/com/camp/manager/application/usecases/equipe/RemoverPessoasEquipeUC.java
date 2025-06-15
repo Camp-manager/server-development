@@ -27,14 +27,12 @@ public class RemoverPessoasEquipeUC implements UseCase<RemoverPessoasEquipeReque
 
     @Override
     public MethodResponse<Void> execute(RemoverPessoasEquipeRequest input) {
-        boolean acampamentoEhExistente = this.equipeGateway.equipeEhExistentePorId(input.idEquipe());
-        if (!acampamentoEhExistente) throw new NotFoundException("Equipe com id [" + input.idEquipe() + "] não existe!");
+        boolean equipeExiste = this.equipeGateway.equipeEhExistentePorId(input.idEquipe());
+        if (!equipeExiste) {
+            throw new NotFoundException("Equipe com id [" + input.idEquipe() + "] não existe!");
+        }
 
-        EquipeEntityDomain equipeEncontrada = this.equipeGateway.buscarEquipePorId(input.idEquipe());
-
-        EquipeEntityDomain equipeAtualizada = this.removerPessoasDasEquipes(input, equipeEncontrada);
-
-        this.equipeGateway.salvarEquipe(equipeAtualizada);
+        this.equipeGateway.removerPessoasDaEquipe(input.idEquipe(), input.idsPessoas());
 
         return new MethodResponse<>(202, "Pessoas removidas da equipe com sucesso!", null);
     }
