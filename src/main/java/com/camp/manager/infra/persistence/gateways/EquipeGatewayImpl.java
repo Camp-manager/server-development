@@ -72,5 +72,7 @@ public class EquipeGatewayImpl implements EquipeGateway {
         } else if (tipoEquipe == TipoEquipe.TRABALHO) {
             equipeGerida.getFuncionarios().removeIf(funcionario -> longs.contains(funcionario.getId()));
         }
+
+        this.equipeRepository.save(equipeGerida);
     }
 }
