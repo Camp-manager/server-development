@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, AcampamentoEntityDomain> {
@@ -66,12 +67,12 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
     private List<ImagemEntityDomain> mapDomainImagens(List<ImagemEntityJpa> imagensJpa) {
         return imagensJpa.stream()
                 .map(mapperImagem::toDomain)
-                .toList();
+                .collect(Collectors.toList());
     }
     private List<ImagemEntityJpa> mapEntityImagens(List<ImagemEntityDomain> imagensDomain) {
         return imagensDomain.stream()
                 .map(mapperImagem::toEntity)
-                .toList();
+                .collect(Collectors.toList());
     }
 
 
@@ -79,12 +80,12 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
     private List<EquipeEntityDomain> mapDomainEquipe(List<EquipeEntityJpa> equipeJpa) {
         return equipeJpa.stream()
                 .map(mapperEquipe::toDomain)
-                .toList();
+                .collect(Collectors.toList());
     }
     private List<EquipeEntityJpa> mapEntityEquipe(List<EquipeEntityDomain> equipeDomain) {
         return equipeDomain.stream()
                 .map(mapperEquipe::toEntity)
-                .toList();
+                .collect(Collectors.toList());
     }
 
 
@@ -102,7 +103,7 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
                 this.mapperTipo.toDomain(acampamentoEntityJpa.getTipoAcampamento()),
                 this.mapperCronograma.toDomain(acampamentoEntityJpa.getCronograma()),
                 this.mapDomainImagens(acampamentoEntityJpa.getListImagem()),
-                new ArrayList<>() // <-- AQUI QUEBRAMOS O CICLO
+                new ArrayList<>()
         );
     }
 }

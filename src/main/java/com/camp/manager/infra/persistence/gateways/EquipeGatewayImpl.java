@@ -48,7 +48,7 @@ public class EquipeGatewayImpl implements EquipeGateway {
 
     @Override
     public void salvarEquipe(EquipeEntityDomain equipeEntityDomain) {
-        this.equipeRepository.saveAndFlush(this.equipeMapper.toEntity(equipeEntityDomain));
+        this.equipeRepository.save  (this.equipeMapper.toEntity(equipeEntityDomain));
     }
 
     @Override

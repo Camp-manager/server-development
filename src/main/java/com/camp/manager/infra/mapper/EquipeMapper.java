@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>{
@@ -85,13 +86,13 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
     private List<CampistaEntityDomain> mapDomainCampistas(List<CampistaEntityJpa> campistasJpa) {
         if (campistasJpa == null) return new ArrayList<>();
         return campistasJpa.stream()
-                .map(mapperCampista::toDomainWithoutEquipe) // Usar o método raso
-                .toList();
+                .map(mapperCampista::toDomainWithoutEquipe)
+                .collect(Collectors.toList());
     }
     private List<CampistaEntityJpa> mapEntityCampistas(List<CampistaEntityDomain> campistasJpa) {
         return campistasJpa.stream()
                 .map(mapperCampista::toEntity)
-                .toList();
+                .collect(Collectors.toList());
     }
 
 
@@ -99,24 +100,24 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
         if (funcionariosJpa == null) return new ArrayList<>();
         return funcionariosJpa.stream()
                 .map(mapperFuncionario::toDomainWithoutEquipe)
-                .toList();
+                .collect(Collectors.toList());
     }
     private List<FuncionarioEntityJpa> mapEntityFuncionarios(List<FuncionarioEntityDomain> funcionariosDomain) {
         return funcionariosDomain.stream()
                 .map(mapperFuncionario::toEntity)
-                .toList();
+                .collect(Collectors.toList());
     }
 
 
     private List<CronogramaEquipeEntityDomain> mapDomainCronogramas(List<CronogramaEquipeEntityJpa> cronogramasJpa) {
         return cronogramasJpa.stream()
                 .map(mapperCronograma::toDomain)
-                .toList();
+                .collect(Collectors.toList());
     }
     private List<CronogramaEquipeEntityJpa> mapEntityCronogramas(List<CronogramaEquipeEntityDomain> cronogramasDomain) {
         return cronogramasDomain.stream()
                 .map(mapperCronograma::toEntity)
-                .toList();
+                .collect(Collectors.toList());
     }
 
 }
