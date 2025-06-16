@@ -84,7 +84,10 @@ public class AdicionarCampistaUC implements UseCase<CriarCampistaRequest, Method
                 input.getJaFezAcampamento(),
                 input.getAcampamentosFeitos(),
                 input.getTemBarraca(),
-                new CamisetaEntityDomain(null, input.getTamanhoCamisa(), acampamentoEncontrado.tema()),
+                !input.getTamanhoCamisa()
+                        .isBlank()
+                        ? new CamisetaEntityDomain(null, input.getTamanhoCamisa(), acampamentoEncontrado.tema())
+                        : null,
                 new PessoaEntityDomain(
                         null,
                         input.getPessoa().nomeCompleto().split(" ", 2)[0],
