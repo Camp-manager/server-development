@@ -28,35 +28,17 @@ public class EquipeEntityJpa {
     @Column(name = "tipo")
     private TipoEquipe tipoEquipe;
 
-    @OneToMany(
-            mappedBy = "equipe",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            orphanRemoval = true
-    )
+    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<CronogramaEquipeEntityJpa> cronograma;
 
-    @JoinColumn(
-            name = "id_acampamento"
-    )
-    @ManyToOne(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.MERGE
-    )
+    @JoinColumn(name = "id_acampamento")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private AcampamentoEntityJpa acampamento;
 
-    @OneToMany(
-            mappedBy = "equipe",
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
-            fetch = FetchType.LAZY
-    )
+    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CampistaEntityJpa> campistas;
 
-    @OneToMany(
-            mappedBy = "equipe",
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
-            fetch = FetchType.LAZY
-    )
+    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FuncionarioEntityJpa> funcionarios;
 
     @OneToOne

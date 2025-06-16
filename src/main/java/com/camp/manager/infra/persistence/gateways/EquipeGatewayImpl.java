@@ -5,8 +5,12 @@ import com.camp.manager.domain.entity.EquipeEntityDomain;
 import com.camp.manager.domain.enums.TipoEquipe;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.mapper.EquipeMapper;
+import com.camp.manager.infra.persistence.entity.CampistaEntityJpa;
 import com.camp.manager.infra.persistence.entity.EquipeEntityJpa;
+import com.camp.manager.infra.persistence.entity.FuncionarioEntityJpa;
+import com.camp.manager.infra.persistence.repository.CampistaRepository;
 import com.camp.manager.infra.persistence.repository.EquipeRepository;
+import com.camp.manager.infra.persistence.repository.FuncionarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +23,18 @@ import java.util.stream.Collectors;
 public class EquipeGatewayImpl implements EquipeGateway {
 
     private final EquipeRepository equipeRepository;
+    private final CampistaRepository campistaRepository;
+    private final FuncionarioRepository funcionarioRepository;
     private final EquipeMapper equipeMapper;
 
     @Autowired
     public EquipeGatewayImpl(EquipeRepository equipeRepository,
+                             CampistaRepository campistaRepository,
+                             FuncionarioRepository funcionarioRepository,
                              EquipeMapper equipeMapper) {
         this.equipeRepository = equipeRepository;
+        this.campistaRepository = campistaRepository;
+        this.funcionarioRepository = funcionarioRepository;
         this.equipeMapper = equipeMapper;
     }
 
@@ -68,9 +78,25 @@ public class EquipeGatewayImpl implements EquipeGateway {
         TipoEquipe tipoEquipe = equipeGerida.getTipoEquipe();
 
         if (tipoEquipe == TipoEquipe.CAMPISTA) {
-            equipeGerida.getCampistas().removeIf(campista -> longs.contains(campista.getId()));
+
+            longs.forEach(id -> {
+                CampistaEntityJpa campista = this.campistaRepository.findById(id).orElse(null);
+                assert campista != null;
+                campista.setEquipe(null);
+                this.campistaRepository.save(campista);
+            });
+
+            //equipeGerida.getCampistas().removeIf(campista -> longs.contains(campista.getId()));
         } else if (tipoEquipe == TipoEquipe.TRABALHO) {
-            equipeGerida.getFuncionarios().removeIf(funcionario -> longs.contains(funcionario.getId()));
+
+            longs.forEach(id -> {
+                FuncionarioEntityJpa funcionario = this.funcionarioRepository.findById(id).orElse(null);
+                assert funcionario != null;
+                funcionario.setEquipe(null);
+                this.funcionarioRepository.save(funcionario);
+            });
+
+            //equipeGerida.getFuncionarios().removeIf(funcionario -> longs.contains(funcionario.getId()));
         }
 
         this.equipeRepository.save(equipeGerida);
