@@ -9,6 +9,7 @@ import com.camp.manager.domain.entity.EquipeEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.http.request.cronograma.CriarCronogramCampistasRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,7 @@ public class AdicionarCronogramaCampistasUC implements UseCase<CriarCronogramCam
     }
 
     @Override
+    @Transactional
     public MethodResponse<Void> execute(CriarCronogramCampistasRequest input) {
         boolean acampamentoExiste = this.acampamentoGateway.acampamentoEhExistentePorId(input.getIdDoCampamento());
         if(!acampamentoExiste) throw new NotFoundException("O acampamento com id [" + input.getIdDoCampamento() + "] não existe!");

@@ -90,7 +90,8 @@ public class AdicionarPessoasEquipeUC implements UseCase<AdicionarPessoasEquipeR
                     equipeEncontrada.acampamento(),
                     pessoasParaAdicionar,
                     equipeEncontrada.funcionariosNaEquipe(),
-                    equipeEncontrada.liderDaEquipe()
+                    equipeEncontrada.liderDaEquipe(),
+                    equipeEncontrada.diasDaFuncao()
             );
         } else {
             equipeComPessoasAdicionadas = new EquipeEntityDomain(
@@ -101,7 +102,8 @@ public class AdicionarPessoasEquipeUC implements UseCase<AdicionarPessoasEquipeR
                     equipeEncontrada.acampamento(),
                     equipeEncontrada.campistasNaEquipe(),
                     pessoasParaAdicionarFuncionario,
-                    equipeEncontrada.liderDaEquipe()
+                    equipeEncontrada.liderDaEquipe(),
+                    equipeEncontrada.diasDaFuncao()
             );
         }
 

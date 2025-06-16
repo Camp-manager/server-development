@@ -20,6 +20,7 @@ public class EquipeDTO {
     private final List<CronogramaEquipeDTO> cronogramas;
     private final List<CampistaBasicoDTO> campistasNaEquipe;
     private final List<FuncionarioBasicoDTO> funcionariosNaEquipe;
+    private final List<EquipeDiaFuncaoDTO> funcoesDaEquipe;
 
     public EquipeDTO(EquipeEntityDomain equipeEntityDomain) {
         this.id = equipeEntityDomain.id();
@@ -29,6 +30,7 @@ public class EquipeDTO {
         this.cronogramas = CronogramaEquipeDTO.converter(equipeEntityDomain.cronograma());
         this.campistasNaEquipe = CampistaBasicoDTO.converter(equipeEntityDomain.campistasNaEquipe());
         this.funcionariosNaEquipe = FuncionarioBasicoDTO.converter(equipeEntityDomain.funcionariosNaEquipe());
+        this.funcoesDaEquipe = EquipeDiaFuncaoDTO.converter(equipeEntityDomain.diasDaFuncao());
     }
 
     public static List<EquipeDTO> converter(List<EquipeEntityDomain> listEquipe) {

@@ -5,6 +5,7 @@ import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.AcampamentoEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
 import com.camp.manager.domain.exception.custom.NotFoundException;
+import com.camp.manager.infra.http.dto.cronograma.CronogramCampistasComEquipeDTO;
 import com.camp.manager.infra.http.dto.cronograma.CronogramaComEquipeDTO;
 import com.camp.manager.infra.http.dto.cronograma.TodosCronogramaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +32,13 @@ public class BuscarCronogramasUC implements UseCase<Long, MethodResponse<TodosCr
         AcampamentoEntityDomain acampamentoEncontrado = this.acampamentoGateway.buscarAcampamentoPorId(input);
 
         List<CronogramaComEquipeDTO> cronogramaComPorEquipeTrabalho = new ArrayList<>();
-        List<CronogramaComEquipeDTO> cronogramaComPorEquipeCampistas = new ArrayList<>();
+        List<CronogramCampistasComEquipeDTO> cronogramaComPorEquipeCampistas = new ArrayList<>();
 
         acampamentoEncontrado.equipesDoAcampamento().forEach(equipeEncontrado -> {
             if(equipeEncontrado.tipoEquipe().equals("Trabalho")) {
                 cronogramaComPorEquipeTrabalho.add(new CronogramaComEquipeDTO(equipeEncontrado));
             } else if (equipeEncontrado.tipoEquipe().equals("Campista")) {
-                cronogramaComPorEquipeCampistas.add(new CronogramaComEquipeDTO(equipeEncontrado));
+                cronogramaComPorEquipeCampistas.add(new CronogramCampistasComEquipeDTO(equipeEncontrado));
             }
         });
 

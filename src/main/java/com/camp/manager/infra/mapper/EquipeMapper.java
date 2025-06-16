@@ -18,16 +18,19 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
     private final AcampamentoMapper mapperAcampamento;
     private final CampistaMapper mapperCampista;
     private final FuncionarioMapper mapperFuncionario;
+    private final EquipeDiaFuncaoMapper mapperEquipeDiaFuncao;
 
     @Autowired
     public EquipeMapper(@Lazy CronogramaEquipeMapper mapperCronograma,
                         @Lazy AcampamentoMapper mapperAcampamento,
                         @Lazy CampistaMapper mapperCampista,
-                        @Lazy FuncionarioMapper mapperFuncionario) {
+                        @Lazy FuncionarioMapper mapperFuncionario,
+                        @Lazy EquipeDiaFuncaoMapper mapperEquipeDiaFuncao) {
         this.mapperCronograma = mapperCronograma;
         this.mapperAcampamento = mapperAcampamento;
         this.mapperCampista = mapperCampista;
         this.mapperFuncionario = mapperFuncionario;
+        this.mapperEquipeDiaFuncao = mapperEquipeDiaFuncao;
     }
 
     @Override
@@ -40,9 +43,28 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
                 this.mapperAcampamento.toDomainWithoutEquipes(equipeEntityJpa.getAcampamento()),
                 this.mapDomainCampistas(equipeEntityJpa.getCampistas()),
                 this.mapDomainFuncionarios(equipeEntityJpa.getFuncionarios()),
-                equipeEntityJpa.getLiderDeTime() != null ? this.mapperFuncionario.toDomainWithoutEquipe(equipeEntityJpa.getLiderDeTime()) : null
+                equipeEntityJpa.getLiderDeTime() != null ? this.mapperFuncionario.toDomainWithoutEquipe(equipeEntityJpa.getLiderDeTime()) : null,
+                this.mapDomainFuncoes(equipeEntityJpa.getEquipeDiaFuncao())
         );
     }
+
+    public EquipeEntityDomain toDomainWithoutRelationships(EquipeEntityJpa equipeEntityJpa) {
+        if (equipeEntityJpa == null) {
+            return null;
+        }
+        return new EquipeEntityDomain(
+                equipeEntityJpa.getId(),
+                equipeEntityJpa.getNome(),
+                equipeEntityJpa.getTipoEquipe().getDescricao(),
+                new ArrayList<>(),
+                this.mapperAcampamento.toDomainWithoutEquipes(equipeEntityJpa.getAcampamento()),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                equipeEntityJpa.getLiderDeTime() != null ? this.mapperFuncionario.toDomainWithoutEquipe(equipeEntityJpa.getLiderDeTime()) : null,
+                new ArrayList<>()
+        );
+    }
+
 
     @Override
     public EquipeEntityJpa toEntity(EquipeEntityDomain equipeEntityDomain) {
@@ -54,7 +76,8 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
                 this.mapperAcampamento.toEntity(equipeEntityDomain.acampamento()),
                 new ArrayList<>(),
                 new ArrayList<>(),
-                equipeEntityDomain.liderDaEquipe() != null ? this.mapperFuncionario.toEntity(equipeEntityDomain.liderDaEquipe()) : null
+                equipeEntityDomain.liderDaEquipe() != null ? this.mapperFuncionario.toEntity(equipeEntityDomain.liderDaEquipe()) : null,
+                new ArrayList<>()
         );
 
         if (equipeEntityDomain.cronograma() != null) {
@@ -68,9 +91,16 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
             equipeJpa.setCronograma(cronogramasJpa);
         }
 
+        if (equipeEntityDomain.diasDaFuncao() != null) {
+            List<EquipeDiaFuncaoEntityJpa> funcoesJpa = this.mapEntityFuncoes(equipeEntityDomain.diasDaFuncao());
+            funcoesJpa.forEach(funcao -> funcao.setEquipe(equipeJpa));
+            equipeJpa.setEquipeDiaFuncao(funcoesJpa);
+        }
+
+
         if (equipeEntityDomain.campistasNaEquipe() != null) {
             List<CampistaEntityJpa> campistasJpa = this.mapEntityCampistas(equipeEntityDomain.campistasNaEquipe());
-            campistasJpa.forEach(campista -> campista.setEquipe(equipeJpa));
+            campistasJpa.forEach(campista -> campista.setEquipe(equipeJpa)); // <<< Vínculo
             equipeJpa.setCampistas(campistasJpa);
         }
 
@@ -81,6 +111,20 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
         }
 
         return equipeJpa;
+    }
+
+    private List<EquipeDiaFuncaoEntityDomain> mapDomainFuncoes(List<EquipeDiaFuncaoEntityJpa> funcoesJpa) {
+        if (funcoesJpa == null) return new ArrayList<>();
+        return funcoesJpa.stream()
+                .map(mapperEquipeDiaFuncao::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    private List<EquipeDiaFuncaoEntityJpa> mapEntityFuncoes(List<EquipeDiaFuncaoEntityDomain> funcoesDomain) {
+        if (funcoesDomain == null) return new ArrayList<>();
+        return funcoesDomain.stream()
+                .map(mapperEquipeDiaFuncao::toEntity)
+                .collect(Collectors.toList());
     }
 
     private List<CampistaEntityDomain> mapDomainCampistas(List<CampistaEntityJpa> campistasJpa) {
@@ -133,7 +177,8 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
                 this.mapperAcampamento.toDomainWithoutEquipes(equipeEntityJpa.getAcampamento()),
                 this.mapDomainCampistas(equipeEntityJpa.getCampistas()),
                 this.mapDomainFuncionarios(equipeEntityJpa.getFuncionarios()),
-                equipeEntityJpa.getLiderDeTime() != null ? this.mapperFuncionario.toDomainWithoutEquipe(equipeEntityJpa.getLiderDeTime()) : null
+                equipeEntityJpa.getLiderDeTime() != null ? this.mapperFuncionario.toDomainWithoutEquipe(equipeEntityJpa.getLiderDeTime()) : null,
+                this.mapDomainFuncoes(equipeEntityJpa.getEquipeDiaFuncao())
         );
     }
 

@@ -29,7 +29,7 @@ public class CronogramaEquipeMapper implements Mapper<CronogramaEquipeEntityJpa,
                 LocalDateConverterAPP.converterStringParaLocalDate(cronogramaEntityJpa.getDataInicio()),
                 LocalDateConverterAPP.converterStringParaLocalDate(cronogramaEntityJpa.getDataFinal()),
                 cronogramaEntityJpa.getDescricao(),
-                this.equipeMapper.toDomainWithoutCronogramas(cronogramaEntityJpa.getEquipe()),
+                this.equipeMapper.toDomainWithoutRelationships(cronogramaEntityJpa.getEquipe()),
                 this.atividadeMapper.toDomainList(cronogramaEntityJpa.getAtividades())
         );
     }
