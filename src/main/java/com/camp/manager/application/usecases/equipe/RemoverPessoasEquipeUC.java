@@ -36,31 +36,4 @@ public class RemoverPessoasEquipeUC implements UseCase<RemoverPessoasEquipeReque
 
         return new MethodResponse<>(202, "Pessoas removidas da equipe com sucesso!", null);
     }
-
-    private EquipeEntityDomain removerPessoasDasEquipes(RemoverPessoasEquipeRequest request, EquipeEntityDomain equipeEncontrada) {
-        List<FuncionarioEntityDomain> funcionariosAtuais = new ArrayList<>(equipeEncontrada.funcionariosNaEquipe());
-        List<CampistaEntityDomain> campistasAtuais = new ArrayList<>(equipeEncontrada.campistasNaEquipe());
-
-        TipoEquipe tipoEquipe = TipoEquipe.fromDescricao(equipeEncontrada.tipoEquipe());
-
-        switch (tipoEquipe) {
-            case CAMPISTA:
-                campistasAtuais.removeIf(campista -> request.idsPessoas().contains(campista.id()));
-                break;
-            case TRABALHO:
-                funcionariosAtuais.removeIf(funcionario -> request.idsPessoas().contains(funcionario.id()));
-                break;
-        }
-
-        return new EquipeEntityDomain(
-                equipeEncontrada.id(),
-                equipeEncontrada.nome(),
-                equipeEncontrada.tipoEquipe(),
-                equipeEncontrada.cronograma(),
-                equipeEncontrada.acampamento(),
-                campistasAtuais,
-                funcionariosAtuais,
-                equipeEncontrada.liderDaEquipe()
-        );
-    }
 }

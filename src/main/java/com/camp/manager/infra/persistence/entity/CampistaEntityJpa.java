@@ -50,7 +50,6 @@ public class CampistaEntityJpa {
     private PessoaEntityJpa pessoa;
 
     @JoinColumn(name = "id_equipe")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
     private EquipeEntityJpa equipe;
-
 }
