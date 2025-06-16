@@ -1,5 +1,6 @@
 package com.camp.manager.application.usecases.cronograma;
 
+import com.camp.manager.application.gateway.AtividadeGateway;
 import com.camp.manager.application.gateway.CronogramaEquipeGateway;
 import com.camp.manager.application.gateway.EquipeGateway;
 import com.camp.manager.application.usecases.UseCase;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,12 +25,14 @@ public class AdicionarCronogramaTrabalhoUC implements UseCase<CriarCronogramaTra
 
     private final CronogramaEquipeGateway cronogramaEquipeGateway;
     private final EquipeGateway equipeGateway;
+    private final AtividadeGateway atividadeGateway;
 
     @Autowired
     public AdicionarCronogramaTrabalhoUC(CronogramaEquipeGateway cronogramaEquipeGateway,
-                                         EquipeGateway equipeGateway) {
+                                         EquipeGateway equipeGateway, AtividadeGateway atividadeGateway) {
         this.cronogramaEquipeGateway = cronogramaEquipeGateway;
         this.equipeGateway = equipeGateway;
+        this.atividadeGateway = atividadeGateway;
     }
 
     @Override
@@ -41,26 +45,27 @@ public class AdicionarCronogramaTrabalhoUC implements UseCase<CriarCronogramaTra
 
             input.getCronogramasParaAEquipe().forEach(cronogramaRequest -> {
 
-                List<AtividadeEntityDomain> atividades = cronogramaRequest.atividades().stream()
-                        .map(req -> new AtividadeEntityDomain(
-                                null,
-                                req.tipo(),
-                                LocalTime.parse(req.horario()),
-                                req.descricao(),
-                                null
-                        )).collect(Collectors.toList());
-
-
                 CronogramaEquipeEntityDomain cronogramaPaiComFilhos = new CronogramaEquipeEntityDomain(
                         null,
                         LocalDateConverterAPP.converterStringParaLocalDate(cronogramaRequest.dataInicial()),
                         LocalDateConverterAPP.converterStringParaLocalDate(cronogramaRequest.dataFinal()),
                         cronogramaRequest.descricao(),
                         equipeEncontrada,
-                        atividades
+                        new ArrayList<>()
                 );
 
-                cronogramaEquipeGateway.salvarCronogramaEquipe(cronogramaPaiComFilhos);
+                CronogramaEquipeEntityDomain cronogramaEquipeEntityDomain = cronogramaEquipeGateway.salvarCronogramaEquipe(cronogramaPaiComFilhos);
+
+                List<AtividadeEntityDomain> atividades = cronogramaRequest.atividades().stream()
+                        .map(req -> new AtividadeEntityDomain(
+                                null,
+                                req.tipo(),
+                                LocalTime.parse(req.horario()),
+                                req.descricao(),
+                                cronogramaEquipeEntityDomain
+                        )).collect(Collectors.toList());
+
+                this.atividadeGateway.salvarTodasAtividades(atividades);
             });
         });
 

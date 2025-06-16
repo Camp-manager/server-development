@@ -27,7 +27,7 @@ public class AtividadeMapper implements Mapper<AtividadeEntityJpa, AtividadeEnti
                 atividadeEntityJpa.getTipoAtividade().getDescricao(),
                 LocalTime.parse(atividadeEntityJpa.getHorario()),
                 atividadeEntityJpa.getDescricao(),
-                cronogramaMapper.toDomain(atividadeEntityJpa.getCronograma())
+                null
         );
     }
 

@@ -3,6 +3,7 @@ package com.camp.manager.infra.persistence.gateways;
 import com.camp.manager.application.gateway.CronogramaEquipeGateway;
 import com.camp.manager.domain.entity.CronogramaEquipeEntityDomain;
 import com.camp.manager.infra.mapper.CronogramaEquipeMapper;
+import com.camp.manager.infra.persistence.entity.CronogramaEquipeEntityJpa;
 import com.camp.manager.infra.persistence.repository.CronogramaEquipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,8 @@ public class CronogramaEquipeGatewayImpl implements CronogramaEquipeGateway {
 
     @Override
     public CronogramaEquipeEntityDomain salvarCronogramaEquipe(CronogramaEquipeEntityDomain cronogramaEquipeEntityDomain) {
-        return this.cronogramaEquipeMapper.toDomain(this.cronogramaEquipeRepository.save(this.cronogramaEquipeMapper.toEntity(cronogramaEquipeEntityDomain)));
+        CronogramaEquipeEntityJpa cronogramaJpa = cronogramaEquipeMapper.toEntity(cronogramaEquipeEntityDomain);
+        CronogramaEquipeEntityJpa cronogramaSalvo = cronogramaEquipeRepository.save(cronogramaJpa);
+        return cronogramaEquipeMapper.toDomain(cronogramaSalvo);
     }
 }
