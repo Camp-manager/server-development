@@ -3,8 +3,6 @@ package com.camp.manager.infra.persistence.gateways;
 import com.camp.manager.application.gateway.CampistaGateway;
 import com.camp.manager.domain.entity.CampistaEntityDomain;
 import com.camp.manager.infra.mapper.CampistaMapper;
-import com.camp.manager.infra.mapper.Mapper;
-import com.camp.manager.infra.persistence.entity.CampistaEntityJpa;
 import com.camp.manager.infra.persistence.repository.CampistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,5 +72,13 @@ public class CampistaGatewayImpl implements CampistaGateway {
     @Override
     public CampistaEntityDomain buscarCampistaNoAcampamentoPorCpf(Long idAcampamento, String cpf) {
         return this.campistaMapper.toDomain(this.campistaRepository.findByEquipe_Acampamento_IdAndPessoa_Cpf(idAcampamento, cpf));
+    }
+
+    @Override
+    public List<CampistaEntityDomain> buscarCampistasCompradoresCamisa(String s) {
+        return this.campistaRepository.findAllByCodigoRegistroAndCamisetaIsNotNull(s)
+                .stream()
+                .map(campistaMapper::toDomain)
+                .collect(Collectors.toList());
     }
 }

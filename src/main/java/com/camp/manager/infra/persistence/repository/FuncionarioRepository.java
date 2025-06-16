@@ -12,6 +12,6 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntityJp
     List<FuncionarioEntityJpa> findAllByEquipe_IdOrderByNome(Long equipeId);
     List<FuncionarioEntityJpa> findAllByCodigoRegistroOrderByNome(String codigoRegistro);
     FuncionarioEntityJpa findByCpf(String input);
-
+    List<FuncionarioEntityJpa> findAllbyCodigoRegistroAndCamisetaIsNotNull(String codigoRegistro);
     FuncionarioEntityJpa findByEquipe_Acampamento_IdAndCpf(Long idAcampamento, String cpf);
 }

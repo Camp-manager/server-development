@@ -1,6 +1,5 @@
 package com.camp.manager.infra.persistence.repository;
 
-import com.camp.manager.domain.entity.CampistaEntityDomain;
 import com.camp.manager.infra.persistence.entity.CampistaEntityJpa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,5 +15,5 @@ public interface CampistaRepository extends JpaRepository<CampistaEntityJpa, Lon
     CampistaEntityJpa findByPessoa_Cpf(String cpf);
 
     CampistaEntityJpa findByEquipe_Acampamento_IdAndPessoa_Cpf(Long idDoAcampamento, String codigo);
-    boolean existsByEquipe_Acampamento_IdAndPessoa_Cpf(Long idDoAcampamento, String codigo);
+    List<CampistaEntityJpa> findAllByCodigoRegistroAndCamisetaIsNotNull(String codigoRegistro);
 }

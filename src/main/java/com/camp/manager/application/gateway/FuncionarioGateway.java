@@ -13,4 +13,5 @@ public interface FuncionarioGateway {
     FuncionarioEntityDomain buscarFuncionarioPorId(Long id);
     FuncionarioEntityDomain buscarFuncionarioPorCpf(String input);
     FuncionarioEntityDomain buscarFuncionarioNoAcampamentoPorCpf(Long idAcampamento, String cpf);
+    List<FuncionarioEntityDomain> buscarFuncionariosCompradoresCamisa(String codigoRegistro);
 }

@@ -73,4 +73,12 @@ public class FuncionarioGatewayImpl implements FuncionarioGateway {
     public FuncionarioEntityDomain buscarFuncionarioNoAcampamentoPorCpf(Long idAcampamento, String cpf) {
         return this.funcionarioMapper.toDomain(this.funcionarioRepository.findByEquipe_Acampamento_IdAndCpf(idAcampamento, cpf));
     }
+
+    @Override
+    public List<FuncionarioEntityDomain> buscarFuncionariosCompradoresCamisa(String codigoRegistro) {
+        return this.funcionarioRepository.findAllbyCodigoRegistroAndCamisetaIsNotNull(codigoRegistro)
+                .stream()
+                .map(funcionarioMapper::toDomain)
+                .collect(Collectors.toList());
+    }
 }
