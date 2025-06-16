@@ -18,6 +18,7 @@ public class AdicionarCampistaUC implements UseCase<CriarCampistaRequest, Method
 
     private final CampistaGateway campistaGateway;
     private final AcampamentoGateway acampamentoGateway;
+    private final PasswordEncoderAdapter passwordEncoderAdapter;
     private final UsuarioGateway usuarioGateway;
     private final MedicamentoGateway medicamentoGateway;
     private final PessoaMedicamentoGateway pessoaMedicamentoGateway;
@@ -25,11 +26,13 @@ public class AdicionarCampistaUC implements UseCase<CriarCampistaRequest, Method
     @Autowired
     public AdicionarCampistaUC(CampistaGateway campistaGateway,
                                AcampamentoGateway acampamentoGateway,
+                               PasswordEncoderAdapter passwordEncoderAdapter,
                                UsuarioGateway usuarioGateway,
                                MedicamentoGateway medicamentoGateway,
                                PessoaMedicamentoGateway pessoaMedicamentoGateway) {
         this.campistaGateway = campistaGateway;
         this.acampamentoGateway = acampamentoGateway;
+        this.passwordEncoderAdapter = passwordEncoderAdapter;
         this.usuarioGateway = usuarioGateway;
         this.medicamentoGateway = medicamentoGateway;
         this.pessoaMedicamentoGateway = pessoaMedicamentoGateway;
@@ -128,10 +131,13 @@ public class AdicionarCampistaUC implements UseCase<CriarCampistaRequest, Method
     }
     private void inserirCampistaParaLogin(CampistaEntityDomain campistaEntityDomain){
         String senhaPadrao = campistaEntityDomain.pessoa().cpf().substring(0, 3);
+
+        String senhaHash = this.passwordEncoderAdapter.encode(senhaPadrao);
+
         UserEntityDomain usuarioCriado = new UserEntityDomain(null,
                 campistaEntityDomain.pessoa().nome(),
                 campistaEntityDomain.pessoa().telefone(),
-                senhaPadrao,
+                senhaHash,
                 "CAMPISTA");
         this.usuarioGateway.salvarNovoUsuario(usuarioCriado);
     }

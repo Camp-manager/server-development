@@ -2,6 +2,7 @@ package com.camp.manager.application.usecases.pessoa;
 
 import com.camp.manager.application.gateway.AcampamentoGateway;
 import com.camp.manager.application.gateway.FuncionarioGateway;
+import com.camp.manager.application.gateway.PasswordEncoderAdapter;
 import com.camp.manager.application.gateway.UsuarioGateway;
 import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.*;
@@ -20,14 +21,17 @@ public class AdicionarFuncionarioUC implements UseCase<CriarFuncionarioRequest, 
 
     private final FuncionarioGateway funcionarioGateway;
     private final AcampamentoGateway acampamentoGateway;
+    private final PasswordEncoderAdapter passwordEncoderAdapter;
     private final UsuarioGateway usuarioGateway;
 
     @Autowired
     public AdicionarFuncionarioUC(FuncionarioGateway funcionarioGateway,
                                   AcampamentoGateway acampamentoGateway,
+                                  PasswordEncoderAdapter passwordEncoderAdapter,
                                   UsuarioGateway usuarioGateway) {
         this.funcionarioGateway = funcionarioGateway;
         this.acampamentoGateway = acampamentoGateway;
+        this.passwordEncoderAdapter = passwordEncoderAdapter;
         this.usuarioGateway = usuarioGateway;
     }
 
@@ -86,10 +90,13 @@ public class AdicionarFuncionarioUC implements UseCase<CriarFuncionarioRequest, 
     }
     private void inserirUsuarioParaLogin(FuncionarioEntityDomain funcionarioCriado) {
         String senhaPadrao = funcionarioCriado.cpf().substring(0, 3);
+
+        String senhaHash = this.passwordEncoderAdapter.encode(senhaPadrao);
+
         UserEntityDomain usuarioCriado = new UserEntityDomain(null,
                 funcionarioCriado.nome(),
                 funcionarioCriado.email(),
-                senhaPadrao,
+                senhaHash,
                 "FUNCIONARIO");
         this.usuarioGateway.salvarNovoUsuario(usuarioCriado);
     }
