@@ -16,6 +16,7 @@ public class EquipeDTO {
     private final Long id;
     private final String nome;
     private final String tipoEquipe;
+    private final FuncionarioBasicoDTO liderEquipe;
     private final List<CronogramaEquipeDTO> cronogramas;
     private final List<CampistaBasicoDTO> campistasNaEquipe;
     private final List<FuncionarioBasicoDTO> funcionariosNaEquipe;
@@ -23,6 +24,7 @@ public class EquipeDTO {
     public EquipeDTO(EquipeEntityDomain equipeEntityDomain) {
         this.id = equipeEntityDomain.id();
         this.nome = equipeEntityDomain.nome();
+        this.liderEquipe = equipeEntityDomain.liderDaEquipe() != null ? new FuncionarioBasicoDTO(equipeEntityDomain.liderDaEquipe()) : null ;
         this.tipoEquipe = equipeEntityDomain.tipoEquipe();
         this.cronogramas = CronogramaEquipeDTO.converter(equipeEntityDomain.cronograma());
         this.campistasNaEquipe = CampistaBasicoDTO.converter(equipeEntityDomain.campistasNaEquipe());

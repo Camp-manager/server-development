@@ -48,9 +48,9 @@ public class AdicionarCampistaUC implements UseCase<CriarCampistaRequest, Method
 
         CampistaEntityDomain campistaCriado = this.converterRequestParaDomain(input, acampamentoEncontrado);
 
-        this.inserirMedicamentos(input, campistaCriado);
+        CampistaEntityDomain campistasPersistido = this.campistaGateway.inserirCampista(campistaCriado);
 
-        this.campistaGateway.inserirCampista(campistaCriado);
+        this.inserirMedicamentos(input, campistasPersistido);
         this.inserirCampistaParaLogin(campistaCriado);
 
         return new MethodResponse<>(201, "Campista adicionado com sucesso!", null);

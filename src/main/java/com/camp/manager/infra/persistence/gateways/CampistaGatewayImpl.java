@@ -34,8 +34,8 @@ public class CampistaGatewayImpl implements CampistaGateway {
     }
 
     @Override
-    public void inserirCampista(CampistaEntityDomain campistaDomain) {
-        this.campistaRepository.save(this.campistaMapper.toEntity(campistaDomain));
+    public CampistaEntityDomain inserirCampista(CampistaEntityDomain campistaDomain) {
+        return this.campistaMapper.toDomain(this.campistaRepository.save(this.campistaMapper.toEntity(campistaDomain)));
     }
 
     @Override

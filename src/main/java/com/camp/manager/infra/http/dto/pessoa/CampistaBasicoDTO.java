@@ -2,11 +2,14 @@ package com.camp.manager.infra.http.dto.pessoa;
 
 import com.camp.manager.domain.entity.CampistaEntityDomain;
 import com.camp.manager.domain.enums.Resposta;
+import com.camp.manager.infra.http.dto.medicamento.MedicamentoDTO;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Getter
+@Setter
 public class CampistaBasicoDTO {
 
     private final Long id;
@@ -20,6 +23,7 @@ public class CampistaBasicoDTO {
     private final Resposta jaFezAcampamento;
     private final Resposta temBarraca;
     private final Resposta temAlegia;
+    private List<MedicamentoDTO> medicamentosAlergicos;
     private final List<String> alergias;
 
     public CampistaBasicoDTO(CampistaEntityDomain campista) {

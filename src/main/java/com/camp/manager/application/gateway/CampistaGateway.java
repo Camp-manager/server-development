@@ -7,7 +7,7 @@ import java.util.List;
 public interface CampistaGateway {
     boolean campistaEhExistentePorCpf(String cpf);
     boolean campistaEhExistentePorId(Long id);
-    void inserirCampista(CampistaEntityDomain campistaDomain);
+    CampistaEntityDomain inserirCampista(CampistaEntityDomain campistaDomain);
     List<CampistaEntityDomain> buscarTodosOsCampistasComBaseNaEquipe(Long id);
     List<CampistaEntityDomain> buscarTodosOsCampistasComBaseNoCodigoRegistro(String codigoRegistro);
     CampistaEntityDomain buscarCampistaPorId(Long id);
