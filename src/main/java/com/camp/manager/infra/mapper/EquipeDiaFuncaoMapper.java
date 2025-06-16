@@ -22,7 +22,7 @@ public class EquipeDiaFuncaoMapper implements Mapper<EquipeDiaFuncaoEntityJpa, E
                 equipeDiaFuncaoEntityJpa.getId(),
                 equipeDiaFuncaoEntityJpa.getFuncao(),
                 equipeDiaFuncaoEntityJpa.getData(),
-                this.equipeMapper.toDomain(equipeDiaFuncaoEntityJpa.getEquipe())
+                this.equipeMapper.toDomainWithoutRelationships(equipeDiaFuncaoEntityJpa.getEquipe())
         );
     }
 

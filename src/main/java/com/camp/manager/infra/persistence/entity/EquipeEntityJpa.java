@@ -44,4 +44,7 @@ public class EquipeEntityJpa {
     @OneToOne
     @JoinColumn(name = "id_funcionario_lider")
     private FuncionarioEntityJpa liderDeTime;
+
+    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<EquipeDiaFuncaoEntityJpa> equipeDiaFuncao;
 }

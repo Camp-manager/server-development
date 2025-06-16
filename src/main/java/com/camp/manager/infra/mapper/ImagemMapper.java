@@ -15,6 +15,10 @@ public class ImagemMapper implements Mapper<ImagemEntityJpa, ImagemEntityDomain>
 
     @Override
     public ImagemEntityDomain toDomain(ImagemEntityJpa imagemEntityJpa) {
+        if (imagemEntityJpa.getAcampamento() == null) {
+            return null;
+        }
+
         Path pathDaImagem = Path.of(imagemEntityJpa.getPathLocalizacao());
         byte[] bytesDaImagem;
         try {
@@ -35,7 +39,7 @@ public class ImagemMapper implements Mapper<ImagemEntityJpa, ImagemEntityDomain>
     public ImagemEntityJpa toEntity(ImagemEntityDomain imagemEntityDomain) {
         return new ImagemEntityJpa(
                 imagemEntityDomain.id(),
-                Base64.getEncoder().encodeToString(imagemEntityDomain.arquivoImagem()),
+                imagemEntityDomain.pathLocalizacao().toString(),
                 LocalDateConverterAPP.converterLocalDateParaString(imagemEntityDomain.data())
         );
     }

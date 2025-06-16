@@ -10,5 +10,6 @@ public record EquipeEntityDomain(
         AcampamentoEntityDomain acampamento,
         List<CampistaEntityDomain> campistasNaEquipe,
         List<FuncionarioEntityDomain> funcionariosNaEquipe,
-        FuncionarioEntityDomain liderDaEquipe) {
+        FuncionarioEntityDomain liderDaEquipe,
+        List<EquipeDiaFuncaoEntityDomain> diasDaFuncao) {
 }

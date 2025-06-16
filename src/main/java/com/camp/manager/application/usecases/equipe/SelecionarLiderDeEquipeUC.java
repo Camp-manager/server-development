@@ -45,7 +45,8 @@ public class SelecionarLiderDeEquipeUC implements UseCase<LiderEquipeRequest, Me
                 equipeEncontrada.acampamento(),
                 equipeEncontrada.campistasNaEquipe(),
                 equipeEncontrada.funcionariosNaEquipe(),
-                this.funcionarioGateway.buscarFuncionarioPorId(input.idFuncionario())
+                this.funcionarioGateway.buscarFuncionarioPorId(input.idFuncionario()),
+                equipeEncontrada.diasDaFuncao()
         );
 
         this.equipeGateway.salvarEquipe(equipeAtualizada);

@@ -9,5 +9,5 @@ import java.util.List;
 @AllArgsConstructor
 public class TodosCronogramaDTO {
     List<CronogramaComEquipeDTO> cronogramasEquipeTrabalho;
-    List<CronogramaComEquipeDTO> cronogramasEquipeCampistas;
+    List<CronogramCampistasComEquipeDTO> cronogramasEquipeCampistas;
 }

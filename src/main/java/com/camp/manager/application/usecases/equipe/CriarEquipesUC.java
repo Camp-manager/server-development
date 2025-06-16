@@ -59,7 +59,8 @@ public class CriarEquipesUC implements UseCase<EquipesRequest, MethodResponse<Vo
                     acampamentoEncontrado,
                     new ArrayList<>(),
                     new ArrayList<>(),
-                    null
+                    null,
+                    new ArrayList<>()
             );
 
 
@@ -71,7 +72,8 @@ public class CriarEquipesUC implements UseCase<EquipesRequest, MethodResponse<Vo
                     equipeTemporaria.acampamento(),
                     equipeTemporaria.campistasNaEquipe(),
                     equipeTemporaria.funcionariosNaEquipe(),
-                    equipeTemporaria.liderDaEquipe()
+                    equipeTemporaria.liderDaEquipe(),
+                    equipeTemporaria.diasDaFuncao()
             );
 
             equipesDeTrabalho.add(equipeFinal);
