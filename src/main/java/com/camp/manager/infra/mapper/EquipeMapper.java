@@ -120,4 +120,21 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
                 .collect(Collectors.toList());
     }
 
+
+    public EquipeEntityDomain toDomainWithoutCronogramas(EquipeEntityJpa equipeEntityJpa) {
+        if (equipeEntityJpa == null) {
+            return null;
+        }
+        return new EquipeEntityDomain(
+                equipeEntityJpa.getId(),
+                equipeEntityJpa.getNome(),
+                equipeEntityJpa.getTipoEquipe().getDescricao(),
+                new ArrayList<>(),
+                this.mapperAcampamento.toDomainWithoutEquipes(equipeEntityJpa.getAcampamento()),
+                this.mapDomainCampistas(equipeEntityJpa.getCampistas()),
+                this.mapDomainFuncionarios(equipeEntityJpa.getFuncionarios()),
+                equipeEntityJpa.getLiderDeTime() != null ? this.mapperFuncionario.toDomainWithoutEquipe(equipeEntityJpa.getLiderDeTime()) : null
+        );
+    }
+
 }

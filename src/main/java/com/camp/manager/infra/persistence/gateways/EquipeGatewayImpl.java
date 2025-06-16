@@ -78,25 +78,19 @@ public class EquipeGatewayImpl implements EquipeGateway {
         TipoEquipe tipoEquipe = equipeGerida.getTipoEquipe();
 
         if (tipoEquipe == TipoEquipe.CAMPISTA) {
-
             longs.forEach(id -> {
                 CampistaEntityJpa campista = this.campistaRepository.findById(id).orElse(null);
                 assert campista != null;
                 campista.setEquipe(null);
                 this.campistaRepository.save(campista);
             });
-
-            //equipeGerida.getCampistas().removeIf(campista -> longs.contains(campista.getId()));
         } else if (tipoEquipe == TipoEquipe.TRABALHO) {
-
             longs.forEach(id -> {
                 FuncionarioEntityJpa funcionario = this.funcionarioRepository.findById(id).orElse(null);
                 assert funcionario != null;
                 funcionario.setEquipe(null);
                 this.funcionarioRepository.save(funcionario);
             });
-
-            //equipeGerida.getFuncionarios().removeIf(funcionario -> longs.contains(funcionario.getId()));
         }
 
         this.equipeRepository.save(equipeGerida);
