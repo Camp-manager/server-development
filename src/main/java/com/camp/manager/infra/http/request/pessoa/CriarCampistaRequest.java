@@ -25,6 +25,8 @@ public class CriarCampistaRequest{
     @NotNull(message = "Tem Barraca não pode ser nulo!")
     private Boolean temBarraca;
 
+    private List<Long> idsDeMedicamentos;
+
     private String tamanhoCamisa;
     private PessoaRequest pessoa;
 

@@ -1,8 +1,6 @@
 package com.camp.manager.application.usecases.pessoa;
 
-import com.camp.manager.application.gateway.AcampamentoGateway;
-import com.camp.manager.application.gateway.CampistaGateway;
-import com.camp.manager.application.gateway.UsuarioGateway;
+import com.camp.manager.application.gateway.*;
 import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.*;
 import com.camp.manager.domain.entity.utils.MethodResponse;
@@ -21,14 +19,20 @@ public class AdicionarCampistaUC implements UseCase<CriarCampistaRequest, Method
     private final CampistaGateway campistaGateway;
     private final AcampamentoGateway acampamentoGateway;
     private final UsuarioGateway usuarioGateway;
+    private final MedicamentoGateway medicamentoGateway;
+    private final PessoaMedicamentoGateway pessoaMedicamentoGateway;
 
     @Autowired
     public AdicionarCampistaUC(CampistaGateway campistaGateway,
                                AcampamentoGateway acampamentoGateway,
-                               UsuarioGateway usuarioGateway) {
+                               UsuarioGateway usuarioGateway,
+                               MedicamentoGateway medicamentoGateway,
+                               PessoaMedicamentoGateway pessoaMedicamentoGateway) {
         this.campistaGateway = campistaGateway;
         this.acampamentoGateway = acampamentoGateway;
         this.usuarioGateway = usuarioGateway;
+        this.medicamentoGateway = medicamentoGateway;
+        this.pessoaMedicamentoGateway = pessoaMedicamentoGateway;
     }
 
     @Override
@@ -43,6 +47,8 @@ public class AdicionarCampistaUC implements UseCase<CriarCampistaRequest, Method
         if(campistaEhExistente) throw new EntityNotFoundException("Já existe um campista cadastrado com o CPF [" + input.getPessoa().cpf() + "]!");
 
         CampistaEntityDomain campistaCriado = this.converterRequestParaDomain(input, acampamentoEncontrado);
+
+        this.inserirMedicamentos(input, campistaCriado);
 
         this.campistaGateway.inserirCampista(campistaCriado);
         this.inserirCampistaParaLogin(campistaCriado);
@@ -128,5 +134,14 @@ public class AdicionarCampistaUC implements UseCase<CriarCampistaRequest, Method
                 senhaPadrao,
                 "CAMPISTA");
         this.usuarioGateway.salvarNovoUsuario(usuarioCriado);
+    }
+    private void inserirMedicamentos(CriarCampistaRequest input, CampistaEntityDomain campistaEncontrado){
+        input.getIdsDeMedicamentos().forEach(medicamentoId -> {
+            boolean medicamentoEhExistente = this.medicamentoGateway.medicamentoEhExistentePorId(medicamentoId);
+            if(!medicamentoEhExistente) throw new NotFoundException("Medicamento com id [" + medicamentoId + "] não encontrado.");
+
+            MedicamentoEntityDomain medicamentoEncontrado = this.medicamentoGateway.buscarMedicamentoPorId(medicamentoId);
+            this.pessoaMedicamentoGateway.salvarPessoasMedicamento(campistaEncontrado.pessoa(), medicamentoEncontrado);
+        });
     }
 }

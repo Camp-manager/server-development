@@ -34,9 +34,9 @@ public class BuscarCronogramasUC implements UseCase<Long, MethodResponse<TodosCr
         List<CronogramaComEquipeDTO> cronogramaComPorEquipeCampistas = new ArrayList<>();
 
         acampamentoEncontrado.equipesDoAcampamento().forEach(equipeEncontrado -> {
-            if(equipeEncontrado.tipoEquipe().equals("TRABALHO")) {
+            if(equipeEncontrado.tipoEquipe().equals("Trabalho")) {
                 cronogramaComPorEquipeTrabalho.add(new CronogramaComEquipeDTO(equipeEncontrado));
-            } else if (equipeEncontrado.tipoEquipe().equals("CAMPISTA")) {
+            } else if (equipeEncontrado.tipoEquipe().equals("Campista")) {
                 cronogramaComPorEquipeCampistas.add(new CronogramaComEquipeDTO(equipeEncontrado));
             }
         });

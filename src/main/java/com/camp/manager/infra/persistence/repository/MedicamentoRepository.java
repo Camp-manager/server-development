@@ -11,4 +11,6 @@ import java.util.List;
 public interface MedicamentoRepository extends JpaRepository<MedicamentoEntityJpa, Long> {
 
     List<MedicamentoEntityJpa> findAllByOrderByNomeAsc();
+    boolean existsById(Long idMedicamento);
+
 }

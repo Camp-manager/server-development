@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface MedicamentoGateway {
     List<MedicamentoEntityDomain> buscarTodosMedicamentos();
+    boolean medicamentoEhExistentePorId(Long idMedicamento);
+    MedicamentoEntityDomain buscarMedicamentoPorId(Long idMedicamento);
 }
