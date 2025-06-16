@@ -76,7 +76,7 @@ public class FuncionarioGatewayImpl implements FuncionarioGateway {
 
     @Override
     public List<FuncionarioEntityDomain> buscarFuncionariosCompradoresCamisa(String codigoRegistro) {
-        return this.funcionarioRepository.findAllbyCodigoRegistroAndCamisetaIsNotNull(codigoRegistro)
+        return this.funcionarioRepository.findAllByCodigoRegistroAndCamisetaIsNotNull(codigoRegistro)
                 .stream()
                 .map(funcionarioMapper::toDomain)
                 .collect(Collectors.toList());
