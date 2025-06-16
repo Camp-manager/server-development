@@ -48,16 +48,14 @@ public class EquipeEntityJpa {
     @OneToMany(
             mappedBy = "equipe",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            orphanRemoval = true
+            fetch = FetchType.LAZY
     )
     private List<CampistaEntityJpa> campistas;
 
     @OneToMany(
             mappedBy = "equipe",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            orphanRemoval = true
+            fetch = FetchType.LAZY
     )
     private List<FuncionarioEntityJpa> funcionarios;
 
