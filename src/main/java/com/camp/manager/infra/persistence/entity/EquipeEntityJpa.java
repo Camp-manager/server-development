@@ -47,21 +47,19 @@ public class EquipeEntityJpa {
 
     @OneToMany(
             mappedBy = "equipe",
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
             fetch = FetchType.LAZY
     )
     private List<CampistaEntityJpa> campistas;
 
     @OneToMany(
             mappedBy = "equipe",
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
             fetch = FetchType.LAZY
     )
     private List<FuncionarioEntityJpa> funcionarios;
 
     @OneToOne
-    @JoinColumn(
-            name = "id_funcionario_lider"
-    )
+    @JoinColumn(name = "id_funcionario_lider")
     private FuncionarioEntityJpa liderDeTime;
 }
