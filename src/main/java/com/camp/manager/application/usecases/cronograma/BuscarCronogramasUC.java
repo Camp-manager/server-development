@@ -41,6 +41,6 @@ public class BuscarCronogramasUC implements UseCase<Long, MethodResponse<TodosCr
             }
         });
 
-        return new MethodResponse<>(200, "Cronogramas encontrados com sucesso!", new TodosCronogramaDTO(cronogramaComPorEquipeCampistas, cronogramaComPorEquipeTrabalho));
+        return new MethodResponse<>(200, "Cronogramas encontrados com sucesso!", new TodosCronogramaDTO(cronogramaComPorEquipeTrabalho,cronogramaComPorEquipeCampistas));
     }
 }

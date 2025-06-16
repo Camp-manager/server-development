@@ -1,11 +1,14 @@
 package com.camp.manager.infra.mapper;
 
 import com.camp.manager.domain.entity.CronogramaEquipeEntityDomain;
+import com.camp.manager.infra.persistence.entity.AtividadeEntityJpa;
 import com.camp.manager.infra.persistence.entity.CronogramaEquipeEntityJpa;
 import com.camp.manager.utils.converter.localDate.LocalDateConverterAPP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class CronogramaEquipeMapper implements Mapper<CronogramaEquipeEntityJpa, CronogramaEquipeEntityDomain> {
@@ -33,12 +36,22 @@ public class CronogramaEquipeMapper implements Mapper<CronogramaEquipeEntityJpa,
 
     @Override
     public CronogramaEquipeEntityJpa toEntity(CronogramaEquipeEntityDomain cronogramaEquipeEntityDomain) {
-        return new CronogramaEquipeEntityJpa(
+        CronogramaEquipeEntityJpa cronogramaEquipeJpa = new CronogramaEquipeEntityJpa(
                 cronogramaEquipeEntityDomain.id(),
                 LocalDateConverterAPP.converterLocalDateParaString(cronogramaEquipeEntityDomain.dataInicio()),
                 LocalDateConverterAPP.converterLocalDateParaString(cronogramaEquipeEntityDomain.dataFinal()),
                 cronogramaEquipeEntityDomain.descricao(),
                 this.equipeMapper.toEntity(cronogramaEquipeEntityDomain.equipe())
         );
+
+        if (cronogramaEquipeEntityDomain.atividades() != null) {
+            List<AtividadeEntityJpa> atividadesJpa = this.atividadeMapper.toEntityList(cronogramaEquipeEntityDomain.atividades());
+
+            atividadesJpa.forEach(atividade -> atividade.setCronograma(cronogramaEquipeJpa));
+
+            cronogramaEquipeJpa.setAtividades(atividadesJpa);
+        }
+
+        return cronogramaEquipeJpa;
     }
 }
