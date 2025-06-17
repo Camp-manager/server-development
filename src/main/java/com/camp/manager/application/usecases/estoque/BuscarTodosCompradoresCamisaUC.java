@@ -2,7 +2,6 @@ package com.camp.manager.application.usecases.estoque;
 
 import com.camp.manager.application.gateway.AcampamentoGateway;
 import com.camp.manager.application.gateway.CampistaGateway;
-import com.camp.manager.application.gateway.EstoqueGateway;
 import com.camp.manager.application.gateway.FuncionarioGateway;
 import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.AcampamentoEntityDomain;
@@ -22,17 +21,14 @@ import java.util.List;
 @Service
 public class BuscarTodosCompradoresCamisaUC implements UseCase<Long, MethodResponse<CompradoresCamisetaDTO>> {
 
-    private final EstoqueGateway estoqueGateway;
     private final FuncionarioGateway funcionarioGateway;
     private final CampistaGateway campistaGateway;
     private final AcampamentoGateway acampamentoGateway;
 
     @Autowired
-    public BuscarTodosCompradoresCamisaUC(EstoqueGateway estoqueGateway,
-                                          FuncionarioGateway funcionarioGateway,
+    public BuscarTodosCompradoresCamisaUC(FuncionarioGateway funcionarioGateway,
                                           CampistaGateway campistaGateway,
                                           AcampamentoGateway acampamentoGateway) {
-        this.estoqueGateway = estoqueGateway;
         this.funcionarioGateway = funcionarioGateway;
         this.campistaGateway = campistaGateway;
         this.acampamentoGateway = acampamentoGateway;

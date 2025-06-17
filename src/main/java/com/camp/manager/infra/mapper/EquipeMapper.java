@@ -113,6 +113,44 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
         return equipeJpa;
     }
 
+    public EquipeEntityJpa toEntityWithoutCronogramas(EquipeEntityDomain equipeEntityDomain) {
+        if (equipeEntityDomain == null) {
+            return null;
+        }
+
+        EquipeEntityJpa equipeJpa = new EquipeEntityJpa(
+                equipeEntityDomain.id(),
+                equipeEntityDomain.nome(),
+                TipoEquipe.fromDescricao(equipeEntityDomain.tipoEquipe()),
+                new ArrayList<>(),
+                this.mapperAcampamento.toEntity(equipeEntityDomain.acampamento()),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                equipeEntityDomain.liderDaEquipe() != null ? this.mapperFuncionario.toEntity(equipeEntityDomain.liderDaEquipe()) : null,
+                new ArrayList<>()
+        );
+
+        if (equipeEntityDomain.campistasNaEquipe() != null) {
+            List<CampistaEntityJpa> campistasJpa = this.mapEntityCampistas(equipeEntityDomain.campistasNaEquipe());
+            campistasJpa.forEach(campista -> campista.setEquipe(equipeJpa));
+            equipeJpa.setCampistas(campistasJpa);
+        }
+
+        if (equipeEntityDomain.funcionariosNaEquipe() != null) {
+            List<FuncionarioEntityJpa> funcionariosJpa = this.mapEntityFuncionarios(equipeEntityDomain.funcionariosNaEquipe());
+            funcionariosJpa.forEach(funcionario -> funcionario.setEquipe(equipeJpa));
+            equipeJpa.setFuncionarios(funcionariosJpa);
+        }
+
+        if (equipeEntityDomain.diasDaFuncao() != null) {
+            List<EquipeDiaFuncaoEntityJpa> funcoesJpa = this.mapEntityFuncoes(equipeEntityDomain.diasDaFuncao());
+            funcoesJpa.forEach(funcao -> funcao.setEquipe(equipeJpa));
+            equipeJpa.setEquipeDiaFuncao(funcoesJpa);
+        }
+
+        return equipeJpa;
+    }
+
     private List<EquipeDiaFuncaoEntityDomain> mapDomainFuncoes(List<EquipeDiaFuncaoEntityJpa> funcoesJpa) {
         if (funcoesJpa == null) return new ArrayList<>();
         return funcoesJpa.stream()
