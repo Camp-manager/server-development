@@ -31,7 +31,6 @@ public class EstoqueEntityJpa {
     @Column(name = "limite")
     private Long limite;
 
-    @OneToMany(mappedBy = "estoque")
+    @OneToMany(mappedBy = "estoque", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemEntityJpa> itens;
-
 }

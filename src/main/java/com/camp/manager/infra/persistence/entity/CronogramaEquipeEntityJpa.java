@@ -34,11 +34,7 @@ public class CronogramaEquipeEntityJpa {
     @ManyToOne(fetch = FetchType.LAZY)
     private EquipeEntityJpa equipe;
 
-    @OneToMany(
-            mappedBy = "cronograma",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToMany(mappedBy = "cronograma", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AtividadeEntityJpa> atividades = new ArrayList<>();
 
     public CronogramaEquipeEntityJpa(Long id, String dataInicio, String dataFinal, String descricao, EquipeEntityJpa equipe) {
@@ -47,15 +43,5 @@ public class CronogramaEquipeEntityJpa {
         this.dataFinal = dataFinal;
         this.descricao = descricao;
         this.equipe = equipe;
-    }
-
-    public void addAtividade(AtividadeEntityJpa atividade) {
-        atividades.add(atividade);
-        atividade.setCronograma(this);
-    }
-
-    public void removeAtividade(AtividadeEntityJpa atividade) {
-        atividades.remove(atividade);
-        atividade.setCronograma(null);
     }
 }

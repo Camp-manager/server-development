@@ -26,7 +26,7 @@ public class ItemEntityJpa {
     @Column(name = "quantidade")
     private Long quantidade;
 
-    @Column(name = "tipoItem")
+    @Column(name = "tipo")
     private TipoItem tipoItem;
 
     @Column(name = "validade")
@@ -38,4 +38,13 @@ public class ItemEntityJpa {
     @ManyToOne
     @JoinColumn(name = "id_estoque")
     private EstoqueEntityJpa estoque;
+
+    public ItemEntityJpa(Long id, String descricao, Long quantidade, TipoItem tipoItem, String validade, Double valor) {
+        this.id = id;
+        this.descricao = descricao;
+        this.quantidade = quantidade;
+        this.tipoItem = tipoItem;
+        this.validade = validade;
+        this.valor = valor;
+    }
 }
