@@ -2,6 +2,7 @@ package com.camp.manager.infra.persistence.gateways;
 
 import com.camp.manager.application.gateway.EstoqueGateway;
 import com.camp.manager.domain.entity.EstoqueEntityDomain;
+import com.camp.manager.domain.enums.LocalEstoque;
 import com.camp.manager.infra.mapper.EstoqueMapper;
 import com.camp.manager.infra.persistence.repository.EstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class EstoqueGatewayImpl implements EstoqueGateway {
 
     @Override
     public List<EstoqueEntityDomain> buscarEstoquesPorTipoEstoque(String tipoEstoque) {
-        return this.estoqueRepository.findAllByLocalEstoque_descricao(tipoEstoque)
+        return this.estoqueRepository.findAllByLocalEstoque(LocalEstoque.fromDescricao(tipoEstoque))
                 .stream()
                 .map(this.estoqueMapper::toDomain)
                 .collect(Collectors.toList());
