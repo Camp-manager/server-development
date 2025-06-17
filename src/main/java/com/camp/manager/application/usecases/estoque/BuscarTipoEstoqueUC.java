@@ -19,4 +19,5 @@ public class BuscarTipoEstoqueUC implements UseCase<Void, MethodResponse<List<St
                 .toList();
         return new MethodResponse<>(200, "Parentescos encontrados com sucesso!", localEstoque);
     }
+
 }
