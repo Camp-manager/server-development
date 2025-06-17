@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class BuscarCampistasUC implements UseCase<Long, MethodResponse<List<CampistaBasicoDTO>>> {
@@ -52,6 +53,9 @@ public class BuscarCampistasUC implements UseCase<Long, MethodResponse<List<Camp
 
     private List<CampistaBasicoDTO> montarListCampistaBasicoDTO( List<CampistaEntityDomain> campistas){
         List<CampistaBasicoDTO> campistaBasicoDTOS = new ArrayList<>();
+
+        Stream<List<CampistaBasicoDTO>> almir = Stream.of(campistaBasicoDTOS);
+
         campistas.forEach(campista -> {
             CampistaBasicoDTO dtoCampistaCriado = new CampistaBasicoDTO(campista);
 
