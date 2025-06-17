@@ -5,6 +5,7 @@ import com.camp.manager.application.usecases.UseCase;
 import com.camp.manager.domain.entity.EstoqueEntityDomain;
 import com.camp.manager.domain.entity.ItemEntityDomain;
 import com.camp.manager.domain.entity.utils.MethodResponse;
+import com.camp.manager.domain.exception.custom.LimitOverflowException;
 import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.http.request.estoque.AdicionarItensRequest;
 import com.camp.manager.infra.http.request.estoque.ItemRequest;
@@ -32,14 +33,18 @@ public class AdicionarItensEstoqueUC implements UseCase<AdicionarItensRequest, M
         EstoqueEntityDomain estoqueEntityDomain = this.estoqueGateway.buscarEstoquePorId(input.getIdEstoque());
         List<ItemEntityDomain> items = this.converterItens(input.getItens());
 
-        Long quantidadeTotal = items.stream()
+        Long quantidadeTotalParaAdicionar = items.stream()
                 .mapToLong(ItemEntityDomain::quantidade)
                 .sum();
+
+        if((estoqueEntityDomain.quantidade() + quantidadeTotalParaAdicionar) > estoqueEntityDomain.limite()) {
+            throw new LimitOverflowException("A quantidade total de itens excede o limite do estoque.");
+        }
 
         EstoqueEntityDomain estoqueAtualizado = new EstoqueEntityDomain(
                 estoqueEntityDomain.id(),
                 estoqueEntityDomain.localEstoque(),
-                estoqueEntityDomain.quantidade() + quantidadeTotal,
+                estoqueEntityDomain.quantidade() + quantidadeTotalParaAdicionar,
                 estoqueEntityDomain.limite(),
                 estoqueEntityDomain.itens() != null ? estoqueEntityDomain.itens() : List.of()
         );
