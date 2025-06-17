@@ -37,7 +37,7 @@ public class EstoqueController {
                 .body(response.data());
     }
 
-    @GetMapping("/buscar-estoque")
+    @GetMapping
     public ResponseEntity<List<EstoqueDTO>> buscarTodosEstoques() {
         var response = this.buscarItensPorEstoqueUC.execute(null);
         return ResponseEntity

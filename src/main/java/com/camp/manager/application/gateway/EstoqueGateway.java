@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface EstoqueGateway {
     List<EstoqueEntityDomain> buscarTodosOsEstoques();
+    List<EstoqueEntityDomain> buscarEstoquesPorTipoEstoque(String tipoEstoque);
     EstoqueEntityDomain buscarEstoquePorId(Long idEstoque);
     boolean estoqueEhExistente(Long idEstoque);
     void salvarEstoque(EstoqueEntityDomain estoqueEntityDomain);

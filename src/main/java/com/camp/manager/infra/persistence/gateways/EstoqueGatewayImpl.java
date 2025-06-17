@@ -33,6 +33,14 @@ public class EstoqueGatewayImpl implements EstoqueGateway {
     }
 
     @Override
+    public List<EstoqueEntityDomain> buscarEstoquesPorTipoEstoque(String tipoEstoque) {
+        return this.estoqueRepository.findAllByLocalEstoque_descricao(tipoEstoque)
+                .stream()
+                .map(this.estoqueMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public EstoqueEntityDomain buscarEstoquePorId(Long idEstoque) {
         return this.estoqueMapper.toDomain(Objects.requireNonNull(this.estoqueRepository.findById(idEstoque).orElse(null)));
     }
