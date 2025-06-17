@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -82,6 +83,7 @@ public class EquipeMapper implements Mapper<EquipeEntityJpa, EquipeEntityDomain>
 
         if (equipeEntityDomain.cronograma() != null) {
             List<CronogramaEquipeEntityJpa> cronogramasJpa = equipeEntityDomain.cronograma().stream()
+                    .filter(Objects::nonNull)
                     .map(cronogramaDomain -> {
                         CronogramaEquipeEntityJpa cronogramaJpa = this.mapperCronograma.toEntity(cronogramaDomain);
                         cronogramaJpa.setEquipe(equipeJpa);
