@@ -4,6 +4,7 @@ import com.camp.manager.application.gateway.EstoqueGateway;
 import com.camp.manager.domain.entity.EstoqueEntityDomain;
 import com.camp.manager.domain.enums.LocalEstoque;
 import com.camp.manager.infra.mapper.EstoqueMapper;
+import com.camp.manager.infra.persistence.entity.EstoqueEntityJpa;
 import com.camp.manager.infra.persistence.repository.EstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,10 @@ public class EstoqueGatewayImpl implements EstoqueGateway {
 
     @Override
     public void salvarEstoque(EstoqueEntityDomain estoqueEntityDomain) {
-       this.estoqueRepository.save(this.estoqueMapper.toEntity(estoqueEntityDomain));
+        EstoqueEntityJpa teste = this.estoqueMapper.toEntity(estoqueEntityDomain);
+        teste.getItens().forEach(item -> {
+                    item.setEstoque(teste);
+                });
+       this.estoqueRepository.save(teste);
     }
 }

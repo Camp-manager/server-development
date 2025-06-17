@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -31,6 +32,20 @@ public class CronogramaEquipeMapper implements Mapper<CronogramaEquipeEntityJpa,
                 cronogramaEntityJpa.getDescricao(),
                 this.equipeMapper.toDomainWithoutCronogramas(cronogramaEntityJpa.getEquipe()),
                 this.atividadeMapper.toDomainList(cronogramaEntityJpa.getAtividades())
+        );
+    }
+
+    public CronogramaEquipeEntityDomain toDomainWithoutAtividades(CronogramaEquipeEntityJpa cronogramaEntityJpa) {
+        if (cronogramaEntityJpa == null) {
+            return null;
+        }
+        return new CronogramaEquipeEntityDomain(
+                cronogramaEntityJpa.getId(),
+                LocalDateConverterAPP.converterStringParaLocalDate(cronogramaEntityJpa.getDataInicio()),
+                LocalDateConverterAPP.converterStringParaLocalDate(cronogramaEntityJpa.getDataFinal()),
+                cronogramaEntityJpa.getDescricao(),
+                this.equipeMapper.toDomainWithoutCronogramas(cronogramaEntityJpa.getEquipe()),
+                new ArrayList<>()
         );
     }
 

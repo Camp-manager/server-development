@@ -84,7 +84,7 @@ public class AcampamentoMapper implements Mapper<AcampamentoEntityJpa, Acampamen
     }
     private List<EquipeEntityJpa> mapEntityEquipe(List<EquipeEntityDomain> equipeDomain) {
         return equipeDomain.stream()
-                .map(mapperEquipe::toEntity)
+                .map(mapperEquipe::toEntityWithoutCronogramas)
                 .collect(Collectors.toList());
     }
 

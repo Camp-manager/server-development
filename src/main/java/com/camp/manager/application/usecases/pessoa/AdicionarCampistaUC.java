@@ -10,6 +10,7 @@ import com.camp.manager.domain.exception.custom.NotFoundException;
 import com.camp.manager.infra.http.request.pessoa.CriarCampistaRequest;
 import com.camp.manager.utils.converter.localDate.LocalDateConverterAPP;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,7 @@ public class AdicionarCampistaUC implements UseCase<CriarCampistaRequest, Method
     }
 
     @Override
+    @Transactional
     public MethodResponse<Void> execute(CriarCampistaRequest input) {
         boolean acampamentoEhExistente = this.acampamentoGateway.acampamentoEhExistentePorCodigoRegistro(input.getCodigoRegistro());
         if(!acampamentoEhExistente) throw new NotFoundException("O acampamento com código de registro [" + input.getCodigoRegistro() + "] não existe!");
