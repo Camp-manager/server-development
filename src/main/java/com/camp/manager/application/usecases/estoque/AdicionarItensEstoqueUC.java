@@ -30,12 +30,23 @@ public class AdicionarItensEstoqueUC implements UseCase<AdicionarItensRequest, M
         if(!estoqueExists) throw new NotFoundException("Estoque com is " + input.getIdEstoque() + " não encontrado!");
 
         EstoqueEntityDomain estoqueEntityDomain = this.estoqueGateway.buscarEstoquePorId(input.getIdEstoque());
-
         List<ItemEntityDomain> items = this.converterItens(input.getItens());
 
-        estoqueEntityDomain.itens().addAll(items);
+        Long quantidadeTotal = items.stream()
+                .mapToLong(ItemEntityDomain::quantidade)
+                .sum();
 
-        this.estoqueGateway.salvarEstoque(estoqueEntityDomain);
+        EstoqueEntityDomain estoqueAtualizado = new EstoqueEntityDomain(
+                estoqueEntityDomain.id(),
+                estoqueEntityDomain.localEstoque(),
+                estoqueEntityDomain.quantidade() + quantidadeTotal,
+                estoqueEntityDomain.limite(),
+                estoqueEntityDomain.itens() != null ? estoqueEntityDomain.itens() : List.of()
+        );
+
+        estoqueAtualizado.itens().addAll(items);
+
+        this.estoqueGateway.salvarEstoque(estoqueAtualizado);
 
         return new MethodResponse<>(200, "Itens Adicionados com Sucessor", null);
     }

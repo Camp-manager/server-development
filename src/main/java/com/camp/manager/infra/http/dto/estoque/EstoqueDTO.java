@@ -16,10 +16,11 @@ public class EstoqueDTO {
 
     public EstoqueDTO(EstoqueEntityDomain estoqueEntityDomain) {
         this.id = estoqueEntityDomain.id();
+        this.itens = estoqueEntityDomain.itens() != null ? ItemDTO.converter(estoqueEntityDomain.itens()) : new ArrayList<>();
         this.localEstoque = estoqueEntityDomain.localEstoque();
         this.quantidade = estoqueEntityDomain.quantidade();
         this.limite = estoqueEntityDomain.limite();
-        this.itens = estoqueEntityDomain.itens() != null ? ItemDTO.converter(estoqueEntityDomain.itens()) : new ArrayList<>();
+
     }
 
     public static List<EstoqueDTO> converter(List<EstoqueEntityDomain> estoqueEntityDomains) {
